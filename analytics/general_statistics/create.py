@@ -43,11 +43,17 @@ class CreateGeneralStatistics:
         data = data[(data['salary'] >= CreateGeneralStatistics.min_salary) & 
                     (data['salary'] <= CreateGeneralStatistics.max_salary)]
         
+        area_counts = data['area_name'].value_counts(normalize=True)
+        valid_areas = area_counts[area_counts >= 0.001].index
+        data = data[data['area_name'].isin(valid_areas)]
+        
         salary_by_city = data.groupby('area_name')['salary'].mean().reset_index()
         salary_by_city.columns = ['area_name', 'average_salary']
+        salary_by_city = salary_by_city.sort_values(by='average_salary', ascending=False)
+        
         salary_by_city.to_csv(out_path, index=False)
     
     def run(self):
-        self.salary_by_year(f'{self.out_folder}/salary_by_year.csv')
-        self.count_by_year(f'{self.out_folder}/count_by_year.csv')
+        # self.salary_by_year(f'{self.out_folder}/salary_by_year.csv')
+        # self.count_by_year(f'{self.out_folder}/count_by_year.csv')
         self.salary_by_city(f'{self.out_folder}/salary_by_city.csv')
