@@ -10,8 +10,8 @@ class GeneralStatsRepositoryImpl implements GeneralStatsRepository {
 
   GeneralStatsRepositoryImpl() : _client = StatsClient();
   
-  Future<List<LineDataItem>> getStatByYear(Future<List<StatDD>> stat) async {
-    return (await stat).map((e) => LineDataItem(e.d1, e.d2)).toList();
+  Future<List<LineDataItem>> getStatByYear(Future<List<Stat<double, double>>> stat) async {
+    return (await stat).map((e) => LineDataItem(e.v1, e.v2)).toList();
   }
 
   @override

@@ -1,6 +1,5 @@
-
-class StatDD{
-  final double d1;
-  final double d2;
-  StatDD(this.d1, this.d2);
+class Stat <T1, T2>{
+  final T1 v1;
+  final T2 v2;
+  Stat(this.v1, this.v2);
 }
