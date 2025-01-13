@@ -26,13 +26,13 @@ class AppDrawer extends StatelessWidget {
       child: ListView(
         padding: EdgeInsets.zero,
         children: <Widget>[
-          const DrawerHeader(
-            decoration: BoxDecoration(color: Colors.blue),
-            child: Text(Texts.appName, style: TextStyle(color: Colors.white, fontSize: 24)),
+          DrawerHeader(
+            decoration: BoxDecoration(color: Theme.of(context).primaryColor),
+            child: Text(Texts.appName, style: TextStyles.title.copyWith(color: Theme.of(context).colorScheme.onPrimary)),
           ),
           ...pages.map((page) {
             return ListTile(
-              title: Text(page.$1),
+              title: Text(page.$1, style: TextStyles.subtitle),
               onTap: () {
                 Navigator.of(context).pop();
                 Navigator.pushNamed(context, page.$2);

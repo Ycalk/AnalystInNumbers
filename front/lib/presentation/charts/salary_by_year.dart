@@ -35,7 +35,7 @@ class _SalaryByYearChartState extends State<SalaryByYearChart> {
           ),
         ),
         SizedBox(
-          width: 60,
+          width: 80,
           height: 34,
           child: TextButton(
             onPressed: () {
@@ -44,12 +44,12 @@ class _SalaryByYearChartState extends State<SalaryByYearChart> {
               });
             },
             child: Text(
-              'avg',
+              'Среднее',
               style: TextStyle(
                 fontSize: 12,
                 color: showAvg
-                    ? Colors.white.withValues(alpha: 0.5)
-                    : Colors.white,
+                    ? Colors.black.withValues(alpha: 0.5)
+                    : Colors.black,
               ),
             ),
           ),

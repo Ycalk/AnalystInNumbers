@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';
+import 'package:front/presentation/constants/theme.dart';
 import 'package:front/presentation/pages/demand.dart';
 import 'package:front/presentation/pages/general.dart';
 import 'package:front/presentation/pages/geography.dart';
@@ -17,6 +18,7 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: AppTheme.light,
       title: 'Flutter Web Drawer Navigation',
       initialRoute: '/home',
       routes: {
@@ -27,6 +29,7 @@ class App extends StatelessWidget {
         '/skills': (context) => SkillsPage(),
         '/latest_vacancies': (context) => LatestVacanciesPage(),
       },
+      debugShowCheckedModeBanner: false,
     );
   }
 }
