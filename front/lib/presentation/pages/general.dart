@@ -33,7 +33,7 @@ class GeneralPage extends StatelessWidget {
             } else if (snapshot.hasData) {
               return Padding(
                 padding: const EdgeInsets.all(100.0),
-                child: SalaryByYearChart()
+                child: SalaryByYearChart(spots: snapshot.data!,)
               );
             } else {
               return CircularProgressIndicator();

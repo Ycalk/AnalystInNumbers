@@ -17,7 +17,7 @@ class TextStyles {
   static final TextStyle subtitle = GoogleFonts.montserrat(
     fontSize: 15,
     fontWeight: FontWeight.bold,
-    color: AppColors.title,
+    color: AppColors.description,
   );
 
   static final TextStyle description = GoogleFonts.montserrat(

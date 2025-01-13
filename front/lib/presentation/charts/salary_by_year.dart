@@ -1,8 +1,11 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:front/presentation/constants/colors.dart';
+import 'package:front/presentation/constants/texts.dart';
 
 class SalaryByYearChart extends StatefulWidget {
-  const SalaryByYearChart({super.key});
+  final List<FlSpot> spots;
+  const SalaryByYearChart({super.key, required this.spots});
 
   @override
   State<SalaryByYearChart> createState() => _SalaryByYearChartState();
@@ -10,8 +13,8 @@ class SalaryByYearChart extends StatefulWidget {
 
 class _SalaryByYearChartState extends State<SalaryByYearChart> {
   List<Color> gradientColors = [
-    Colors.blue.shade200,
-    Colors.blueAccent.shade400,
+    AppColors.primaryLight!,
+    AppColors.primary,
   ];
 
   bool showAvg = false;
@@ -29,28 +32,23 @@ class _SalaryByYearChartState extends State<SalaryByYearChart> {
               top: 24,
               bottom: 12,
             ),
-            child: LineChart(
-              showAvg ? avgData() : mainData(),
-            ),
+            child: LineChart(getChart()),
           ),
         ),
         SizedBox(
-          width: 80,
-          height: 34,
-          child: TextButton(
+          width: 200,
+          height: 50,
+          child: ElevatedButton(
             onPressed: () {
               setState(() {
                 showAvg = !showAvg;
               });
             },
             child: Text(
-              'Среднее',
-              style: TextStyle(
-                fontSize: 12,
-                color: showAvg
-                    ? Colors.black.withValues(alpha: 0.5)
-                    : Colors.black,
-              ),
+              'Показать среднее',
+              style: TextStyles.description.copyWith(
+                color: showAvg ? AppColors.description : Colors.black,
+              )
             ),
           ),
         ),
@@ -59,24 +57,15 @@ class _SalaryByYearChartState extends State<SalaryByYearChart> {
   }
 
   Widget bottomTitleWidgets(double value, TitleMeta meta) {
-    const style = TextStyle(
-      fontWeight: FontWeight.bold,
-      fontSize: 16,
-    );
     Widget text;
-    switch (value.toInt()) {
-      case 2:
-        text = const Text('MAR', style: style);
-        break;
-      case 5:
-        text = const Text('JUN', style: style);
-        break;
-      case 8:
-        text = const Text('SEP', style: style);
-        break;
-      default:
-        text = const Text('', style: style);
-        break;
+    final shownValues = [2005, 2010, 2015, 2020, 2024];
+    if (shownValues.contains(value.toInt())) {
+      text = Text(
+        value.toInt().toString(),
+        style: TextStyles.description
+      );
+    } else {
+      text = const SizedBox();
     }
 
     return SideTitleWidget(
@@ -85,48 +74,28 @@ class _SalaryByYearChartState extends State<SalaryByYearChart> {
     );
   }
 
-  Widget leftTitleWidgets(double value, TitleMeta meta) {
-    const style = TextStyle(
-      fontWeight: FontWeight.bold,
-      fontSize: 15,
-    );
-    String text;
-    switch (value.toInt()) {
-      case 1:
-        text = '10K';
-        break;
-      case 3:
-        text = '30k';
-        break;
-      case 5:
-        text = '50k';
-        break;
-      default:
-        return Container();
+  LineChartData getChart() {
+    double avg = 0;
+    for (final spot in widget.spots) {
+      avg += spot.y;
     }
+    avg /= widget.spots.length;
+    avg = avg.roundToDouble();
+    final avgSpots = widget.spots.map((spot) => FlSpot(spot.x, avg)).toList();
 
-    return Text(text, style: style, textAlign: TextAlign.left);
-  }
-
-  LineChartData mainData() {
     return LineChartData(
-      gridData: FlGridData(
-        show: true,
-        drawVerticalLine: true,
-        horizontalInterval: 1,
-        verticalInterval: 1,
-        getDrawingHorizontalLine: (value) {
-          return FlLine(
-            color: Colors.blueAccent.shade200,
-            strokeWidth: 1,
-          );
-        },
-        getDrawingVerticalLine: (value) {
-          return FlLine(
-            color: Colors.blueAccent.shade400,
-            strokeWidth: 1,
-          );
-        },
+      lineTouchData: LineTouchData(
+        touchTooltipData: LineTouchTooltipData(
+          getTooltipColor: (touchedSpot) => AppColors.tertiary,
+          getTooltipItems: (List<LineBarSpot> touchedSpots) {
+            return touchedSpots.map((spot) {
+              return LineTooltipItem(
+                'Год: ${spot.x}\n${spot.y}р.',
+                TextStyles.description.copyWith(color: AppColors.primary),
+              );
+            }).toList();
+          },
+        ),
       ),
       titlesData: FlTitlesData(
         show: true,
@@ -136,47 +105,47 @@ class _SalaryByYearChartState extends State<SalaryByYearChart> {
         topTitles: const AxisTitles(
           sideTitles: SideTitles(showTitles: false),
         ),
+        leftTitles: const AxisTitles(
+          sideTitles: SideTitles(showTitles: false)
+        ),
         bottomTitles: AxisTitles(
           sideTitles: SideTitles(
             showTitles: true,
-            reservedSize: 30,
-            interval: 1,
             getTitlesWidget: bottomTitleWidgets,
-          ),
-        ),
-        leftTitles: AxisTitles(
-          sideTitles: SideTitles(
-            showTitles: true,
-            interval: 1,
-            getTitlesWidget: leftTitleWidgets,
             reservedSize: 42,
+            interval: 1,
           ),
         ),
       ),
       borderData: FlBorderData(
         show: true,
-        border: Border.all(color: const Color(0xff37434d)),
+        border: const Border(
+          bottom: BorderSide(
+            color: AppColors.description,
+            width: 1,
+          ),
+          left: BorderSide(
+            color: AppColors.onTertiaryLight,
+            width: 1,
+          ),
+          right: BorderSide(
+            color: AppColors.onTertiaryLight,
+            width: 1,
+          ),
+          top: BorderSide(
+            color: AppColors.onTertiaryLight,
+            width: 1,
+          ),
+        ),
       ),
-      minX: 0,
-      maxX: 11,
-      minY: 0,
-      maxY: 6,
       lineBarsData: [
         LineChartBarData(
-          spots: const [
-            FlSpot(0, 3),
-            FlSpot(2.6, 2),
-            FlSpot(4.9, 5),
-            FlSpot(6.8, 3.1),
-            FlSpot(8, 4),
-            FlSpot(9.5, 3),
-            FlSpot(11, 4),
-          ],
+          show: !showAvg,
+          spots: widget.spots,
           isCurved: true,
           gradient: LinearGradient(
             colors: gradientColors,
           ),
-          barWidth: 5,
           isStrokeCapRound: true,
           dotData: const FlDotData(
             show: false,
@@ -190,85 +159,13 @@ class _SalaryByYearChartState extends State<SalaryByYearChart> {
             ),
           ),
         ),
-      ],
-    );
-  }
-
-  LineChartData avgData() {
-    return LineChartData(
-      lineTouchData: const LineTouchData(enabled: false),
-      gridData: FlGridData(
-        show: true,
-        drawHorizontalLine: true,
-        verticalInterval: 1,
-        horizontalInterval: 1,
-        getDrawingVerticalLine: (value) {
-          return const FlLine(
-            color: Color(0xff37434d),
-            strokeWidth: 1,
-          );
-        },
-        getDrawingHorizontalLine: (value) {
-          return const FlLine(
-            color: Color(0xff37434d),
-            strokeWidth: 1,
-          );
-        },
-      ),
-      titlesData: FlTitlesData(
-        show: true,
-        bottomTitles: AxisTitles(
-          sideTitles: SideTitles(
-            showTitles: true,
-            reservedSize: 30,
-            getTitlesWidget: bottomTitleWidgets,
-            interval: 1,
-          ),
-        ),
-        leftTitles: AxisTitles(
-          sideTitles: SideTitles(
-            showTitles: true,
-            getTitlesWidget: leftTitleWidgets,
-            reservedSize: 42,
-            interval: 1,
-          ),
-        ),
-        topTitles: const AxisTitles(
-          sideTitles: SideTitles(showTitles: false),
-        ),
-        rightTitles: const AxisTitles(
-          sideTitles: SideTitles(showTitles: false),
-        ),
-      ),
-      borderData: FlBorderData(
-        show: true,
-        border: Border.all(color: const Color(0xff37434d)),
-      ),
-      minX: 0,
-      maxX: 11,
-      minY: 0,
-      maxY: 6,
-      lineBarsData: [
         LineChartBarData(
-          spots: const [
-            FlSpot(0, 3.44),
-            FlSpot(2.6, 3.44),
-            FlSpot(4.9, 3.44),
-            FlSpot(6.8, 3.44),
-            FlSpot(8, 3.44),
-            FlSpot(9.5, 3.44),
-            FlSpot(11, 3.44),
-          ],
+          show: showAvg,
+          spots: avgSpots,
           isCurved: true,
           gradient: LinearGradient(
-            colors: [
-              ColorTween(begin: gradientColors[0], end: gradientColors[1])
-                  .lerp(0.2)!,
-              ColorTween(begin: gradientColors[0], end: gradientColors[1])
-                  .lerp(0.2)!,
-            ],
+            colors: gradientColors,
           ),
-          barWidth: 5,
           isStrokeCapRound: true,
           dotData: const FlDotData(
             show: false,
@@ -276,14 +173,9 @@ class _SalaryByYearChartState extends State<SalaryByYearChart> {
           belowBarData: BarAreaData(
             show: true,
             gradient: LinearGradient(
-              colors: [
-                ColorTween(begin: gradientColors[0], end: gradientColors[1])
-                    .lerp(0.2)!
-                    .withValues(alpha: 0.1),
-                ColorTween(begin: gradientColors[0], end: gradientColors[1])
-                    .lerp(0.2)!
-                    .withValues(alpha: 0.1),
-              ],
+              colors: gradientColors
+                  .map((color) => color.withValues(alpha: 0.3))
+                  .toList(),
             ),
           ),
         ),
