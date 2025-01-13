@@ -10,3 +10,10 @@ class LineDataItem {
     return FlSpot(x, y);
   }
 }
+
+class BarDataItem {
+  final String x;
+  final double y;
+
+  BarDataItem(this.x, this.y);
+}

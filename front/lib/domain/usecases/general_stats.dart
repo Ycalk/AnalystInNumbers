@@ -2,6 +2,7 @@
 
 import 'package:fl_chart/fl_chart.dart';
 import 'package:front/data/repos/general_stats_impl.dart';
+import 'package:front/domain/entities/char_data.dart';
 
 class GeneralStats {
   final GeneralStatsRepositoryImpl _repository = GeneralStatsRepositoryImpl();
@@ -12,5 +13,9 @@ class GeneralStats {
 
   Future<List<FlSpot>> getCountByYear() {
     return _repository.getCountByYear().then((value) => value.map((e) => e.toSpot()).toList());
+  }
+
+  Future<List<BarDataItem>> getSalaryByCity() {
+    return _repository.getStatByCity();
   }
 }

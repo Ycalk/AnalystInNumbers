@@ -1,6 +1,8 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:front/domain/entities/char_data.dart';
 import 'package:front/domain/usecases/general_stats.dart';
+import 'package:front/presentation/charts/stat_by_city.dart';
 import 'package:front/presentation/charts/stat_by_year.dart';
 import 'package:front/presentation/constants/colors.dart';
 import 'package:front/presentation/constants/texts.dart';
@@ -63,56 +65,25 @@ class _GeneralPageState extends State<GeneralPage> {
                   );
                 } else if (snapshot.hasData) {
                   final countByYear = snapshot.data!;
-                  return Padding(
-                    padding: const EdgeInsets.only(top: 0, left: 16.0, right: 16.0),
-                    child: AlignedGridView.count(
-                      crossAxisCount: 2,
-                      mainAxisSpacing: 16,
-                      crossAxisSpacing: 16,
-                      itemCount: 4,
-                      itemBuilder: (context, index) {
-                        if (index == 0) {
-                          return Padding(
-                            padding: const EdgeInsets.only(top: 50.0),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Text(
-                                  'Динамика уровня зарплат по годам',
-                                  style: TextStyles.subtitle,
-                                ),
-                                getStatByYearChart(salaryByYear, 'руб.'),
-                              ],
-                            ),
-                          );
-                        } else if (index == 1) {
-                          return Padding(
-                            padding: const EdgeInsets.only(top: 50.0),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Text(
-                                  'Динамика количества вакансий по годам',
-                                  style: TextStyles.subtitle,
-                                ),
-                                getStatByYearChart(countByYear, 'шт.'),
-                              ],
-                            ),
-                          );
-                        } else if (index == 2) {
-                          return Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 30),
-                            child: getStatByYearTable(salaryByYear, 'Зарплата (руб.)'),
-                          );
-                        } else if (index == 3) {
-                          return Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 30),
-                            child: getStatByYearTable(countByYear, 'Количество вакансий (шт.)'),
-                          );
-                        }
-                        return const SizedBox.shrink();
-                      },
-                    ),
+                  return FutureBuilder<List<BarDataItem>>(
+                    future: generalStats.getSalaryByCity(),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return const CircularProgressIndicator();
+                      } else if (snapshot.hasError) {
+                        return Column(
+                          children: [
+                            const Text(Texts.errorMessage),
+                            Text('Error: ${snapshot.error}')
+                          ],
+                        );
+                      } else if (snapshot.hasData) {
+                        final salaryByCity = snapshot.data!;
+                        return getWidgets2(salaryByYear, countByYear, salaryByCity);
+                      } else {
+                        return const CircularProgressIndicator();
+                      }
+                    },
                   );
                 } else {
                   return const CircularProgressIndicator();
@@ -124,6 +95,123 @@ class _GeneralPageState extends State<GeneralPage> {
           }
         },
       ),
+    );
+  }
+
+  Widget getWidgets(List<FlSpot> salaryByYear, List<FlSpot> countByYear){
+    return Padding(
+      padding: const EdgeInsets.only(top: 0, left: 16.0, right: 16.0),
+      child: AlignedGridView.count(
+        crossAxisCount: 2,
+        mainAxisSpacing: 16,
+        crossAxisSpacing: 16,
+        itemCount: 4,
+        itemBuilder: (context, index) {
+          if (index == 0) {
+            return Padding(
+              padding: const EdgeInsets.only(top: 50.0),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    'Динамика уровня зарплат по годам',
+                    style: TextStyles.subtitle,
+                  ),
+                  getStatByYearChart(salaryByYear, 'руб.'),
+                ],
+              ),
+            );
+          } else if (index == 1) {
+            return Padding(
+              padding: const EdgeInsets.only(top: 50.0),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    'Динамика количества вакансий по годам',
+                    style: TextStyles.subtitle,
+                  ),
+                  getStatByYearChart(countByYear, 'шт.'),
+                ],
+              ),
+            );
+          } else if (index == 2) {
+            return Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 30),
+              child: getStatByYearTable(salaryByYear, 'Зарплата (руб.)'),
+            );
+          } else if (index == 3) {
+            return Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 30),
+              child: getStatByYearTable(countByYear, 'Количество вакансий (шт.)'),
+            );
+          } 
+          return const SizedBox.shrink();
+        },
+      ),
+    );
+  }
+
+  Widget getWidgets2(List<FlSpot> salaryByYear, List<FlSpot> countByYear, List<BarDataItem> salaryByCity){
+    return Padding(
+      padding: const EdgeInsets.only(top: 0, left: 16.0, right: 16.0),
+      child: GridView.custom(
+        gridDelegate: SliverQuiltedGridDelegate(
+          crossAxisCount: 2,
+          mainAxisSpacing: 4,
+          crossAxisSpacing: 4,
+          pattern: [
+            QuiltedGridTile(2, 1),
+            QuiltedGridTile(2, 1),
+            QuiltedGridTile(1, 2),
+          ],
+        ),
+        childrenDelegate: SliverChildBuilderDelegate(
+          childCount: 3,
+          (context, index) {
+            if (index == 0) {
+              return Padding(
+                padding: const EdgeInsets.only(top: 50.0),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      'Динамика уровня зарплат по годам',
+                      style: TextStyles.subtitle,
+                    ),
+                    getStatByYearChart(salaryByYear, 'руб.'),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 30, right: 30, top: 70),
+                      child: getStatByYearTable(salaryByYear, 'Зарплата (руб.)'),
+                    )
+                  ],
+                ),
+              );
+            } else if (index == 1) {
+              return Padding(
+                padding: const EdgeInsets.only(top: 50.0),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      'Динамика количества вакансий по годам',
+                      style: TextStyles.subtitle,
+                    ),
+                    getStatByYearChart(countByYear, 'шт.'),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 30, right: 30, top: 70),
+                      child: getStatByYearTable(countByYear, 'Количество вакансий (шт.)'),
+                    )
+                  ],
+                ),
+              );
+            } else if (index == 2){
+              return StatByCity(data: salaryByCity);
+            }
+            return const SizedBox.shrink();
+          },
+        ),
+      )
     );
   }
 

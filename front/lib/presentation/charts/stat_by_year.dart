@@ -69,7 +69,7 @@ class _StatByYearChartState extends State<StatByYearChart> {
     }
 
     return SideTitleWidget(
-      axisSide: meta.axisSide,
+      meta: meta,
       child: text,
     );
   }

@@ -56,6 +56,37 @@ class StatsClient {
   }
 
   Future<List<Stat<String, double>>> getSalaryByCity(){
-    return Future.value([]);
+    return Future.value([
+      Stat<String, double>('Кипр', 301362),
+      Stat<String, double>('ОАЭ', 251020),
+      Stat<String, double>('Сербия', 234769),
+      Stat<String, double>('Тбилиси', 213523),
+      Stat<String, double>('Армения', 210811),
+      Stat<String, double>('Турция', 205266),
+      Stat<String, double>('Батуми', 178105),
+      Stat<String, double>('Воронеж', 164524),
+      Stat<String, double>('США', 134764),
+      Stat<String, double>('Новосибирск', 130569),
+      Stat<String, double>('Санкт-Петербург', 118439),
+      Stat<String, double>('Брест', 108842),
+      Stat<String, double>('Днепр (Днепропетровск)', 101665),
+      Stat<String, double>('Самара', 98030),
+      Stat<String, double>('Москва', 90158),
+      Stat<String, double>('Баку', 89689),
+      Stat<String, double>('Минск', 88210),
+      Stat<String, double>('Киев', 74885),
+      Stat<String, double>('Астана', 74057),
+      Stat<String, double>('Ташкент', 72821),
+      Stat<String, double>('Нижний Новгород', 72608),
+      Stat<String, double>('Россия', 71074),
+      Stat<String, double>('Екатеринбург', 66601),
+      Stat<String, double>('Одесса', 64019),
+      Stat<String, double>('Краснодар', 63850),
+      Stat<String, double>('Алматы', 63647),
+      Stat<String, double>('Гомель', 60464),
+      Stat<String, double>('Актау', 58327),
+      Stat<String, double>('Ростов-на-Дону', 57887),
+      Stat<String, double>('Бишкек', 57789),
+    ]);
   }
 }

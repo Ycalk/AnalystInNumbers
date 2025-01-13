@@ -23,4 +23,9 @@ class GeneralStatsRepositoryImpl implements GeneralStatsRepository {
   Future<List<LineDataItem>> getCountByYear() async {
     return getStatByYear(_client.getCountByYear());
   }
+
+  @override
+  Future<List<BarDataItem>> getStatByCity() async {
+    return (await _client.getSalaryByCity()).map((e) => BarDataItem(e.v1, e.v2)).toList();
+  }
 }
