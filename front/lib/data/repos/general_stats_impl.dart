@@ -1,5 +1,6 @@
 
 
+import 'package:front/data/models/stats.dart';
 import 'package:front/data/source/stats_client.dart';
 import 'package:front/domain/entities/char_data.dart';
 import 'package:front/domain/repos/general_stats.dart';
@@ -9,9 +10,17 @@ class GeneralStatsRepositoryImpl implements GeneralStatsRepository {
 
   GeneralStatsRepositoryImpl() : _client = StatsClient();
   
+  Future<List<LineDataItem>> getStatByYear(Future<List<StatDD>> stat) async {
+    return (await stat).map((e) => LineDataItem(e.d1, e.d2)).toList();
+  }
+
   @override
   Future<List<LineDataItem>> getSalaryByYear() async {
-    final stats = await _client.getSalaryByYear();
-    return stats.map((e) => LineDataItem(e.d1, e.d2)).toList();
+    return getStatByYear(_client.getSalaryByYear());
+  }
+
+  @override
+  Future<List<LineDataItem>> getCountByYear() async {
+    return getStatByYear(_client.getCountByYear());
   }
 }

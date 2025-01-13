@@ -3,15 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:front/presentation/constants/colors.dart';
 import 'package:front/presentation/constants/texts.dart';
 
-class SalaryByYearChart extends StatefulWidget {
+class StatByYearChart extends StatefulWidget {
   final List<FlSpot> spots;
-  const SalaryByYearChart({super.key, required this.spots});
+  final String unit;
+  const StatByYearChart({super.key, required this.spots, required this.unit});
 
   @override
-  State<SalaryByYearChart> createState() => _SalaryByYearChartState();
+  State<StatByYearChart> createState() => _StatByYearChartState();
 }
 
-class _SalaryByYearChartState extends State<SalaryByYearChart> {
+class _StatByYearChartState extends State<StatByYearChart> {
   List<Color> gradientColors = [
     AppColors.primaryLight!,
     AppColors.primary,
@@ -90,7 +91,7 @@ class _SalaryByYearChartState extends State<SalaryByYearChart> {
           getTooltipItems: (List<LineBarSpot> touchedSpots) {
             return touchedSpots.map((spot) {
               return LineTooltipItem(
-                'Год: ${spot.x}\n${spot.y}р.',
+                'Год: ${spot.x}\n${spot.y} ${widget.unit}',
                 TextStyles.description.copyWith(color: AppColors.primary),
               );
             }).toList();
