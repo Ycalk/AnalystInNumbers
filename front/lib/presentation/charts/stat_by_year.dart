@@ -31,7 +31,6 @@ class _StatByYearChartState extends State<StatByYearChart> {
               right: 18,
               left: 12,
               top: 24,
-              bottom: 12,
             ),
             child: LineChart(getChart()),
           ),
