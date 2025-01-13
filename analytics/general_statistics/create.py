@@ -2,7 +2,7 @@ import pandas as pd
 
 class CreateGeneralStatistics:
     min_salary = 1000
-    max_salary = 1000000
+    max_salary = 10000000
     
     
     def __init__(self, prepared_data_path, out_folder):
