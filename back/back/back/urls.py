@@ -20,5 +20,7 @@ from analytics import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('analytics/count_by_year', views.count_by_year, name='count_by_year'),
+    path('analytics/count_by_year', views.count_by_year),
+    path('analytics/salary_by_area', views.salary_by_area),
+    path('analytics/salary_by_year', views.salary_by_year),
 ]
