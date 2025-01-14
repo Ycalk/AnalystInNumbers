@@ -4,8 +4,8 @@ import 'package:front/domain/entities/char_data.dart';
 import 'package:front/presentation/constants/colors.dart';
 import 'package:front/presentation/constants/texts.dart';
 
-class StatByCity extends StatefulWidget {
-  StatByCity({super.key, required this.data});
+class StatByCityChart extends StatefulWidget {
+  StatByCityChart({super.key, required this.data});
 
   final Color barBackgroundColor = AppColors.onTertiaryLight;
   final Color barColor = AppColors.primaryLight!;
@@ -13,10 +13,10 @@ class StatByCity extends StatefulWidget {
   final List<BarDataItem> data;
 
   @override
-  State<StatefulWidget> createState() => StatByCityState();
+  State<StatefulWidget> createState() => StatByCityChartState();
 }
 
-class StatByCityState extends State<StatByCity> {
+class StatByCityChartState extends State<StatByCityChart> {
   final Duration animDuration = const Duration(milliseconds: 70);
 
   int touchedIndex = -1;
@@ -67,6 +67,8 @@ class StatByCityState extends State<StatByCity> {
 
   BarChartData mainBarData() {
     return BarChartData(
+      alignment: BarChartAlignment.start,
+      groupsSpace: 10,
       rotationQuarterTurns: 1,
       barTouchData: BarTouchData(
         touchTooltipData: BarTouchTooltipData(
@@ -105,7 +107,7 @@ class StatByCityState extends State<StatByCity> {
           sideTitles: SideTitles(showTitles: false),
         ),
         topTitles: AxisTitles(
-          sideTitles: SideTitles(showTitles: true, reservedSize: 230, getTitlesWidget: (value, meta) => const SizedBox(),),
+          sideTitles: SideTitles(showTitles: true, reservedSize: 150, getTitlesWidget: (value, meta) => const SizedBox(),),
         ),
         bottomTitles: AxisTitles(
           sideTitles: SideTitles(

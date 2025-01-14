@@ -79,7 +79,7 @@ class _GeneralPageState extends State<GeneralPage> {
                         );
                       } else if (snapshot.hasData) {
                         final salaryByCity = snapshot.data!;
-                        return getWidgets2(salaryByYear, countByYear, salaryByCity);
+                        return Expanded(child: getWidgets(salaryByYear, countByYear, salaryByCity));
                       } else {
                         return const CircularProgressIndicator();
                       }
@@ -98,117 +98,71 @@ class _GeneralPageState extends State<GeneralPage> {
     );
   }
 
-  Widget getWidgets(List<FlSpot> salaryByYear, List<FlSpot> countByYear){
-    return Padding(
-      padding: const EdgeInsets.only(top: 0, left: 16.0, right: 16.0),
-      child: AlignedGridView.count(
-        crossAxisCount: 2,
-        mainAxisSpacing: 16,
-        crossAxisSpacing: 16,
-        itemCount: 4,
-        itemBuilder: (context, index) {
-          if (index == 0) {
-            return Padding(
-              padding: const EdgeInsets.only(top: 50.0),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    'Динамика уровня зарплат по годам',
-                    style: TextStyles.subtitle,
-                  ),
-                  getStatByYearChart(salaryByYear, 'руб.'),
-                ],
-              ),
-            );
-          } else if (index == 1) {
-            return Padding(
-              padding: const EdgeInsets.only(top: 50.0),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    'Динамика количества вакансий по годам',
-                    style: TextStyles.subtitle,
-                  ),
-                  getStatByYearChart(countByYear, 'шт.'),
-                ],
-              ),
-            );
-          } else if (index == 2) {
-            return Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 30),
-              child: getStatByYearTable(salaryByYear, 'Зарплата (руб.)'),
-            );
-          } else if (index == 3) {
-            return Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 30),
-              child: getStatByYearTable(countByYear, 'Количество вакансий (шт.)'),
-            );
-          } 
-          return const SizedBox.shrink();
-        },
-      ),
-    );
-  }
-
-  Widget getWidgets2(List<FlSpot> salaryByYear, List<FlSpot> countByYear, List<BarDataItem> salaryByCity){
+  Widget getWidgets(List<FlSpot> salaryByYear, List<FlSpot> countByYear, List<BarDataItem> salaryByCity){
     return Padding(
       padding: const EdgeInsets.only(top: 0, left: 16.0, right: 16.0),
       child: GridView.custom(
         gridDelegate: SliverQuiltedGridDelegate(
-          crossAxisCount: 2,
+          crossAxisCount: 100,
           mainAxisSpacing: 4,
           crossAxisSpacing: 4,
           pattern: [
-            QuiltedGridTile(2, 1),
-            QuiltedGridTile(2, 1),
-            QuiltedGridTile(1, 2),
+            QuiltedGridTile(5, 50),
+            QuiltedGridTile(5, 50),
+
+            QuiltedGridTile(30, 50),
+            QuiltedGridTile(30, 50),
+
+            QuiltedGridTile(47, 50),
+            QuiltedGridTile(47, 50),
+
+            QuiltedGridTile(5, 100),
+            QuiltedGridTile(66, 100),
+            QuiltedGridTile(66, 100),
           ],
         ),
         childrenDelegate: SliverChildBuilderDelegate(
-          childCount: 3,
+          childCount: 9,
           (context, index) {
-            if (index == 0) {
-              return Padding(
-                padding: const EdgeInsets.only(top: 50.0),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      'Динамика уровня зарплат по годам',
-                      style: TextStyles.subtitle,
+            return switch (index) {
+              0 => Padding(
+                    padding: const EdgeInsets.only(top: 50.0),
+                    child: Center(
+                      child: Text(
+                        'Динамика уровня зарплат по годам',
+                        style: TextStyles.subtitle,
+                      ),
                     ),
-                    getStatByYearChart(salaryByYear, 'руб.'),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 30, right: 30, top: 70),
+                  ),
+              1 => Padding(
+                    padding: const EdgeInsets.only(top: 50.0),
+                    child: Center(
+                      child: Text(
+                        'Динамика количества вакансий по годам',
+                        style: TextStyles.subtitle,
+                      ),
+                    ),
+                  ),
+              2 => getStatByYearChart(salaryByYear, 'руб.'),
+              3 => getStatByYearChart(countByYear, 'шт.'),
+              4 => Padding(
+                      padding: const EdgeInsets.only(left: 30, right: 30, top: 0),
                       child: getStatByYearTable(salaryByYear, 'Зарплата (руб.)'),
-                    )
-                  ],
-                ),
-              );
-            } else if (index == 1) {
-              return Padding(
-                padding: const EdgeInsets.only(top: 50.0),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      'Динамика количества вакансий по годам',
+                    ),
+              5 => Padding(
+                      padding: const EdgeInsets.only(left: 30, right: 30, top: 0),
+                      child: getStatByYearTable(countByYear, 'Количество вакансий (шт.)'),
+                    ),
+              6 => Center(
+                    child: Text(
+                      'Уровень зарплат по городам',
                       style: TextStyles.subtitle,
                     ),
-                    getStatByYearChart(countByYear, 'шт.'),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 30, right: 30, top: 70),
-                      child: getStatByYearTable(countByYear, 'Количество вакансий (шт.)'),
-                    )
-                  ],
-                ),
-              );
-            } else if (index == 2){
-              return StatByCity(data: salaryByCity);
-            }
-            return const SizedBox.shrink();
+              ),
+              7 => StatByCityChart(data: salaryByCity),
+              8 => getStatByCityTable(salaryByCity, 'Зарплата (руб.)'),
+              _ => const SizedBox.shrink(), 
+            };
           },
         ),
       )
@@ -278,6 +232,58 @@ class _GeneralPageState extends State<GeneralPage> {
     );
   }
 
+  Widget getStatByCityTable(List<BarDataItem> stat, String unit) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 0.0, left: 200.0, right: 200.0),
+      child: Table(
+        border: TableBorder.all(
+          color: AppColors.onTertiaryLight,
+          width: 3,
+          borderRadius: const BorderRadius.all(Radius.circular(10)),
+        ),
+        children: [
+          TableRow(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  'Город',
+                  style: TextStyles.subtitle,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  unit,
+                  style: TextStyles.subtitle,
+                ),
+              ),
+            ],
+          ),
+          ...stat.map((spot) {
+            return TableRow(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(5.0),
+                  child: Text(
+                    spot.x.toString(),
+                    style: TextStyles.description,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(5.0),
+                  child: Text(
+                    spot.y.toString(),
+                    style: TextStyles.description,
+                  ),
+                ),
+              ],
+            );
+          }).toList(),
+        ],
+      ),
+    );
+  }
 }
 
 

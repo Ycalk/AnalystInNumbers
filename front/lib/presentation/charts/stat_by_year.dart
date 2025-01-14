@@ -28,16 +28,16 @@ class _StatByYearChartState extends State<StatByYearChart> {
           aspectRatio: 1.70,
           child: Padding(
             padding: const EdgeInsets.only(
-              right: 18,
-              left: 12,
-              top: 24,
+              right: 20,
+              left: 15,
+              top: 10,
             ),
             child: LineChart(getChart()),
           ),
         ),
         SizedBox(
-          width: 200,
-          height: 50,
+          width: 120,
+          height: 30,
           child: ElevatedButton(
             onPressed: () {
               setState(() {
@@ -45,7 +45,7 @@ class _StatByYearChartState extends State<StatByYearChart> {
               });
             },
             child: Text(
-              'Показать среднее',
+              'Среднее',
               style: TextStyles.description.copyWith(
                 color: showAvg ? AppColors.description : Colors.black,
               )
@@ -86,6 +86,7 @@ class _StatByYearChartState extends State<StatByYearChart> {
     return LineChartData(
       lineTouchData: LineTouchData(
         touchTooltipData: LineTouchTooltipData(
+          tooltipMargin: 16,
           getTooltipColor: (touchedSpot) => AppColors.tertiary,
           getTooltipItems: (List<LineBarSpot> touchedSpots) {
             return touchedSpots.map((spot) {
