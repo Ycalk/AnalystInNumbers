@@ -6,8 +6,8 @@ class StatByYear(models.Model):
     class Meta:
         abstract = True
 
-class StatByCity(models.Model):
-    city = models.CharField(max_length=100)
+class StatByArea(models.Model):
+    area_name = models.CharField(max_length=100)
 
     class Meta:
         abstract = True
@@ -24,7 +24,7 @@ class SalaryByYear(StatByYear):
     class Meta:
         db_table = 'salary_by_year'
 
-class SalaryByCity(StatByCity):
+class SalaryByCity(StatByArea):
     salary = models.FloatField()
 
     class Meta:
