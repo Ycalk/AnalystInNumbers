@@ -1,5 +1,6 @@
 from django.db import models
 
+# Base
 class StatByYear(models.Model):
     year = models.IntegerField()
 
@@ -12,23 +13,40 @@ class StatByArea(models.Model):
     class Meta:
         abstract = True
 
-class CountByYear(StatByYear):
+# Profession models
+class ProfessionCountByYear(StatByYear):
     count = models.IntegerField()
 
     class Meta:
-        db_table = 'count_by_year'
+        db_table = 'profession_count_by_year'
 
-class SalaryByYear(StatByYear):
+class ProfessionSalaryByYear(StatByYear):
     salary = models.FloatField()
 
     class Meta:
-        db_table = 'salary_by_year'
+        db_table = 'profession_salary_by_year'
 
-class SalaryByCity(StatByArea):
+class ProfessionSalaryByCity(StatByArea):
     salary = models.FloatField()
 
     class Meta:
-        db_table = 'salary_by_city'
+        db_table = 'profession_salary_by_city'
 
+# All models
+class AllCountByYear(StatByYear):
+    count = models.IntegerField()
 
+    class Meta:
+        db_table = 'all_count_by_year'
 
+class AllSalaryByYear(StatByYear):
+    salary = models.FloatField()
+
+    class Meta:
+        db_table = 'all_salary_by_year'
+
+class AllSalaryByCity(StatByArea):
+    salary = models.FloatField()
+
+    class Meta:
+        db_table = 'all_salary_by_city'
