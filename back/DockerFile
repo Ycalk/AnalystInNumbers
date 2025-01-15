@@ -12,6 +12,9 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
+RUN python back/manage.py makemigrations
+RUN python back/manage.py migrate
+
 RUN python back/manage.py load_csv back/stat/count_by_year.csv ProfessionCountByYear
 RUN python back/manage.py load_csv back/stat/count_by_year.csv AllCountByYear
 
