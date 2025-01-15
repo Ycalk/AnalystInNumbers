@@ -7,6 +7,7 @@ import 'package:front/presentation/widgets/charts/stat_by_year.dart';
 import 'package:front/presentation/constants/texts.dart';
 import 'package:front/presentation/widgets/drawer.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:front/presentation/widgets/future_loader.dart';
 import 'package:front/presentation/widgets/tables/stat_by_area.dart';
 import 'package:front/presentation/widgets/tables/stat_by_year.dart';
 
@@ -38,63 +39,18 @@ class _GeneralPageState extends State<GeneralPage> {
       appBar: AppBar(
         title: const Text('General'),
       ),
-      body: FutureBuilder<List<FlSpot>>(
-        future: generalStats.getSalaryByYear(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const CircularProgressIndicator();
-          } else if (snapshot.hasError) {
-            return Column(
-              children: [
-                const Text(Texts.errorMessage),
-                Text('Error: ${snapshot.error}')
-              ],
-            );
-          } else if (snapshot.hasData) {
-            final salaryByYear = snapshot.data!;
-            return FutureBuilder<List<FlSpot>>(
-              future: generalStats.getCountByYear(),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const CircularProgressIndicator();
-                } else if (snapshot.hasError) {
-                  return Column(
-                    children: [
-                      const Text(Texts.errorMessage),
-                      Text('Error: ${snapshot.error}')
-                    ],
-                  );
-                } else if (snapshot.hasData) {
-                  final countByYear = snapshot.data!;
-                  return FutureBuilder<List<BarDataItem>>(
-                    future: generalStats.getSalaryByCity(),
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return const CircularProgressIndicator();
-                      } else if (snapshot.hasError) {
-                        return Column(
-                          children: [
-                            const Text(Texts.errorMessage),
-                            Text('Error: ${snapshot.error}')
-                          ],
-                        );
-                      } else if (snapshot.hasData) {
-                        final salaryByCity = snapshot.data!;
-                        return Expanded(child: getWidgets(salaryByYear, countByYear, salaryByCity));
-                      } else {
-                        return const CircularProgressIndicator();
-                      }
-                    },
-                  );
-                } else {
-                  return const CircularProgressIndicator();
+      body: FutureLoader(future: generalStats.getSalaryByYear(), 
+        builder: (salaryByYear) {
+          return FutureLoader(future: generalStats.getCountByYear(), 
+            builder: (countByYear) {
+              return FutureLoader(future: generalStats.getSalaryByCity(), 
+                builder: (salaryByCity) {
+                  return getWidgets(salaryByYear, countByYear, salaryByCity);
                 }
-              },
-            );
-          } else {
-            return const CircularProgressIndicator();
-          }
-        },
+              );
+            }
+          );
+        }
       ),
     );
   }
