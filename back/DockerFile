@@ -1,0 +1,24 @@
+FROM python:3.13-slim
+
+WORKDIR /app
+
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+
+RUN pip install --upgrade pip
+
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY . .
+
+RUN python back/manage.py load_csv back/stat/count_by_year.csv ProfessionCountByYear
+RUN python back/manage.py load_csv back/stat/count_by_year.csv AllCountByYear
+
+RUN python back/manage.py load_csv back/stat/salary_by_city.csv ProfessionSalaryByCity
+RUN python back/manage.py load_csv back/stat/salary_by_city.csv AllSalaryByCity
+
+RUN python back/manage.py load_csv back/stat/salary_by_year.csv ProfessionSalaryByYear
+RUN python back/manage.py load_csv back/stat/salary_by_year.csv AllSalaryByYear
+
+CMD ["python", "back/manage.py", "runserver", "0.0.0.0:8000"]

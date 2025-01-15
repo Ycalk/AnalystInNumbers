@@ -1,20 +1,24 @@
 import csv
 from django.core.management.base import BaseCommand
-from analytics.models import CountByYear, SalaryByYear, SalaryByCity
+from analytics.models import ProfessionCountByYear, ProfessionSalaryByCity, ProfessionSalaryByYear
+from analytics.models import AllCountByYear, AllSalaryByCity, AllSalaryByYear
 from django.db import models
 
 class Command(BaseCommand):
     help = 'Load data from a CSV file into chosen model'
     
     def add_arguments(self, parser):
-        parser.add_argument('csv_file', type=str, help='Path to the CSV file')
-        parser.add_argument('model', type=str, help='Model to load data into: CountByYear, SalaryByYear, SalaryByCity')
+        parser.add_argument('csv_file', type=str)
+        parser.add_argument('model', type=str)
 
     def __get_model(self, model_name) -> models.Model:
         models = {
-            'CountByYear': CountByYear,
-            'SalaryByYear': SalaryByYear,
-            'SalaryByCity': SalaryByCity
+            'ProfessionCountByYear': ProfessionCountByYear,
+            'ProfessionSalaryByCity': ProfessionSalaryByCity,
+            'ProfessionSalaryByYear': ProfessionSalaryByYear,
+            'AllCountByYear' : AllCountByYear,
+            'AllSalaryByCity': AllSalaryByCity,
+            'AllSalaryByYear': AllSalaryByYear
         }
         return models[model_name]
     
