@@ -1,0 +1,29 @@
+services:
+  front:
+    build: 
+      context: ./front
+      dockerfile: DockerFile
+    container_name: flutter_builder
+    volumes:
+      - front_build:/app/build/web
+
+  django:
+    build: 
+      context: ./back
+      dockerfile: DockerFile
+    container_name: django
+    expose:
+      - "8000"
+
+  nginx:
+    image: nginx:latest
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+      - front_build:/var/www/html
+    ports:
+      - "80:80"
+    container_name: nginx
+    restart: always
+
+volumes:
+  front_build:
