@@ -26,7 +26,8 @@ jobs:
 
     - name: Build Docker containers
       run: |
-        docker-compose -f docker-compose.yml build
+        docker-compose -f docker-compose.yaml build
+
     - name: Collect built frontend files
       run: |
         docker-compose -f docker-compose.yml up -d front
