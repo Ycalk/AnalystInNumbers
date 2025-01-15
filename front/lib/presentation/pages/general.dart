@@ -26,13 +26,6 @@ class _GeneralPageState extends State<GeneralPage> {
   late Future<List<FlSpot>> countByYearFuture;
 
   @override
-  void initState() {
-    super.initState();
-    salaryByYearFuture = generalStats.getSalaryByYear();
-    countByYearFuture = generalStats.getCountByYear();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: const AppDrawer(),
