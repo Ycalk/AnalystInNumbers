@@ -15,7 +15,7 @@ class GeneralStats {
     return _repository.getCountByYear().then((value) => value.map((e) => e.toSpot()).toList());
   }
 
-  Future<List<BarDataItem>> getSalaryByCity() {
-    return _repository.getStatByCity();
+  Future<List<BarDataItem>> getSalaryByArea() {
+    return _repository.getStatByArea();
   }
 }

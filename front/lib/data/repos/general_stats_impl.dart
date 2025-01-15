@@ -16,16 +16,16 @@ class GeneralStatsRepositoryImpl implements GeneralStatsRepository {
 
   @override
   Future<List<LineDataItem>> getSalaryByYear() async {
-    return getStatByYear(_client.getSalaryByYear());
+    return getStatByYear(_client.getSalaryByYear(AnalyticsType.all));
   }
 
   @override
   Future<List<LineDataItem>> getCountByYear() async {
-    return getStatByYear(_client.getCountByYear());
+    return getStatByYear(_client.getCountByYear(AnalyticsType.all));
   }
 
   @override
-  Future<List<BarDataItem>> getStatByCity() async {
-    return (await _client.getSalaryByCity()).map((e) => BarDataItem(e.v1, e.v2)).toList();
+  Future<List<BarDataItem>> getStatByArea() async {
+    return (await _client.getSalaryByArea(AnalyticsType.all)).map((e) => BarDataItem(e.v1, e.v2)).toList();
   }
 }

@@ -43,7 +43,7 @@ class _GeneralPageState extends State<GeneralPage> {
         builder: (salaryByYear) {
           return FutureLoader(future: generalStats.getCountByYear(), 
             builder: (countByYear) {
-              return FutureLoader(future: generalStats.getSalaryByCity(), 
+              return FutureLoader(future: generalStats.getSalaryByArea(), 
                 builder: (salaryByCity) {
                   return getWidgets(salaryByYear, countByYear, salaryByCity);
                 }
@@ -74,8 +74,8 @@ class _GeneralPageState extends State<GeneralPage> {
             const QuiltedGridTile(47, 50),
 
             const QuiltedGridTile(5, 100),
-            const QuiltedGridTile(66, 100),
-            const QuiltedGridTile(66, 100),
+            const QuiltedGridTile(101, 100),
+            const QuiltedGridTile(105, 100),
           ],
         ),
         childrenDelegate: SliverChildBuilderDelegate(
