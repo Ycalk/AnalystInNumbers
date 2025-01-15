@@ -10,11 +10,13 @@ import 'package:front/presentation/pages/skills.dart';
 
 void main() {
   usePathUrlStrategy();
-  runApp( App());
+  runApp( const App());
 }
 
 
 class App extends StatelessWidget {
+  const App({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -22,12 +24,12 @@ class App extends StatelessWidget {
       title: 'Flutter Web Drawer Navigation',
       initialRoute: '/home',
       routes: {
-        '/home': (context) => HomePage(),
-        '/general': (context) => GeneralPage(),
-        '/demand': (context) => DemandPage(),
-        '/geography': (context) => GeographyPage(),
-        '/skills': (context) => SkillsPage(),
-        '/latest_vacancies': (context) => LatestVacanciesPage(),
+        '/home': (context) => const HomePage(),
+        '/general': (context) => const GeneralPage(),
+        '/demand': (context) => const DemandPage(),
+        '/geography': (context) => const GeographyPage(),
+        '/skills': (context) => const SkillsPage(),
+        '/latest_vacancies': (context) => const LatestVacanciesPage(),
       },
       debugShowCheckedModeBanner: false,
     );

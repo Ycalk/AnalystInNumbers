@@ -9,11 +9,11 @@ class GeographyPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: AppDrawer(),
+      drawer: const AppDrawer(),
       appBar: AppBar(
-        title: Text('Geography'),
+        title: const Text('Geography'),
       ),
-      body: Center(
+      body: const Center(
         child: Text('Geography Page'),
       ),
     );

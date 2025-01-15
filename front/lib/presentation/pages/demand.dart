@@ -9,11 +9,11 @@ class DemandPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: AppDrawer(),
+      drawer: const AppDrawer(),
       appBar: AppBar(
-        title: Text('Demand Page'),
+        title: const Text('Demand Page'),
       ),
-      body: Center(
+      body: const Center(
         child: Text('General Screen'),
       ),
     );

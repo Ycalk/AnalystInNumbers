@@ -9,11 +9,11 @@ class SkillsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: AppDrawer(),
+      drawer: const AppDrawer(),
       appBar: AppBar(
-        title: Text('Skills'),
+        title: const Text('Skills'),
       ),
-      body: Center(
+      body: const Center(
         child: Text('Skills Page'),
       ),
     );

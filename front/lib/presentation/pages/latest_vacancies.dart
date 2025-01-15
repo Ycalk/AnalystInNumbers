@@ -9,11 +9,11 @@ class LatestVacanciesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: AppDrawer(),
+      drawer: const AppDrawer(),
       appBar: AppBar(
-        title: Text('Latest Vacancies'),
+        title: const Text('Latest Vacancies'),
       ),
-      body: Center(
+      body: const Center(
         child: Text('Latest Vacancies Screen'),
       ),
     );

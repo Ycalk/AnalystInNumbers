@@ -4,14 +4,15 @@ import 'package:front/domain/entities/char_data.dart';
 import 'package:front/domain/usecases/general_stats.dart';
 import 'package:front/presentation/widgets/charts/stat_by_city.dart';
 import 'package:front/presentation/widgets/charts/stat_by_year.dart';
-import 'package:front/presentation/constants/colors.dart';
 import 'package:front/presentation/constants/texts.dart';
 import 'package:front/presentation/widgets/drawer.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:front/presentation/widgets/tables/stat_by_area.dart';
+import 'package:front/presentation/widgets/tables/stat_by_year.dart';
 
 class GeneralPage extends StatefulWidget {
   static const String routeName = '/general';
-  const GeneralPage({Key? key}) : super(key: key);
+  const GeneralPage({super.key});
 
   @override
   State<GeneralPage> createState() => _GeneralPageState();
@@ -97,7 +98,7 @@ class _GeneralPageState extends State<GeneralPage> {
       ),
     );
   }
-
+  
   Widget getWidgets(List<FlSpot> salaryByYear, List<FlSpot> countByYear, List<BarDataItem> salaryByCity){
     return Padding(
       padding: const EdgeInsets.only(top: 0, left: 16.0, right: 16.0),
@@ -107,18 +108,18 @@ class _GeneralPageState extends State<GeneralPage> {
           mainAxisSpacing: 4,
           crossAxisSpacing: 4,
           pattern: [
-            QuiltedGridTile(5, 50),
-            QuiltedGridTile(5, 50),
+            const QuiltedGridTile(5, 50),
+            const QuiltedGridTile(5, 50),
 
-            QuiltedGridTile(30, 50),
-            QuiltedGridTile(30, 50),
+            const QuiltedGridTile(30, 50),
+            const QuiltedGridTile(30, 50),
 
-            QuiltedGridTile(47, 50),
-            QuiltedGridTile(47, 50),
+            const QuiltedGridTile(47, 50),
+            const QuiltedGridTile(47, 50),
 
-            QuiltedGridTile(5, 100),
-            QuiltedGridTile(66, 100),
-            QuiltedGridTile(66, 100),
+            const QuiltedGridTile(5, 100),
+            const QuiltedGridTile(66, 100),
+            const QuiltedGridTile(66, 100),
           ],
         ),
         childrenDelegate: SliverChildBuilderDelegate(
@@ -143,15 +144,21 @@ class _GeneralPageState extends State<GeneralPage> {
                       ),
                     ),
                   ),
-              2 => getStatByYearChart(salaryByYear, 'руб.'),
-              3 => getStatByYearChart(countByYear, 'шт.'),
+              2 => Padding(
+                    padding: const EdgeInsets.only(top: 30.0, left: 30.0, right: 30.0),
+                    child: StatByYearChart(spots: salaryByYear, unit: 'руб.')
+                  ),
+              3 => Padding(
+                    padding: const EdgeInsets.only(top: 30.0, left: 30.0, right: 30.0),
+                    child: StatByYearChart(spots: countByYear, unit: 'шт.')
+                  ),
               4 => Padding(
-                      padding: const EdgeInsets.only(left: 30, right: 30, top: 0),
-                      child: getStatByYearTable(salaryByYear, 'Зарплата (руб.)'),
+                      padding: const EdgeInsets.only(left: 80, right: 80, top: 0),
+                      child: StatByYearTable(stat: salaryByYear, unit: 'Зарплата (руб.)'),
                     ),
               5 => Padding(
-                      padding: const EdgeInsets.only(left: 30, right: 30, top: 0),
-                      child: getStatByYearTable(countByYear, 'Количество вакансий (шт.)'),
+                      padding: const EdgeInsets.only(left: 80, right: 80, top: 0),
+                      child: StatByYearTable(stat: countByYear, unit: 'Количество вакансий (шт.)'),
                     ),
               6 => Center(
                     child: Text(
@@ -160,128 +167,15 @@ class _GeneralPageState extends State<GeneralPage> {
                     ),
               ),
               7 => StatByCityChart(data: salaryByCity),
-              8 => getStatByCityTable(salaryByCity, 'Зарплата (руб.)'),
+              8 => Padding(
+                    padding: const EdgeInsets.only(top: 0.0, left: 200.0, right: 200.0),
+                    child:StatByAreaTable(stat: salaryByCity, unit: 'Зарплата (руб.)'),
+                  ),
               _ => const SizedBox.shrink(), 
             };
           },
         ),
       )
-    );
-  }
-
-  Widget getStatByYearChart(List<FlSpot> stat, String unit) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 30.0, left: 30.0, right: 30.0),
-      child: StatByYearChart(
-        spots: stat,
-        unit: unit,
-      ),
-    );
-  }
-
-  Widget getStatByYearTable(List<FlSpot> stat, String unit) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 0.0, left: 50.0, right: 50.0),
-      child: Table(
-        border: TableBorder.all(
-          color: AppColors.onTertiaryLight,
-          width: 3,
-          borderRadius: const BorderRadius.all(Radius.circular(10)),
-        ),
-        children: [
-          TableRow(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  'Год',
-                  style: TextStyles.subtitle,
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  unit,
-                  style: TextStyles.subtitle,
-                ),
-              ),
-            ],
-          ),
-          ...stat.map((spot) {
-            return TableRow(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(5.0),
-                  child: Text(
-                    spot.x.toString(),
-                    style: TextStyles.description,
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(5.0),
-                  child: Text(
-                    spot.y.toString(),
-                    style: TextStyles.description,
-                  ),
-                ),
-              ],
-            );
-          }).toList(),
-        ],
-      ),
-    );
-  }
-
-  Widget getStatByCityTable(List<BarDataItem> stat, String unit) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 0.0, left: 200.0, right: 200.0),
-      child: Table(
-        border: TableBorder.all(
-          color: AppColors.onTertiaryLight,
-          width: 3,
-          borderRadius: const BorderRadius.all(Radius.circular(10)),
-        ),
-        children: [
-          TableRow(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  'Город',
-                  style: TextStyles.subtitle,
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  unit,
-                  style: TextStyles.subtitle,
-                ),
-              ),
-            ],
-          ),
-          ...stat.map((spot) {
-            return TableRow(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(5.0),
-                  child: Text(
-                    spot.x.toString(),
-                    style: TextStyles.description,
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(5.0),
-                  child: Text(
-                    spot.y.toString(),
-                    style: TextStyles.description,
-                  ),
-                ),
-              ],
-            );
-          }).toList(),
-        ],
-      ),
     );
   }
 }
