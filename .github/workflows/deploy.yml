@@ -1,0 +1,44 @@
+name: Build and distribute
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: cedvdb/action-flutter-build-web@v1
+        with:
+          build-cmd: flutter build web --release --base-href /analyticsProfession/
+          working-directory: ./front
+          
+      - name: Create 404.html
+        run: cp ./front/build/web/index.html ./front/build/web/404.html
+
+      - name: Upload static files as artifact
+        id: deployment
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: front/build/web
+
+  deploy:
+    needs: build
+
+    permissions:
+      pages: write
+      id-token: write
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
