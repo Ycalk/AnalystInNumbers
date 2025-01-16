@@ -16,6 +16,9 @@ jobs:
         with:
           build-cmd: flutter build web --release --base-href /analyticsProfession/
           working-directory: ./front
+          
+      - name: Create 404.html
+        run: cp ./front/build/web/index.html ./front/build/web/404.html
 
       - name: Upload static files as artifact
         id: deployment
