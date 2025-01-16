@@ -24,4 +24,4 @@ RUN python back/manage.py load_csv back/stat/salary_by_city.csv AllSalaryByCity
 RUN python back/manage.py load_csv back/stat/salary_by_year.csv ProfessionSalaryByYear
 RUN python back/manage.py load_csv back/stat/salary_by_year.csv AllSalaryByYear
 
-CMD ["python", "back/manage.py", "runserver", "0.0.0.0:8000"]
+CMD ["python", "run.py"]

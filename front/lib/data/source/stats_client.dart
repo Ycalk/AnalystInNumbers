@@ -19,7 +19,7 @@ extension AnalyticsTypeExtension on AnalyticsType {
 
 class StatsClient {
   final dio = Dio(BaseOptions(
-      baseUrl: Uri.base.origin,
+      baseUrl: "https://bbaa9o8fmfofjqhf6vqb.containers.yandexcloud.net",
       connectTimeout: const Duration(seconds: 10),
       receiveTimeout: const Duration(seconds: 10),
       headers: {
