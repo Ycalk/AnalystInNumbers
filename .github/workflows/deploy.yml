@@ -18,7 +18,7 @@ jobs:
           working-directory: ./front
 
       - name: Archive Production artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: github-pages
           path: front/build/web
