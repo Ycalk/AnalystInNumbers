@@ -5,6 +5,9 @@ import aiohttp
 from prepare_data import IConverter
 
 class AsyncCurrencyConverter:
+    """
+    Do not use
+    """
     def __init__(self):
         self.rates: dict[str, list[_Rate]] = {}
 
