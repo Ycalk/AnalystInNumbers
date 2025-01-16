@@ -7,16 +7,6 @@ from datetime import datetime
 
 from utils.currencies_rates_parser import CurrencyRateParser
 from utils.currency_converter import CurrencyConverter
-    
-def prepare_data():
-    data = pd.read_csv('data/vacancies_2024.csv', low_memory=False)
-    preparator = DataPreparator(data)
-    parser = CurrencyRateParser()
-    (preparator
-        #    .with_profession_key_words(['аналитик', 'analytics', 'analyst'])
-           .with_calculated_salary()
-           .with_converted_salary(CurrencyConverter(pd.read_csv('rates.csv'))))
-    preparator.data.to_csv('data/prepared_data.csv', index=False)
 
 def create_statistics():
     data = pd.read_csv('data/vacancies_2024.csv', low_memory=False)
@@ -34,4 +24,4 @@ def create_statistics():
     creator()
 
 if __name__ == "__main__":
-    prepare_data()
+    create_statistics()
