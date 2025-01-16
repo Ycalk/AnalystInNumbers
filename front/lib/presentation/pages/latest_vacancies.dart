@@ -11,7 +11,7 @@ class LatestVacanciesPage extends StatelessWidget {
     return Scaffold(
       drawer: const AppDrawer(),
       appBar: AppBar(
-        title: const Text('Latest Vacancies'),
+        title: const Text('Analyst Latest Vacancies'),
       ),
       body: const Center(
         child: Text('Latest Vacancies Screen'),

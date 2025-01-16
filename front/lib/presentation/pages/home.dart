@@ -11,7 +11,7 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       drawer: const AppDrawer(),
       appBar: AppBar(
-        title: const Text('Home Page'),
+        title: const Text('Home'),
       ),
       body: const Center(
         child: Text('General Screen'),

@@ -17,7 +17,7 @@ class GeographyPage extends StatelessWidget {
     return Scaffold(
       drawer: const AppDrawer(),
       appBar: AppBar(
-        title: const Text('Geography'),
+        title: const Text('Analyst Geography'),
       ),
       body: FutureLoader(future: professionStats.getSalaryByArea(), 
         builder: (salaryByArea) {
@@ -28,7 +28,7 @@ class GeographyPage extends StatelessWidget {
                 children: [
                   const SizedBox(height: 60,),
                   Text(
-                    'Уровень зарплат по городам',
+                    'Уровень зарплат по городам (Аналитик)',
                     style: TextStyles.subtitle,
                   ),
                   const SizedBox(height: 30,),

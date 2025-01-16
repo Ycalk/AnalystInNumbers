@@ -21,7 +21,7 @@ class GeneralPage extends StatelessWidget {
     return Scaffold(
       drawer: const AppDrawer(),
       appBar: AppBar(
-        title: const Text('General'),
+        title: const Text('General Stats'),
       ),
       body: FutureLoader(future: generalStats.getSalaryByYear(), 
         builder: (salaryByYear) {

@@ -11,7 +11,7 @@ class SkillsPage extends StatelessWidget {
     return Scaffold(
       drawer: const AppDrawer(),
       appBar: AppBar(
-        title: const Text('Skills'),
+        title: const Text('Analyst Skills'),
       ),
       body: const Center(
         child: Text('Skills Page'),
