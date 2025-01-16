@@ -15,13 +15,13 @@ COPY . .
 RUN python back/manage.py makemigrations
 RUN python back/manage.py migrate
 
-RUN python back/manage.py load_csv back/stat/count_by_year.csv ProfessionCountByYear
-RUN python back/manage.py load_csv back/stat/count_by_year.csv AllCountByYear
+RUN python back/manage.py load_csv back/stat/profession/count_by_year.csv ProfessionCountByYear
+RUN python back/manage.py load_csv back/stat/all/count_by_year.csv AllCountByYear
 
-RUN python back/manage.py load_csv back/stat/salary_by_city.csv ProfessionSalaryByCity
-RUN python back/manage.py load_csv back/stat/salary_by_city.csv AllSalaryByCity
+RUN python back/manage.py load_csv back/stat/profession/salary_by_city.csv ProfessionSalaryByCity
+RUN python back/manage.py load_csv back/stat/all/salary_by_city.csv AllSalaryByCity
 
-RUN python back/manage.py load_csv back/stat/salary_by_year.csv ProfessionSalaryByYear
-RUN python back/manage.py load_csv back/stat/salary_by_year.csv AllSalaryByYear
+RUN python back/manage.py load_csv back/stat/profession/salary_by_year.csv ProfessionSalaryByYear
+RUN python back/manage.py load_csv back/stat/all/salary_by_year.csv AllSalaryByYear
 
 CMD ["python", "run.py"]
