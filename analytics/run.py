@@ -25,8 +25,13 @@ def create_statistics():
     (preparator
         .with_calculated_salary()
         .with_converted_salary(CurrencyConverter(parser())))
-    creator = CreateStatistics(preparator.data, 'stats/out/all')
-    creator.run()
+    
+    creator = CreateStatistics(preparator.data.copy(), 'stats/out/all')
+    creator()
+
+    preparator.with_profession_key_words(['аналитик', 'analytics', 'analyst'])
+    creator = CreateStatistics(preparator.data.copy(), 'stats/out/profession')
+    creator()
 
 if __name__ == "__main__":
     prepare_data()

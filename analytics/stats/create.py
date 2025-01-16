@@ -64,7 +64,7 @@ class CreateStatistics:
         area_counts.to_csv(out_path, index=False)
         
     
-    def run(self):
+    def __call__(self):
         self.salary_by_year(f'{self.out_folder}/salary_by_year.csv')
         self.count_by_year(f'{self.out_folder}/count_by_year.csv')
         self.salary_by_area(f'{self.out_folder}/salary_by_area.csv')
