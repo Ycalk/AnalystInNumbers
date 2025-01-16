@@ -14,10 +14,14 @@ class DataPreparator:
     def with_calculated_salary(self) -> 'DataPreparator':
         self.data['salary'] = self.data[['salary_from', 'salary_to']].mean(axis=1)
         print('Salary calculated')
+        self.data = self.data.drop(columns=['salary_from', 'salary_to'])
         return self
     
     def with_converted_salary(self, converter: 'IConverter') -> 'DataPreparator':
-        self.data['salary'] = self.data.apply(lambda row: converter.convert_to_rubles(row['salary_currency'], row['salary'], pd.to_datetime(row['published_at'])), axis=1)
+        self.data['salary'] = self.data.apply(lambda row: 
+            converter.convert_to_rubles(row['salary_currency'], row['salary'], 
+                                        pd.to_datetime(row['published_at'], errors='coerce', utc=True)), axis=1)
+        self.data = self.data.drop(columns=['salary_currency'])
         return self
     
     async def apply_async(self, df, index, row, converter: 'AsyncIConverter'):
@@ -25,8 +29,10 @@ class DataPreparator:
         df.at[index, 'salary'] = converted
     
     
-        
     async def with_async_converted_salary(self, converter: 'AsyncIConverter') -> 'DataPreparator':
+        """
+        Do not use
+        """
         tasks = []
         for index, row in self.data.iterrows():
             tasks.append(self.apply_async(self.data, index, row, converter))

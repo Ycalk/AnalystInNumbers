@@ -12,8 +12,10 @@ class CurrencyRateParser:
             daily_data = self.fetch_currency_data(date)
             if not daily_data.empty:
                 all_currency_data.append(daily_data)
-        return pd.concat(all_currency_data, ignore_index=True) if all_currency_data else pd.DataFrame()
-
+        collected = pd.concat(all_currency_data, ignore_index=True)
+        pivoted_data = collected.pivot(index='date', columns='CharCode', values='normalized')
+        return pivoted_data.reindex(columns=CURRENCIES)
+        
     def fetch_currency_data(self, date_str):
         url = f"http://www.cbr.ru/scripts/XML_daily.asp?date_req={date_str}"
         data = pd.read_xml(url, xpath=".//Valute", encoding="windows-1251")
