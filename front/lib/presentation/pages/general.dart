@@ -11,19 +11,11 @@ import 'package:front/presentation/widgets/future_loader.dart';
 import 'package:front/presentation/widgets/tables/stat_by_area.dart';
 import 'package:front/presentation/widgets/tables/stat_by_year.dart';
 
-class GeneralPage extends StatefulWidget {
+class GeneralPage extends StatelessWidget {
   static const String routeName = '/general';
-  const GeneralPage({super.key});
+  GeneralPage({super.key});
 
-  @override
-  State<GeneralPage> createState() => _GeneralPageState();
-}
-
-class _GeneralPageState extends State<GeneralPage> {
   final GeneralStats generalStats = GeneralStats();
-
-  late Future<List<FlSpot>> salaryByYearFuture;
-  late Future<List<FlSpot>> countByYearFuture;
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +39,7 @@ class _GeneralPageState extends State<GeneralPage> {
       ),
     );
   }
-  
+
   Widget getWidgets(List<FlSpot> salaryByYear, List<FlSpot> countByYear, List<BarDataItem> salaryByCity){
     return Padding(
       padding: const EdgeInsets.only(top: 0, left: 16.0, right: 16.0),
@@ -115,7 +107,7 @@ class _GeneralPageState extends State<GeneralPage> {
                       style: TextStyles.subtitle,
                     ),
               ),
-              7 => StatByCityChart(data: salaryByCity),
+              7 => StatByAreaChart(data: salaryByCity),
               8 => Padding(
                     padding: const EdgeInsets.only(top: 0.0, left: 200.0, right: 200.0),
                     child:StatByAreaTable(stat: salaryByCity, unit: 'Зарплата (руб.)'),
@@ -128,7 +120,6 @@ class _GeneralPageState extends State<GeneralPage> {
     );
   }
 }
-
 
 class GeneralPageTexts{
   static const String pageName = 'Общая статистика';

@@ -25,9 +25,9 @@ class App extends StatelessWidget {
       initialRoute: '/home',
       routes: {
         '/home': (context) => const HomePage(),
-        '/general': (context) => const GeneralPage(),
+        '/general': (context) => GeneralPage(),
         '/demand': (context) => const DemandPage(),
-        '/geography': (context) => const GeographyPage(),
+        '/geography': (context) => GeographyPage(),
         '/skills': (context) => const SkillsPage(),
         '/latest_vacancies': (context) => const LatestVacanciesPage(),
       },

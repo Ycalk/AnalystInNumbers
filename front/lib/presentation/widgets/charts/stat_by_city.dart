@@ -4,8 +4,8 @@ import 'package:front/domain/entities/char_data.dart';
 import 'package:front/presentation/constants/colors.dart';
 import 'package:front/presentation/constants/texts.dart';
 
-class StatByCityChart extends StatefulWidget {
-  StatByCityChart({super.key, required this.data});
+class StatByAreaChart extends StatefulWidget {
+  StatByAreaChart({super.key, required this.data});
 
   final Color barBackgroundColor = AppColors.onTertiaryLight;
   final Color barColor = AppColors.primaryLight!;
@@ -13,10 +13,10 @@ class StatByCityChart extends StatefulWidget {
   final List<BarDataItem> data;
 
   @override
-  State<StatefulWidget> createState() => StatByCityChartState();
+  State<StatefulWidget> createState() => StatByAreaChartState();
 }
 
-class StatByCityChartState extends State<StatByCityChart> {
+class StatByAreaChartState extends State<StatByAreaChart> {
   final Duration animDuration = const Duration(milliseconds: 70);
 
   int touchedIndex = -1;
