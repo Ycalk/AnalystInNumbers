@@ -30,7 +30,7 @@ class ProfessionSalaryByArea(StatByArea):
     salary = models.FloatField()
 
     class Meta:
-        db_table = 'profession_salary_by_city'
+        db_table = 'profession_salary_by_area'
 
 # All models
 class AllCountByYear(StatByYear):
@@ -49,4 +49,4 @@ class AllSalaryByArea(StatByArea):
     salary = models.FloatField()
 
     class Meta:
-        db_table = 'all_salary_by_city'
+        db_table = 'all_salary_by_area'
