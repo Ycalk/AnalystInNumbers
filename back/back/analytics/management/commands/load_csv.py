@@ -1,7 +1,7 @@
 import csv
 from django.core.management.base import BaseCommand
-from analytics.models import ProfessionCountByYear, ProfessionSalaryByCity, ProfessionSalaryByYear
-from analytics.models import AllCountByYear, AllSalaryByCity, AllSalaryByYear
+from analytics.models import ProfessionCountByYear, ProfessionSalaryByArea, ProfessionSalaryByYear
+from analytics.models import AllCountByYear, AllSalaryByArea, AllSalaryByYear
 from django.db import models
 
 class Command(BaseCommand):
@@ -14,10 +14,10 @@ class Command(BaseCommand):
     def __get_model(self, model_name) -> models.Model:
         models = {
             'ProfessionCountByYear': ProfessionCountByYear,
-            'ProfessionSalaryByCity': ProfessionSalaryByCity,
+            'ProfessionSalaryByArea': ProfessionSalaryByArea,
             'ProfessionSalaryByYear': ProfessionSalaryByYear,
             'AllCountByYear' : AllCountByYear,
-            'AllSalaryByCity': AllSalaryByCity,
+            'AllSalaryByArea': AllSalaryByArea,
             'AllSalaryByYear': AllSalaryByYear
         }
         return models[model_name]
