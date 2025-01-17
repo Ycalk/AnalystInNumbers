@@ -19,8 +19,7 @@ extension AnalyticsTypeExtension on AnalyticsType {
 
 class StatsClient {
   final dio = Dio(BaseOptions(
-      // baseUrl: "https://bbaa9o8fmfofjqhf6vqb.containers.yandexcloud.net",
-      baseUrl: "http://localhost:8000",
+      baseUrl: "https://bbaa9o8fmfofjqhf6vqb.containers.yandexcloud.net",
       connectTimeout: const Duration(seconds: 15),
       receiveTimeout: const Duration(seconds: 15),
       headers: {
