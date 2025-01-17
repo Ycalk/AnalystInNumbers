@@ -27,4 +27,7 @@ RUN python back/manage.py load_csv back/stat/all/salary_by_year.csv AllSalaryByY
 RUN python back/manage.py load_csv back/stat/profession/count_by_area.csv ProfessionCountByArea
 RUN python back/manage.py load_csv back/stat/all/count_by_area.csv AllCountByArea
 
+RUN python back/manage.py load_csv back/stat/profession/skills_by_year.csv ProfessionSkillsByYear
+RUN python back/manage.py load_csv back/stat/all/skills_by_year.csv AllSkillsByYear
+
 CMD ["python", "run.py"]
