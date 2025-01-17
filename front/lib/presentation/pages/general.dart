@@ -1,6 +1,7 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:front/domain/entities/char_data.dart';
+import 'package:front/domain/entities/skills_data.dart';
 import 'package:front/domain/usecases/general_stats.dart';
 import 'package:front/presentation/widgets/charts/pie/stat_by_area.dart';
 import 'package:front/presentation/widgets/charts/stat_by_area.dart';
@@ -8,6 +9,7 @@ import 'package:front/presentation/widgets/charts/stat_by_year.dart';
 import 'package:front/presentation/constants/texts.dart';
 import 'package:front/presentation/widgets/drawer.dart';
 import 'package:front/presentation/widgets/future_loader.dart';
+import 'package:front/presentation/widgets/key_skills_info.dart';
 import 'package:front/presentation/widgets/tables/stat_by_area.dart';
 import 'package:front/presentation/widgets/tables/stat_by_year.dart';
 
@@ -32,7 +34,11 @@ class GeneralPage extends StatelessWidget {
                 builder: (salaryByCity) {
                   return FutureLoader(future: generalStats.getCountByArea(),
                     builder: (countByArea) {
-                      return getWidgets(salaryByYear, countByYear, salaryByCity, countByArea);
+                      return FutureLoader(future: generalStats.getSkillsByYear(),
+                        builder: (skillsByYear) {
+                          return getWidgets(salaryByYear, countByYear, salaryByCity, countByArea, skillsByYear);
+                        },
+                      );
                     },
                   );
                 }
@@ -44,7 +50,7 @@ class GeneralPage extends StatelessWidget {
     );
   }
   Widget getWidgets (List<FlSpot> salaryByYear, List<FlSpot> countByYear, 
-    List<BarDataItem> salaryByCity, List<PieDataItem> countByArea) {
+    List<BarDataItem> salaryByCity, List<PieDataItem> countByArea, SkillsData skillsByYear) {
     return SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 30.0),
@@ -116,6 +122,7 @@ class GeneralPage extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 200.0),
               child: StatByAreaTable(stat: salaryByCity, unit: 'Зарплата (руб.)'),
             ),
+
             const SizedBox(height: 60,),
             Text(
               'Доля вакансий по регионам',
@@ -128,6 +135,17 @@ class GeneralPage extends StatelessWidget {
                 data: countByArea,
                 table: StatByAreaTable(stat: countByArea, unit: 'Количество вакансий (шт.)'),
               ),
+            ),
+
+            const SizedBox(height: 60,),
+            Text(
+              'ТОП-20 навыков по годам',
+              style: TextStyles.subtitle,
+            ),
+            const SizedBox(height: 30,),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 30.0),
+              child: KeySkillsInfo(data: skillsByYear,),
             ),
             const SizedBox(height: 60,),
           ],

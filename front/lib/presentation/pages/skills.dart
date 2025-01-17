@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:front/domain/usecases/profession_stats.dart';
+import 'package:front/presentation/constants/texts.dart';
 import 'package:front/presentation/widgets/drawer.dart';
+import 'package:front/presentation/widgets/future_loader.dart';
+import 'package:front/presentation/widgets/key_skills_info.dart';
 
 class SkillsPage extends StatelessWidget {
   static const String routeName = '/skills';
+  final ProfessionStats professionStats = ProfessionStats();
   
-  const SkillsPage({super.key});
+  SkillsPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -13,8 +18,29 @@ class SkillsPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Analyst Skills'),
       ),
-      body: const Center(
-        child: Text('Skills Page'),
+      body: FutureLoader(future: professionStats.getSkillsByYear(), 
+        builder: (skillsByYear) {
+          return SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 30.0),
+              child: Column(
+                children: [
+                  const SizedBox(height: 60,),
+                  Text(
+                    'ТОП-20 навыков по годам (Аналитик)',
+                    style: TextStyles.subtitle,
+                  ),
+                  const SizedBox(height: 30,),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                    child: KeySkillsInfo(data: skillsByYear,),
+                  ),
+                  const SizedBox(height: 60,),
+                ],
+              )
+            )
+          );
+        },
       ),
     );
   }
