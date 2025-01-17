@@ -38,6 +38,13 @@ class ProfessionCountByArea(StatByArea):
     class Meta:
         db_table = 'profession_count_by_area'
 
+class ProfessionSkillsByYear(StatByYear):
+    skill = models.CharField(max_length=150)
+    count = models.FloatField()
+    
+    class Meta:
+        db_table = 'profession_skills_by_year'
+        
 # All models
 class AllCountByYear(StatByYear):
     count = models.IntegerField()
@@ -63,3 +70,9 @@ class AllCountByArea(StatByArea):
     class Meta:
         db_table = 'all_count_by_area'
 
+class AllSkillsByYear(StatByYear):
+    skill = models.CharField(max_length=150)
+    count = models.FloatField()
+    
+    class Meta:
+        db_table = 'all_skills_by_year'

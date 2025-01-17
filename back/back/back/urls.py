@@ -24,4 +24,5 @@ urlpatterns = [
     path('analytics/salary_by_area', views.salary_by_area),
     path('analytics/salary_by_year', views.salary_by_year),
     path('analytics/count_by_area', views.count_by_area),
+    path('analytics/skills_by_year', views.skills_by_year),
 ]
