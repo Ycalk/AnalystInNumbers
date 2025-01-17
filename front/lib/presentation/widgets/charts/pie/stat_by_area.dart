@@ -88,7 +88,7 @@ class StatByAreaPieChartState extends State<StatByAreaPieChart> {
   List<PieChartSectionData> showingSections(){
     return List.generate(widget.data.length, (i) {
       final isTouched = i == touchedIndex;
-      final fontSize = isTouched ? 25.0 : 12.0;
+      final fontSize = isTouched ? 30.0 : 12.0;
       final radius = isTouched ? 180.0 : 170.0;
       const shadows = [Shadow(color: AppColors.onTertiaryLight, blurRadius: 2)];
       return PieChartSectionData(
