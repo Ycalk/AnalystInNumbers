@@ -26,7 +26,7 @@ class CreateStatistics:
         
         salary_trend = data.groupby('year')['salary'].mean().reset_index()
         salary_trend.columns = ['year', 'average_salary']
-        salary_trend.to_csv(out_path, index=False)
+        salary_trend.sort_values(by='year').rename(columns={'average_salary': 'salary'}).to_csv(out_path, index=False)
     
     def count_by_year(self, out_path):
         data = self.data.copy().dropna(subset=['published_at'])
@@ -51,9 +51,7 @@ class CreateStatistics:
         salary_by_city = data.groupby('area_name')['salary'].mean().reset_index()
         salary_by_city.columns = ['area_name', 'average_salary']
         salary_by_city = salary_by_city.sort_values(by='average_salary', ascending=False)
-        salary_by_city = salary_by_city.head(MAX_AREAS)
-        
-        salary_by_city.to_csv(out_path, index=False)
+        salary_by_city.head(MAX_AREAS).rename(columns={'average_salary': 'salary'}).to_csv(out_path, index=False)
     
     def count_by_area(self, out_path):
         MAX_AREAS = 15
@@ -66,8 +64,7 @@ class CreateStatistics:
         other_areas = area_counts.tail(len(area_counts) - MAX_AREAS)
         other_row = pd.DataFrame({'area_name': ['Другой'], 'count': [other_areas['count'].sum()]})
         
-        top_areas = pd.concat([top_areas, other_row], ignore_index=True)
-        top_areas.to_csv(out_path, index=False)
+        pd.concat([top_areas, other_row], ignore_index=True).sort_values(by='count', ascending=False).to_csv(out_path, index=False)
         
     
     def __call__(self):

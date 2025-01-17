@@ -8,12 +8,10 @@ class DataPreparator:
     
     def with_profession_key_words(self, key_words: list[str]) -> 'DataPreparator':
         self.data = self.data[self.data['name'].str.contains('|'.join(key_words), case=False)]
-        print('Data filtered')
         return self
     
     def with_calculated_salary(self) -> 'DataPreparator':
         self.data['salary'] = self.data[['salary_from', 'salary_to']].mean(axis=1)
-        print('Salary calculated')
         self.data = self.data.drop(columns=['salary_from', 'salary_to'])
         return self
     
