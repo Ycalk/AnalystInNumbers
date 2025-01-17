@@ -81,7 +81,7 @@ class GeneralPage extends StatelessWidget {
                       ),
                       const SizedBox(height: 30,),
                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                        padding: const EdgeInsets.symmetric(horizontal: 15.0),
                         child: StatByYearChart(spots: countByYear, unit: 'шт.'),
                       ),
                       const SizedBox(height: 30,),
@@ -101,7 +101,10 @@ class GeneralPage extends StatelessWidget {
               style: TextStyles.subtitle,
             ),
             const SizedBox(height: 30,),
-            StatByAreaChart(data: salaryByCity),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 30.0),
+              child: StatByAreaChart(data: salaryByCity),
+            ),
             const SizedBox(height: 30,),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 200.0),

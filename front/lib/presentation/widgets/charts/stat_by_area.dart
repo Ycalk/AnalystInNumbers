@@ -23,14 +23,12 @@ class StatByAreaChartState extends State<StatByAreaChart> {
 
   @override
   Widget build(BuildContext context) {
-    return AspectRatio(
-      aspectRatio: 1,
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: BarChart(
-          mainBarData(),
-          duration: animDuration,
-        ),
+    return SizedBox(
+      width: double.infinity,
+      height: 860,
+      child: BarChart(
+        mainBarData(),
+        duration: animDuration,
       ),
     );
   }

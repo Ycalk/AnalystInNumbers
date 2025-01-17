@@ -32,7 +32,10 @@ class GeographyPage extends StatelessWidget {
                     style: TextStyles.subtitle,
                   ),
                   const SizedBox(height: 30,),
-                  StatByAreaChart(data: salaryByArea),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                    child: StatByAreaChart(data: salaryByArea),
+                  ),
                   const SizedBox(height: 30,),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 200.0),
