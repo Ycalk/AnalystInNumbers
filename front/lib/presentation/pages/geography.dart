@@ -46,7 +46,7 @@ class GeographyPage extends StatelessWidget {
                       ),
                       const SizedBox(height: 60,),
                       Text(
-                        'Доля вакансий по регионам',
+                        'Доля вакансий по регионам (Аналитик)',
                         style: TextStyles.subtitle,
                       ),
                       const SizedBox(height: 30,),

@@ -25,7 +25,7 @@ class StatByAreaChartState extends State<StatByAreaChart> {
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.infinity,
-      height: 860,
+      height: 600,
       child: BarChart(
         mainBarData(),
         duration: animDuration,
@@ -80,7 +80,7 @@ class StatByAreaChartState extends State<StatByAreaChart> {
               TextStyles.description.copyWith(color: AppColors.primary),
               children: <TextSpan>[
                 TextSpan(
-                  text: (rod.toY / 1.02).toString(),
+                  text: '${(rod.toY / 1.02)} руб.',
                   style: TextStyles.description.copyWith(color: AppColors.primary),
                 ),
               ],

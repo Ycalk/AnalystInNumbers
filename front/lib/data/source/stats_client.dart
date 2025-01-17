@@ -19,7 +19,8 @@ extension AnalyticsTypeExtension on AnalyticsType {
 
 class StatsClient {
   final dio = Dio(BaseOptions(
-      baseUrl: "https://bbaa9o8fmfofjqhf6vqb.containers.yandexcloud.net",
+      // baseUrl: "https://bbaa9o8fmfofjqhf6vqb.containers.yandexcloud.net",
+      baseUrl: "http://localhost:8000",
       connectTimeout: const Duration(seconds: 15),
       receiveTimeout: const Duration(seconds: 15),
       headers: {
@@ -71,7 +72,7 @@ class StatsClient {
       'type': type.stringValue
     });
     if (response.statusCode == 200) {
-      return (response.data as List).map((e) => Stat<String, double>(e['area_name'], e['count'])).toList().sublist(0, 15);
+      return (response.data as List).map((e) => Stat<String, double>(e['area_name'], e['count'])).toList();
     } else {
       return Future.error('Failed to load data');
     }
