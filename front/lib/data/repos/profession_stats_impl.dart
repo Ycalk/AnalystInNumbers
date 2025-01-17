@@ -26,4 +26,11 @@ class ProfessionStatsRepositoryImpl implements ProfessionStatsRepository {
   Future<List<BarDataItem>> getStatByArea() async {
     return (await _client.getSalaryByArea(AnalyticsType.profession)).map((e) => BarDataItem(e.v1, e.v2)).toList();
   }
+
+  @override
+  Future<List<PieDataItem>> getCountByArea() async {
+    final data = await _client.getCountByArea(AnalyticsType.profession);
+    final sum = data.map((e) => e.v2).reduce((value, element) => value + element);
+    return data.map((e) => PieDataItem(e.v1, e.v2, e.v2 / sum)).toList();
+  }
 }

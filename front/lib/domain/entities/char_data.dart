@@ -17,3 +17,11 @@ class BarDataItem {
 
   BarDataItem(this.x, this.y);
 }
+
+class PieDataItem {
+  final String x;
+  final double y;
+  final double proportion;
+
+  PieDataItem(this.x, this.y, this.proportion);
+}

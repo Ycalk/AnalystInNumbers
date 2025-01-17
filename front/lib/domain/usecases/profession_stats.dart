@@ -16,4 +16,8 @@ class ProfessionStats {
   Future<List<BarDataItem>> getSalaryByArea() {
     return _repository.getStatByArea();
   }
+
+  Future<List<PieDataItem>> getCountByArea() {
+    return _repository.getCountByArea();
+  }
 }
