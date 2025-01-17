@@ -11,7 +11,7 @@ class CreateStatistics:
     
     def create_year_column(data: pd.DataFrame) -> pd.DataFrame:
         data['published_at'] = pd.to_datetime(data['published_at'], errors='coerce', utc=True)
-        data = data.dropna(subset=['salary', 'published_at'])
+        data = data.dropna(subset=['published_at'])
         data['year'] = data['published_at'].dt.year
         return data
     
@@ -50,8 +50,10 @@ class CreateStatistics:
         
         salary_by_city = data.groupby('area_name')['salary'].mean().reset_index()
         salary_by_city.columns = ['area_name', 'average_salary']
-        salary_by_city = salary_by_city.sort_values(by='average_salary', ascending=False)
-        salary_by_city.head(MAX_AREAS).rename(columns={'average_salary': 'salary'}).to_csv(out_path, index=False)
+        (salary_by_city.sort_values(by='average_salary', ascending=False)
+         .head(MAX_AREAS)
+         .rename(columns={'average_salary': 'salary'})
+         .to_csv(out_path, index=False))
     
     def count_by_area(self, out_path):
         MAX_AREAS = 15
@@ -60,15 +62,28 @@ class CreateStatistics:
         area_counts.columns = ['area_name', 'count']
         area_counts = area_counts.sort_values(by='count', ascending=False)
         
-        top_areas = area_counts.head(MAX_AREAS)
-        other_areas = area_counts.tail(len(area_counts) - MAX_AREAS)
-        other_row = pd.DataFrame({'area_name': ['Другой'], 'count': [other_areas['count'].sum()]})
+        other_row = pd.DataFrame({'area_name': ['Другой'], 
+                                  'count': [area_counts.tail(len(area_counts) - MAX_AREAS)['count'].sum()]})
         
-        pd.concat([top_areas, other_row], ignore_index=True).sort_values(by='count', ascending=False).to_csv(out_path, index=False)
+        pd.concat([area_counts.head(MAX_AREAS), other_row], ignore_index=True).sort_values(by='count', ascending=False).to_csv(out_path, index=False)
+    
+    def skills(self, out_path):
+        data = self.data.copy().dropna(subset=['key_skills', 'published_at'])
+        data : pd.DataFrame = CreateStatistics.create_year_column(data)
         
+        (data.assign(key_skills=data['key_skills'].str.split('\n'))
+            .explode('key_skills')
+            .groupby(['year', 'key_skills'])
+            .size()
+            .reset_index(name='count')
+            .sort_values(['year', 'count'], ascending=[True, False])
+            .groupby('year')
+            .head(20)
+            .to_csv(out_path, index=False))
     
     def __call__(self):
         self.salary_by_year(f'{self.out_folder}/salary_by_year.csv')
         self.count_by_year(f'{self.out_folder}/count_by_year.csv')
         self.salary_by_area(f'{self.out_folder}/salary_by_area.csv')
         self.count_by_area(f'{self.out_folder}/count_by_area.csv')
+        self.skills(f'{self.out_folder}/skills.csv')
