@@ -28,7 +28,7 @@ class GeographyPage extends StatelessWidget {
                 children: [
                   const SizedBox(height: 60,),
                   Text(
-                    'Уровень зарплат по городам (Аналитик)',
+                    'Уровень зарплат по регионам (Аналитик)',
                     style: TextStyles.subtitle,
                   ),
                   const SizedBox(height: 30,),

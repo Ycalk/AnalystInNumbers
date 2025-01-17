@@ -2,6 +2,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:front/domain/entities/char_data.dart';
 import 'package:front/domain/usecases/general_stats.dart';
+import 'package:front/presentation/widgets/charts/pie/stat_by_area.dart';
 import 'package:front/presentation/widgets/charts/stat_by_area.dart';
 import 'package:front/presentation/widgets/charts/stat_by_year.dart';
 import 'package:front/presentation/constants/texts.dart';
@@ -29,7 +30,11 @@ class GeneralPage extends StatelessWidget {
             builder: (countByYear) {
               return FutureLoader(future: generalStats.getSalaryByArea(), 
                 builder: (salaryByCity) {
-                  return getWidgets(salaryByYear, countByYear, salaryByCity);
+                  return FutureLoader(future: generalStats.getCountByArea(),
+                    builder: (countByArea) {
+                      return getWidgets(salaryByYear, countByYear, salaryByCity, countByArea);
+                    },
+                  );
                 }
               );
             }
@@ -38,7 +43,8 @@ class GeneralPage extends StatelessWidget {
       ),
     );
   }
-  Widget getWidgets (List<FlSpot> salaryByYear, List<FlSpot> countByYear, List<BarDataItem> salaryByCity){
+  Widget getWidgets (List<FlSpot> salaryByYear, List<FlSpot> countByYear, 
+    List<BarDataItem> salaryByCity, List<PieDataItem> countByArea) {
     return SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 30.0),
@@ -97,7 +103,7 @@ class GeneralPage extends StatelessWidget {
             // Bar chart
             const SizedBox(height: 60,),
             Text(
-              'Уровень зарплат по городам',
+              'Уровень зарплат по регионам',
               style: TextStyles.subtitle,
             ),
             const SizedBox(height: 30,),
@@ -111,6 +117,17 @@ class GeneralPage extends StatelessWidget {
               child: StatByAreaTable(stat: salaryByCity, unit: 'Зарплата (руб.)'),
             ),
             const SizedBox(height: 60,),
+            Text(
+              'Доля вакансий по регионам',
+              style: TextStyles.subtitle,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 30.0),
+              child: StatByAreaPieChart(
+                data: countByArea,
+                table: StatByAreaTable(stat: countByArea, unit: 'Количество вакансий (шт.)'),
+              ),
+            ),
           ],
         ),
       ),

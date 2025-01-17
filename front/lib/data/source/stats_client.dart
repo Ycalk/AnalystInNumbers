@@ -72,7 +72,7 @@ class StatsClient {
       'type': type.stringValue
     });
     if (response.statusCode == 200) {
-      return (response.data as List).map((e) => Stat<String, double>(e['area_name'], e['count'])).toList();
+      return (response.data as List).map((e) => Stat<String, double>(e['area_name'], e['count'])).toList().sublist(0, 15);
     } else {
       return Future.error('Failed to load data');
     }

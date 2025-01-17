@@ -41,6 +41,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.19.0"
+  colorlizer:
+    dependency: "direct main"
+    description:
+      name: colorlizer
+      sha256: "40a0d4a597ad569879b40dafc5306a970db8833e0ba1b67e9f2a2a7aefde77f4"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.4"
   crypto:
     dependency: transitive
     description:

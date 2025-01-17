@@ -1,27 +1,26 @@
 import 'package:fl_chart/fl_chart.dart';
 
-class LineDataItem {
-  final double x;
-  final double y;
+class DataItem<T, U> {
+  final T x;
+  final U y;
 
-  LineDataItem(this.x, this.y);
+  DataItem(this.x, this.y);
+}
+
+class LineDataItem extends DataItem<double, double> {
+  LineDataItem(super.x, super.y);
 
   FlSpot toSpot() {
     return FlSpot(x, y);
   }
 }
 
-class BarDataItem {
-  final String x;
-  final double y;
-
-  BarDataItem(this.x, this.y);
+class BarDataItem extends DataItem<String, double> {
+  BarDataItem(super.x, super.y);
 }
 
-class PieDataItem {
-  final String x;
-  final double y;
+class PieDataItem extends DataItem<String, double>{
   final double proportion;
 
-  PieDataItem(this.x, this.y, this.proportion);
+  PieDataItem(super.x, super.y, this.proportion);
 }
