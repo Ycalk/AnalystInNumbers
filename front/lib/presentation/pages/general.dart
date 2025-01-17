@@ -121,6 +121,7 @@ class GeneralPage extends StatelessWidget {
               'Доля вакансий по регионам',
               style: TextStyles.subtitle,
             ),
+            const SizedBox(height: 30,),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 30.0),
               child: StatByAreaPieChart(
@@ -128,6 +129,7 @@ class GeneralPage extends StatelessWidget {
                 table: StatByAreaTable(stat: countByArea, unit: 'Количество вакансий (шт.)'),
               ),
             ),
+            const SizedBox(height: 60,),
           ],
         ),
       ),
