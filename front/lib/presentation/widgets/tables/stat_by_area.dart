@@ -4,7 +4,7 @@ import 'package:front/presentation/constants/colors.dart';
 import 'package:front/presentation/constants/texts.dart';
 
 class StatByAreaTable extends StatelessWidget {
-  final List<BarDataItem> stat;
+  final List<DataItem<String, double>> stat;
   final String unit;
   const StatByAreaTable({super.key, required this.stat, required this.unit});
 
