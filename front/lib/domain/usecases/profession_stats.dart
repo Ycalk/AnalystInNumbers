@@ -1,6 +1,7 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:front/data/repos/profession_stats_impl.dart';
 import 'package:front/domain/entities/char_data.dart';
+import 'package:front/domain/entities/skills_data.dart';
 
 class ProfessionStats {
   final ProfessionStatsRepositoryImpl _repository = ProfessionStatsRepositoryImpl();
@@ -19,5 +20,9 @@ class ProfessionStats {
 
   Future<List<PieDataItem>> getCountByArea() {
     return _repository.getCountByArea();
+  }
+
+  Future<SkillsData> getSkillsByYear() {
+    return _repository.getSkillsByYear();
   }
 }

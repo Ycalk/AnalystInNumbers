@@ -1,6 +1,7 @@
 import 'package:front/data/models/stats.dart';
 import 'package:front/data/source/stats_client.dart';
 import 'package:front/domain/entities/char_data.dart';
+import 'package:front/domain/entities/skills_data.dart';
 import 'package:front/domain/repos/profession_stats.dart';
 
 class ProfessionStatsRepositoryImpl implements ProfessionStatsRepository {
@@ -32,5 +33,10 @@ class ProfessionStatsRepositoryImpl implements ProfessionStatsRepository {
     final data = await _client.getCountByArea(AnalyticsType.profession);
     final sum = data.map((e) => e.v2).reduce((value, element) => value + element);
     return data.map((e) => PieDataItem(e.v1, e.v2, (e.v2 / sum))).toList();
+  }
+
+  @override
+  Future<SkillsData> getSkillsByYear() async {
+    return SkillsData.fromMap(await _client.getSkillsByYear(AnalyticsType.profession));
   }
 }

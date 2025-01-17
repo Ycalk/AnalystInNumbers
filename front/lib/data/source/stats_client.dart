@@ -19,7 +19,8 @@ extension AnalyticsTypeExtension on AnalyticsType {
 
 class StatsClient {
   final dio = Dio(BaseOptions(
-      baseUrl: "https://bbaa9o8fmfofjqhf6vqb.containers.yandexcloud.net",
+      // baseUrl: "https://bbaa9o8fmfofjqhf6vqb.containers.yandexcloud.net",
+      baseUrl: "http://localhost:8000",
       connectTimeout: const Duration(seconds: 15),
       receiveTimeout: const Duration(seconds: 15),
       headers: {
@@ -72,6 +73,17 @@ class StatsClient {
     });
     if (response.statusCode == 200) {
       return (response.data as List).map((e) => Stat<String, double>(e['area_name'], e['count'])).toList();
+    } else {
+      return Future.error('Failed to load data');
+    }
+  }
+
+  Future<Map<String, List<String>>> getSkillsByYear(AnalyticsType type) async{
+    final response = await dio.get('/analytics/skills_by_year', queryParameters: {
+      'type': type.stringValue
+    });
+    if (response.statusCode == 200) {
+      return (response.data as Map<String, dynamic>).map((key, value) => MapEntry(key, (value as List).map((e) => e as String).toList()));
     } else {
       return Future.error('Failed to load data');
     }

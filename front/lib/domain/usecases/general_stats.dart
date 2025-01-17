@@ -1,6 +1,7 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:front/data/repos/general_stats_impl.dart';
 import 'package:front/domain/entities/char_data.dart';
+import 'package:front/domain/entities/skills_data.dart';
 
 class GeneralStats {
   final GeneralStatsRepositoryImpl _repository = GeneralStatsRepositoryImpl();
@@ -19,5 +20,9 @@ class GeneralStats {
 
   Future<List<PieDataItem>> getCountByArea() {
     return _repository.getCountByArea();
+  }
+
+  Future<SkillsData> getSkillsByYear() {
+    return _repository.getSkillsByYear();
   }
 }
