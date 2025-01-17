@@ -3,7 +3,6 @@ import pandas as pd
 class CreateStatistics:
     MIN_SALARY = 1000
     MAX_SALARY = 10000000
-    MAX_AREAS = 30
     VALID_AREA = 0.001
         
     def __init__(self, prepared_data: pd.DataFrame, out_folder):
@@ -27,7 +26,7 @@ class CreateStatistics:
         
         salary_trend = data.groupby('year')['salary'].mean().reset_index()
         salary_trend.columns = ['year', 'average_salary']
-        salary_trend.to_csv(out_path, index=False)
+        salary_trend.sort_values(by='year').rename(columns={'average_salary': 'salary'}).to_csv(out_path, index=False)
     
     def count_by_year(self, out_path):
         data = self.data.copy().dropna(subset=['published_at'])
@@ -37,7 +36,8 @@ class CreateStatistics:
         count_by_year.columns = ['year', 'count']
         count_by_year.to_csv(out_path, index=False)
     
-    def salary_by_area(self, out_path):     
+    def salary_by_area(self, out_path):
+        MAX_AREAS = 20 
         data = self.data.copy().dropna(subset=['salary', 'area_name'])
         
         data['salary'] = pd.to_numeric(data['salary'], errors='coerce')
@@ -51,17 +51,20 @@ class CreateStatistics:
         salary_by_city = data.groupby('area_name')['salary'].mean().reset_index()
         salary_by_city.columns = ['area_name', 'average_salary']
         salary_by_city = salary_by_city.sort_values(by='average_salary', ascending=False)
-        salary_by_city = salary_by_city.head(CreateStatistics.MAX_AREAS)
-        
-        salary_by_city.to_csv(out_path, index=False)
+        salary_by_city.head(MAX_AREAS).rename(columns={'average_salary': 'salary'}).to_csv(out_path, index=False)
     
     def count_by_area(self, out_path):
+        MAX_AREAS = 15
         data = self.data.copy().dropna(subset=['area_name'])
         area_counts = data['area_name'].value_counts().reset_index()
         area_counts.columns = ['area_name', 'count']
         area_counts = area_counts.sort_values(by='count', ascending=False)
-        area_counts = area_counts.head(CreateStatistics.MAX_AREAS)
-        area_counts.to_csv(out_path, index=False)
+        
+        top_areas = area_counts.head(MAX_AREAS)
+        other_areas = area_counts.tail(len(area_counts) - MAX_AREAS)
+        other_row = pd.DataFrame({'area_name': ['Другой'], 'count': [other_areas['count'].sum()]})
+        
+        pd.concat([top_areas, other_row], ignore_index=True).sort_values(by='count', ascending=False).to_csv(out_path, index=False)
         
     
     def __call__(self):
