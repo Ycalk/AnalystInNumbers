@@ -32,6 +32,12 @@ class ProfessionSalaryByArea(StatByArea):
     class Meta:
         db_table = 'profession_salary_by_area'
 
+class ProfessionCountByArea(StatByArea):
+    count = models.FloatField()
+
+    class Meta:
+        db_table = 'profession_count_by_area'
+
 # All models
 class AllCountByYear(StatByYear):
     count = models.IntegerField()
@@ -50,3 +56,10 @@ class AllSalaryByArea(StatByArea):
 
     class Meta:
         db_table = 'all_salary_by_area'
+
+class AllCountByArea(StatByArea):
+    count = models.FloatField()
+
+    class Meta:
+        db_table = 'all_count_by_area'
+
