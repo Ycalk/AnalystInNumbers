@@ -2,9 +2,10 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:front/data/repos/profession_stats_impl.dart';
 import 'package:front/domain/entities/char_data.dart';
 import 'package:front/domain/entities/skills_data.dart';
+import 'package:front/domain/repos/profession_stats.dart';
 
 class ProfessionStats {
-  final ProfessionStatsRepositoryImpl _repository = ProfessionStatsRepositoryImpl();
+  final ProfessionStatsRepository _repository = ProfessionStatsRepositoryImpl();
 
   Future<List<FlSpot>> getSalaryByYear() {
     return _repository.getSalaryByYear().then((value) => value.map((e) => e.toSpot()).toList());

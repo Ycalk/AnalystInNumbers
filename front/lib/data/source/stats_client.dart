@@ -19,13 +19,14 @@ extension AnalyticsTypeExtension on AnalyticsType {
 
 class StatsClient {
   final dio = Dio(BaseOptions(
-      baseUrl: "https://bbaa9o8fmfofjqhf6vqb.containers.yandexcloud.net",
-      connectTimeout: const Duration(seconds: 15),
-      receiveTimeout: const Duration(seconds: 15),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    ));
+    // baseUrl: "https://bbaa9o8fmfofjqhf6vqb.containers.yandexcloud.net",
+    baseUrl: "http://127.0.0.1:8000",
+    connectTimeout: const Duration(seconds: 15),
+    receiveTimeout: const Duration(seconds: 15),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  ));
 
   Future<List<Stat<double, double>>> getCountByYear (AnalyticsType type) async {
     final response = await dio.get('/analytics/count_by_year', queryParameters: {
