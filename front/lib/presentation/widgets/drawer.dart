@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:front/presentation/constants/colors.dart';
 import 'package:front/presentation/constants/texts.dart';
 import 'package:front/presentation/pages/demand.dart';
 import 'package:front/presentation/pages/general.dart';
@@ -27,7 +28,7 @@ class AppDrawer extends StatelessWidget {
         padding: EdgeInsets.zero,
         children: <Widget>[
           DrawerHeader(
-            decoration: BoxDecoration(color: Theme.of(context).primaryColor),
+            decoration: BoxDecoration(color: AppColors.primaryLight),
             child: Text(Texts.appName, style: TextStyles.title.copyWith(color: Theme.of(context).colorScheme.onPrimary)),
           ),
           ...pages.map((page) {

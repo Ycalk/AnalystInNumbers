@@ -4,6 +4,7 @@ import 'package:front/presentation/constants/colors.dart';
 import 'package:front/presentation/constants/texts.dart';
 import 'package:front/presentation/widgets/check_box_text.dart';
 import 'package:front/presentation/widgets/drawer.dart';
+import 'package:front/presentation/widgets/footer.dart';
 import 'package:gif/gif.dart';
 
 class HomePage extends StatefulWidget {
@@ -21,112 +22,24 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       drawer: const AppDrawer(),
       appBar: AppBar(
+        backgroundColor: AppColors.tertiary,
+        surfaceTintColor: AppColors.tertiary,
         title: const Text('Home'),
       ),
       body: SingleChildScrollView(
-        child: AnimationLimiter(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 100.0, vertical: 60),
-            child: Column(
-              children: AnimationConfiguration.toStaggeredList(
-                duration: const Duration(milliseconds: 375),
-                childAnimationBuilder: (widget) => SlideAnimation(
-                  horizontalOffset: MediaQuery.of(context).size.width / 2,
-                  child: FadeInAnimation(child: widget),
-                ),
-                children: [
-                  Row(
+        child: Column(
+          children: [
+            AnimationLimiter(
+              child: Padding(
+                padding: const EdgeInsets.only(left: 100.0, right: 100, top: 60, bottom: 100),
+                child: Column(
+                  children: AnimationConfiguration.toStaggeredList(
+                    duration: const Duration(milliseconds: 375),
+                    childAnimationBuilder: (widget) => SlideAnimation(
+                      horizontalOffset: MediaQuery.of(context).size.width / 2,
+                      child: FadeInAnimation(child: widget),
+                    ),
                     children: [
-                      Flexible(
-                        flex: 2,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(HomePageTexts.introductionTitle, style: TextStyles.subtitle),
-                            const SizedBox(height: 20),
-                            Text(HomePageTexts.introduction, style: TextStyles.description),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(width: 200),
-                      Flexible(
-                        flex: 1,
-                        child: Image.asset('assets/introduction.png')
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 100),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(HomePageTexts.aboutTitle, style: TextStyles.subtitle),
-                    ],
-                  ),
-                  const SizedBox(height: 20),
-                  Row(
-                    children: [
-                      Flexible(
-                        flex: 2,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(HomePageTexts.about, style: TextStyles.description),
-                            ...HomePageTexts.aboutList.map<Widget>(
-                              (item) => Padding(
-                                padding: const EdgeInsets.only(top: 30.0),
-                                child: Row(
-                                  children: [
-                                    Icon(Icons.circle, color: AppColors.primaryLight),
-                                    const SizedBox(width: 10),
-                                    Text(item, style: TextStyles.description),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            const SizedBox(height: 30),
-                            Text(HomePageTexts.aboutFinal, style: TextStyles.description),
-                          ],
-                        )
-                      ),
-                      const SizedBox(width: 200,),
-                      Flexible(
-                        flex: 1,
-                        child: Image.asset('assets/about.png')
-                      ),
-                    ],
-                  ),
-                  
-                  const SizedBox(height: 100),
-                  Row(
-                    children: [
-                      Flexible(
-                        flex: 1,
-                        child: Gif(
-                          autostart: Autostart.loop,
-                          image: const AssetImage('assets/relevance.gif')
-                        ),
-                      ),
-                      const SizedBox(width: 200),
-                      Flexible(
-                        flex: 2,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(HomePageTexts.relevanceTitle, style: TextStyles.subtitle),
-                            const SizedBox(height: 20),
-                            Text(HomePageTexts.relevance, style: TextStyles.description),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-
-                  const SizedBox(height: 100),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(HomePageTexts.becomeTitle, style: TextStyles.subtitle),
-                      const SizedBox(height: 20,),
                       Row(
                         children: [
                           Flexible(
@@ -134,46 +47,142 @@ class _HomePageState extends State<HomePage> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(HomePageTexts.become, style: TextStyles.description),
-                                ...HomePageTexts.becomeList.map<Widget>(
+                                Text(HomePageTexts.introductionTitle, style: TextStyles.subtitle),
+                                const SizedBox(height: 20),
+                                Text(HomePageTexts.introduction, style: TextStyles.description),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(width: 200),
+                          Flexible(
+                            flex: 1,
+                            child: Image.asset('assets/introduction.png')
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 100),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(HomePageTexts.aboutTitle, style: TextStyles.subtitle),
+                        ],
+                      ),
+                      const SizedBox(height: 20),
+                      Row(
+                        children: [
+                          Flexible(
+                            flex: 2,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(HomePageTexts.about, style: TextStyles.description),
+                                ...HomePageTexts.aboutList.map<Widget>(
                                   (item) => Padding(
                                     padding: const EdgeInsets.only(top: 30.0),
-                                    child: CheckBoxText(text: item),
+                                    child: Row(
+                                      children: [
+                                        Icon(Icons.circle, color: AppColors.primaryLight),
+                                        const SizedBox(width: 10),
+                                        Text(item, style: TextStyles.description),
+                                      ],
+                                    ),
                                   ),
                                 ),
+                                const SizedBox(height: 30),
+                                Text(HomePageTexts.aboutFinal, style: TextStyles.description),
                               ],
                             )
                           ),
                           const SizedBox(width: 200,),
                           Flexible(
                             flex: 1,
-                            child: Image.asset('assets/become.png'),
+                            child: Image.asset('assets/about.png')
                           ),
                         ],
-                      )
-                    ],
+                      ),
+                      
+                      const SizedBox(height: 100),
+                      Row(
+                        children: [
+                          Flexible(
+                            flex: 1,
+                            child: Gif(
+                              autostart: Autostart.loop,
+                              image: const AssetImage('assets/relevance.gif')
+                            ),
+                          ),
+                          const SizedBox(width: 200),
+                          Flexible(
+                            flex: 2,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(HomePageTexts.relevanceTitle, style: TextStyles.subtitle),
+                                const SizedBox(height: 20),
+                                Text(HomePageTexts.relevance, style: TextStyles.description),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+            
+                      const SizedBox(height: 100),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(HomePageTexts.becomeTitle, style: TextStyles.subtitle),
+                          const SizedBox(height: 20,),
+                          Row(
+                            children: [
+                              Flexible(
+                                flex: 2,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(HomePageTexts.become, style: TextStyles.description),
+                                    ...HomePageTexts.becomeList.map<Widget>(
+                                      (item) => Padding(
+                                        padding: const EdgeInsets.only(top: 30.0),
+                                        child: CheckBoxText(text: item),
+                                      ),
+                                    ),
+                                  ],
+                                )
+                              ),
+                              const SizedBox(width: 200,),
+                              Flexible(
+                                flex: 1,
+                                child: Image.asset('assets/become.png'),
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
+            
+                      const SizedBox(height: 100),
+                      Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: AppColors.primaryLight,
+                        ),
+                        padding: const EdgeInsets.all(50),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text(HomePageTexts.future, style: TextStyles.subtitle.copyWith(color: Colors.white)),
+                            const SizedBox(height: 20),
+                            Text(HomePageTexts.futureText, style: TextStyles.description.copyWith(color: Colors.white)),
+                          ],
+                        ),
+                      ),
+                    ]
                   ),
-
-                  const SizedBox(height: 100),
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: AppColors.primaryLight,
-                    ),
-                    padding: const EdgeInsets.all(50),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text(HomePageTexts.future, style: TextStyles.subtitle.copyWith(color: Colors.white)),
-                        const SizedBox(height: 20),
-                        Text(HomePageTexts.futureText, style: TextStyles.description.copyWith(color: Colors.white)),
-                      ],
-                    ),
-                  )
-                ]
-              ),
+                ),
+              )
             ),
-          )
+
+            const Footer(),
+          ],
         )
       )
     );
