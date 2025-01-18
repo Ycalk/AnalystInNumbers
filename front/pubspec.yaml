@@ -22,6 +22,13 @@ dependencies:
   expansion_widget: ^0.1.0
   cached_network_image: ^3.4.1
   url_launcher: ^6.3.1
+  auto_animated: ^3.2.0
+  animated_multichild: ^0.0.2
+  flutter_staggered_animations: ^1.1.1
+  flutter_animate: ^4.5.2
+  gif: ^2.3.0
+  gif_view: ^1.0.0
+  msh_checkbox: ^2.0.1
   
 
 dev_dependencies:
@@ -31,6 +38,8 @@ dev_dependencies:
 
 flutter:
   assets:
+    - assets/relevance.gif
     - assets/introduction.png
     - assets/about.png
+    - assets/become.png
   uses-material-design: true
