@@ -3,8 +3,7 @@ import 'package:dio/dio.dart';
 
 class VacancyClient {
   final dio = Dio(BaseOptions(
-    // baseUrl: "https://bbaa9o8fmfofjqhf6vqb.containers.yandexcloud.net",
-    baseUrl: "http://127.0.0.1:8000",
+    baseUrl: "https://bbaa9o8fmfofjqhf6vqb.containers.yandexcloud.net",
     connectTimeout: const Duration(seconds: 20),
     receiveTimeout: const Duration(seconds: 20),
     headers: {
