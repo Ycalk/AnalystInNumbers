@@ -21,14 +21,14 @@ class StatByYearTable extends StatelessWidget {
           children: [
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Text(
+              child: SelectableText(
                 'Год',
                 style: TextStyles.subtitle,
               ),
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Text(
+              child: SelectableText(
                 unit,
                 style: TextStyles.subtitle,
               ),
@@ -40,14 +40,14 @@ class StatByYearTable extends StatelessWidget {
             children: [
               Padding(
                 padding: const EdgeInsets.all(5.0),
-                child: Text(
+                child: SelectableText(
                   spot.x.toString(),
                   style: TextStyles.description,
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.all(5.0),
-                child: Text(
+                child: SelectableText(
                   spot.y.toString(),
                   style: TextStyles.description,
                 ),

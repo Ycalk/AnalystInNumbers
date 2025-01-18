@@ -70,7 +70,7 @@ class GeneralPage extends StatelessWidget {
                       child: Column(
                         children: [
                           Center(
-                            child: Text(
+                            child: SelectableText(
                               'Динамика уровня зарплат по годам',
                               style: TextStyles.subtitle,
                             ),
@@ -92,7 +92,7 @@ class GeneralPage extends StatelessWidget {
                       child: Column(
                         children: [
                           Center(
-                            child: Text(
+                            child: SelectableText(
                               'Динамика количества вакансий по годам',
                               style: TextStyles.subtitle,
                             ),
@@ -114,7 +114,7 @@ class GeneralPage extends StatelessWidget {
                 ),
                 // Bar chart
                 const SizedBox(height: 60,),
-                Text(
+                SelectableText(
                   'Уровень зарплат по регионам',
                   style: TextStyles.subtitle,
                 ),
@@ -130,7 +130,7 @@ class GeneralPage extends StatelessWidget {
                 ),
           
                 const SizedBox(height: 60,),
-                Text(
+                SelectableText(
                   'Доля вакансий по регионам',
                   style: TextStyles.subtitle,
                 ),
@@ -144,7 +144,7 @@ class GeneralPage extends StatelessWidget {
                 ),
           
                 const SizedBox(height: 60,),
-                Text(
+                SelectableText(
                   'ТОП-20 навыков по годам',
                   style: TextStyles.subtitle,
                 ),

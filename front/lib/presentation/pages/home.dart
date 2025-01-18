@@ -47,9 +47,9 @@ class _HomePageState extends State<HomePage> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(HomePageTexts.introductionTitle, style: TextStyles.subtitle),
+                                SelectableText(HomePageTexts.introductionTitle, style: TextStyles.subtitle),
                                 const SizedBox(height: 20),
-                                Text(HomePageTexts.introduction, style: TextStyles.description),
+                                SelectableText(HomePageTexts.introduction, style: TextStyles.description),
                               ],
                             ),
                           ),
@@ -64,7 +64,7 @@ class _HomePageState extends State<HomePage> {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Text(HomePageTexts.aboutTitle, style: TextStyles.subtitle),
+                          SelectableText(HomePageTexts.aboutTitle, style: TextStyles.subtitle),
                         ],
                       ),
                       const SizedBox(height: 20),
@@ -75,7 +75,7 @@ class _HomePageState extends State<HomePage> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(HomePageTexts.about, style: TextStyles.description),
+                                SelectableText(HomePageTexts.about, style: TextStyles.description),
                                 ...HomePageTexts.aboutList.map<Widget>(
                                   (item) => Padding(
                                     padding: const EdgeInsets.only(top: 30.0),
@@ -83,13 +83,13 @@ class _HomePageState extends State<HomePage> {
                                       children: [
                                         Icon(Icons.circle, color: AppColors.primaryLight),
                                         const SizedBox(width: 10),
-                                        Text(item, style: TextStyles.description),
+                                        SelectableText(item, style: TextStyles.description),
                                       ],
                                     ),
                                   ),
                                 ),
                                 const SizedBox(height: 30),
-                                Text(HomePageTexts.aboutFinal, style: TextStyles.description),
+                                SelectableText(HomePageTexts.aboutFinal, style: TextStyles.description),
                               ],
                             )
                           ),
@@ -117,9 +117,9 @@ class _HomePageState extends State<HomePage> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(HomePageTexts.relevanceTitle, style: TextStyles.subtitle),
+                                SelectableText(HomePageTexts.relevanceTitle, style: TextStyles.subtitle),
                                 const SizedBox(height: 20),
-                                Text(HomePageTexts.relevance, style: TextStyles.description),
+                                SelectableText(HomePageTexts.relevance, style: TextStyles.description),
                               ],
                             ),
                           ),
@@ -130,7 +130,7 @@ class _HomePageState extends State<HomePage> {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Text(HomePageTexts.becomeTitle, style: TextStyles.subtitle),
+                          SelectableText(HomePageTexts.becomeTitle, style: TextStyles.subtitle),
                           const SizedBox(height: 20,),
                           Row(
                             children: [
@@ -139,7 +139,7 @@ class _HomePageState extends State<HomePage> {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(HomePageTexts.become, style: TextStyles.description),
+                                    SelectableText(HomePageTexts.become, style: TextStyles.description),
                                     ...HomePageTexts.becomeList.map<Widget>(
                                       (item) => Padding(
                                         padding: const EdgeInsets.only(top: 30.0),
@@ -169,9 +169,9 @@ class _HomePageState extends State<HomePage> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Text(HomePageTexts.future, style: TextStyles.subtitle.copyWith(color: Colors.white)),
+                            SelectableText(HomePageTexts.future, style: TextStyles.subtitle.copyWith(color: Colors.white)),
                             const SizedBox(height: 20),
-                            Text(HomePageTexts.futureText, style: TextStyles.description.copyWith(color: Colors.white)),
+                            SelectableText(HomePageTexts.futureText, style: TextStyles.description.copyWith(color: Colors.white)),
                           ],
                         ),
                       ),

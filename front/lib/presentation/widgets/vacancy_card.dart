@@ -118,8 +118,9 @@ class _VacancyCardState extends State<VacancyCard> with SingleTickerProviderStat
                           const SizedBox(height: 10),
                           Text(
                             widget.vacancy.description, 
-                            style: TextStyles.description,
-                            overflow: TextOverflow.ellipsis,
+                            style: TextStyles.description.copyWith(
+                              overflow: TextOverflow.ellipsis
+                            ),
                             maxLines: 5,
                           ),
                           if (widget.vacancy.skills.length > 1)
@@ -129,7 +130,11 @@ class _VacancyCardState extends State<VacancyCard> with SingleTickerProviderStat
                                 const SizedBox(height: 20),
                                 Text("Навыки", style: TextStyles.subtitle),
                                 const SizedBox(height: 10),
-                                Text(widget.vacancy.skills.join(", "), style: TextStyles.description, overflow: TextOverflow.ellipsis, maxLines: 2),
+                                Text(widget.vacancy.skills.join(", "), 
+                                  style: TextStyles.description.copyWith(
+                                    overflow: TextOverflow.ellipsis
+                                  ), 
+                                maxLines: 2),
                               ],
                             ),
                         ],

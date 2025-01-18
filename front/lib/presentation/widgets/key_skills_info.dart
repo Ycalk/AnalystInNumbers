@@ -49,7 +49,7 @@ class YearSkillsCard extends StatelessWidget {
       margin: const EdgeInsets.all(20),
       child: Column(
         children: [
-          Text(
+          SelectableText(
             year,
             style: TextStyles.subtitle,
           ),
@@ -60,8 +60,8 @@ class YearSkillsCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: List.generate(skills.length ~/ 2, 
                   (index) {
-                    return RichText (
-                      text: TextSpan(
+                    return SelectableText.rich (
+                      TextSpan(
                         children: [
                           TextSpan(
                             text: (index + 1).toString(),
@@ -83,8 +83,8 @@ class YearSkillsCard extends StatelessWidget {
                 children: List.generate(skills.length ~/ 2, 
                   (index) {
                     index+=10;
-                    return RichText (
-                      text: TextSpan(
+                    return SelectableText.rich (
+                      TextSpan(
                         children: [
                           TextSpan(
                             text: (index + 1).toString(),

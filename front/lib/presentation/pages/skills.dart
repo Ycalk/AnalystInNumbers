@@ -32,7 +32,7 @@ class SkillsPage extends StatelessWidget {
                   child: Column(
                     children: [
                       const SizedBox(height: 60,),
-                      Text(
+                      SelectableText(
                         'ТОП-20 навыков по годам (Аналитик)',
                         style: TextStyles.subtitle,
                       ),

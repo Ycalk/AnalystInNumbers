@@ -17,8 +17,8 @@ class FutureLoader<T> extends StatelessWidget {
           return Center(
             child: Column(
               children: [
-                const Text(Texts.errorMessage),
-                Text('Error: ${snapshot.error}')
+                const SelectableText(Texts.errorMessage),
+                SelectableText('Error: ${snapshot.error}')
               ],
             ),
           );

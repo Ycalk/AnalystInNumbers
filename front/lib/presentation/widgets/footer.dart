@@ -14,8 +14,8 @@ class Footer extends StatelessWidget {
         padding: const EdgeInsets.all(20),
         child: Column(
           children: [
-            Text('Analyst In Numbers', style: TextStyles.subtitle.copyWith(color: Colors.white)),
-            Text('Лосев Алексей Ярославович, АТ-22', style: TextStyles.description.copyWith(color: Colors.white)),
+            SelectableText('Analyst In Numbers', style: TextStyles.subtitle.copyWith(color: Colors.white)),
+            SelectableText('Лосев Алексей Ярославович, АТ-22', style: TextStyles.description.copyWith(color: Colors.white)),
           ],
         ),
       ),

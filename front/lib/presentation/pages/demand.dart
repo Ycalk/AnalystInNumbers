@@ -42,7 +42,7 @@ class DemandPage extends StatelessWidget {
                                 child: Column(
                                   children: [
                                     Center(
-                                      child: Text(
+                                      child: SelectableText(
                                         'Динамика уровня зарплат по годам (Аналитик)',
                                         style: TextStyles.subtitle,
                                       ),
@@ -64,7 +64,7 @@ class DemandPage extends StatelessWidget {
                                 child: Column(
                                   children: [
                                     Center(
-                                      child: Text(
+                                      child: SelectableText(
                                         'Динамика количества вакансий по годам (Аналитик)',
                                         style: TextStyles.subtitle,
                                       ),

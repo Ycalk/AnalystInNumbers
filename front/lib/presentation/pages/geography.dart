@@ -36,7 +36,7 @@ class GeographyPage extends StatelessWidget {
                       child: Column(
                         children: [
                           const SizedBox(height: 60,),
-                          Text(
+                          SelectableText(
                             'Уровень зарплат по регионам (Аналитик)',
                             style: TextStyles.subtitle,
                           ),
@@ -51,7 +51,7 @@ class GeographyPage extends StatelessWidget {
                             child:StatByAreaTable(stat: salaryByArea, unit: 'Зарплата (руб.)'),
                           ),
                           const SizedBox(height: 60,),
-                          Text(
+                          SelectableText(
                             'Доля вакансий по регионам (Аналитик)',
                             style: TextStyles.subtitle,
                           ),
