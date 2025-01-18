@@ -30,7 +30,7 @@ class SkillsPage extends StatelessWidget {
                     'ТОП-20 навыков по годам (Аналитик)',
                     style: TextStyles.subtitle,
                   ),
-                  const SizedBox(height: 30,),
+                  const SizedBox(height: 40,),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 30.0),
                     child: KeySkillsInfo(data: skillsByYear,),

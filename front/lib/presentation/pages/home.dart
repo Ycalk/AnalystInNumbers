@@ -16,7 +16,7 @@ class HomePage extends StatelessWidget {
         title: const Text('Home'),
       ),
       body: ListView(
-        padding: const EdgeInsets.all(60.0),
+        padding: const EdgeInsets.symmetric(vertical: 60.0, horizontal: 100),
         children: [
           Row(
             children: [
@@ -38,7 +38,7 @@ class HomePage extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(height: 60),
+          const SizedBox(height: 100),
           Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -65,6 +65,7 @@ class HomePage extends StatelessWidget {
                   ).toList()..insert(0, Text(HomePageTexts.about, style: TextStyles.description),),
                 ),
               ),
+              const SizedBox(width: 200,),
               Flexible(
                 flex: 1,
                 child: Image.asset('assets/about.png')

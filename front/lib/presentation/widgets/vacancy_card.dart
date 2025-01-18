@@ -45,16 +45,14 @@ class _VacancyCardState extends State<VacancyCard> with SingleTickerProviderStat
     super.dispose();
   }
 
-
   Widget? getSalaryText(){
-    final text = widget.vacancy.salary.from != null ? "от ${widget.vacancy.salary.from}" : "";
-    if (widget.vacancy.salary.to != null){
-      return Text("$text до ${widget.vacancy.salary.to} ${widget.vacancy.salary.currency}", style: TextStyles.subtitle);
+    final text1 = widget.vacancy.salary.from != null ? "от ${widget.vacancy.salary.from}" : "";
+    final text2 = widget.vacancy.salary.to != null ? "до ${widget.vacancy.salary.to}" : "";
+    final text = text1 + (text1 == "" ? "" : " ") + text2;
+    if (text == ""){
+      return null;
     }
-    if (widget.vacancy.salary.from != null){
-      return Text("$text ${widget.vacancy.salary.currency}", style: TextStyles.subtitle);
-    }
-    return null;
+    return Text("$text ${widget.vacancy.salary.currency ?? ''}", style: TextStyles.subtitle);
   }
 
   @override
