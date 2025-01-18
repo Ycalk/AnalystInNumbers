@@ -21,7 +21,7 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: AppTheme.light,
-      title: 'Flutter Web Drawer Navigation',
+      title: 'Analyst In Numbers',
       initialRoute: '/home',
       routes: {
         '/home': (context) => const HomePage(),
