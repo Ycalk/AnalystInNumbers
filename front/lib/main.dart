@@ -29,7 +29,7 @@ class App extends StatelessWidget {
         '/demand': (context) => DemandPage(),
         '/geography': (context) => GeographyPage(),
         '/skills': (context) => SkillsPage(),
-        '/latest_vacancies': (context) => const LatestVacanciesPage(),
+        '/latest_vacancies': (context) => LatestVacanciesPage(),
       },
       debugShowCheckedModeBanner: false,
     );

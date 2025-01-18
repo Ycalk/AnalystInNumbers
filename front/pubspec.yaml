@@ -20,6 +20,8 @@ dependencies:
   colorlizer: ^0.0.4
   expansion_tile_group: ^2.2.0
   expansion_widget: ^0.1.0
+  cached_network_image: ^3.4.1
+  url_launcher: ^6.3.1
   
 
 dev_dependencies:

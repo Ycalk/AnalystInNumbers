@@ -57,7 +57,7 @@ class Vacancy:
             skills=[skill["name"] for skill in json["key_skills"]] if "key_skills" in json else [],
             employer=Vacancy.VacancyEmployer.from_json(json),
             area_name=json["area"]["name"] if "area" in json else "",
-            published_at=datetime.strptime(json["published_at"], "%Y-%m-%dT%H:%M:%S%z").strftime("%d %B %Y, %H:%M %Z"),
+            published_at=datetime.strptime(json["published_at"], "%Y-%m-%dT%H:%M:%S%z").strftime("%d %B %Y, %H:%M"),
             vacancy_url=json["alternate_url"]
         )
     
