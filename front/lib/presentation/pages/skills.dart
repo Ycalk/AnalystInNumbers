@@ -43,7 +43,7 @@ class SkillsPage extends StatelessWidget {
                         child: KeySkillsInfo(data: skillsByYear,),
                       ),
                     ],
-                  ).animate().fade(begin: 0, end: 1, curve: Curves.easeIn, duration: const Duration(milliseconds: 500))
+                  ).animate().fade(begin: 0, end: 1, curve: Curves.easeIn, duration: const Duration(milliseconds: 200))
                 ),
 
                 const SizedBox(height: 100,),

@@ -90,7 +90,8 @@ class GeneralPage extends StatelessWidget {
                       ) 
                     ).animate()
                       .moveX(begin: -100, end: 0, curve: Curves.easeOutCubic, 
-                        duration: const Duration(milliseconds: 200)),
+                        duration: const Duration(milliseconds: 200),
+                        delay: const Duration(milliseconds: 200)),
                     Expanded(
                       child: Column(
                         children: [
@@ -114,7 +115,8 @@ class GeneralPage extends StatelessWidget {
                       ) 
                     ).animate()
                       .moveX(begin: 100, end: 0, curve: Curves.easeOutCubic, 
-                      duration: const Duration(milliseconds: 200))
+                      duration: const Duration(milliseconds: 200),
+                      delay: const Duration(milliseconds: 200))
                   ],
                 ),
                 // Bar chart
