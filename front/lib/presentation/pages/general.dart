@@ -1,5 +1,6 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:front/domain/entities/char_data.dart';
 import 'package:front/domain/entities/skills_data.dart';
 import 'package:front/domain/usecases/general_stats.dart';
@@ -87,7 +88,9 @@ class GeneralPage extends StatelessWidget {
                           ),
                         ],
                       ) 
-                    ),
+                    ).animate()
+                      .moveX(begin: -100, end: 0, curve: Curves.easeOutCubic, 
+                        duration: const Duration(milliseconds: 200)),
                     Expanded(
                       child: Column(
                         children: [
@@ -109,7 +112,9 @@ class GeneralPage extends StatelessWidget {
                           ),
                         ],
                       ) 
-                    )
+                    ).animate()
+                      .moveX(begin: 100, end: 0, curve: Curves.easeOutCubic, 
+                      duration: const Duration(milliseconds: 200))
                   ],
                 ),
                 // Bar chart

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:front/domain/usecases/profession_stats.dart';
 import 'package:front/presentation/constants/colors.dart';
 import 'package:front/presentation/constants/texts.dart';
@@ -59,7 +60,9 @@ class DemandPage extends StatelessWidget {
                                     ),
                                   ],
                                 ) 
-                              ),
+                              ).animate()
+                                .moveX(begin: -100, end: 0, curve: Curves.easeOutCubic, 
+                                  duration: const Duration(milliseconds: 200)),
                               Expanded(
                                 child: Column(
                                   children: [
@@ -81,7 +84,9 @@ class DemandPage extends StatelessWidget {
                                     ),
                                   ],
                                 ) 
-                              )
+                              ).animate()
+                                .moveX(begin: 100, end: 0, curve: Curves.easeOutCubic, 
+                                duration: const Duration(milliseconds: 200))
                             ],
                           ),
                         ],

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:front/domain/usecases/profession_stats.dart';
 import 'package:front/presentation/constants/colors.dart';
 import 'package:front/presentation/constants/texts.dart';
@@ -42,7 +43,7 @@ class SkillsPage extends StatelessWidget {
                         child: KeySkillsInfo(data: skillsByYear,),
                       ),
                     ],
-                  )
+                  ).animate().fade(begin: 0, end: 1, curve: Curves.easeIn, duration: const Duration(milliseconds: 500))
                 ),
 
                 const SizedBox(height: 100,),
