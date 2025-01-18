@@ -5,6 +5,6 @@ class AppColors {
   static final primaryLight = Colors.indigoAccent[100];
   static const tertiary = Colors.white;
   static const title = Colors.black;
-  static const description = Colors.black54;
+  static const description = Colors.black87;
   static const onTertiaryLight = Colors.black12;
 }

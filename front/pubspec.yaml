@@ -30,4 +30,7 @@ dev_dependencies:
   flutter_lints: ^4.0.0
 
 flutter:
+  assets:
+    - assets/introduction.png
+    - assets/about.png
   uses-material-design: true
