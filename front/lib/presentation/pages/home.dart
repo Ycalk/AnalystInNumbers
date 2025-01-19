@@ -361,7 +361,7 @@ class _HomePageState extends State<HomePage> {
         children: [
           AnimationLimiter(
             child: Padding(
-              padding: const EdgeInsets.only(left: 50.0, right: 50, top: 60, bottom: 100),
+              padding: const EdgeInsets.only(left: 10.0, right: 10, top: 60, bottom: 100),
               child: Column(
                 children: AnimationConfiguration.toStaggeredList(
                   duration: const Duration(milliseconds: 375),

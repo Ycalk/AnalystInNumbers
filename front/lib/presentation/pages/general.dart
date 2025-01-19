@@ -391,7 +391,7 @@ class GeneralPage extends StatelessWidget {
       itemCount: 6,
       itemBuilder: (context, index) => switch (index){
         0 => Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 30.0),
+          padding: const EdgeInsets.symmetric(horizontal: 10.0),
           child: Column(
             children: [
               const SizedBox(height: 60,),
@@ -446,7 +446,7 @@ class GeneralPage extends StatelessWidget {
         ),
         
         1 => Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 30.0),
+          padding: const EdgeInsets.symmetric(horizontal: 10.0),
           child: Column(
             children: [
               const SizedBox(height: 60,),
@@ -464,7 +464,7 @@ class GeneralPage extends StatelessWidget {
         ),
         
         2 => Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 30.0),
+          padding: const EdgeInsets.symmetric(horizontal: 10.0),
           child: Column(
             children: [
               const SizedBox(height: 30,),
@@ -481,7 +481,7 @@ class GeneralPage extends StatelessWidget {
         ),
         
         3 => Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 30.0),
+          padding: const EdgeInsets.symmetric(horizontal: 10.0),
           child: Column(
             children: [
               const SizedBox(height: 60,),
@@ -506,7 +506,7 @@ class GeneralPage extends StatelessWidget {
         ),
 
         4 => Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 30.0),
+          padding: const EdgeInsets.symmetric(horizontal: 10.0),
           child: Column(
             children: [
               const SizedBox(height: 60,),

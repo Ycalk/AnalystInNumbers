@@ -100,8 +100,8 @@ class LatestVacanciesPage extends StatelessWidget {
         } else {
           return Padding(
             padding: EdgeInsets.only(
-              left: 30, 
-              right: 30, 
+              left: 10, 
+              right: 10, 
               bottom: 20, 
               top: index == 0 ? 60 : 20
             ),

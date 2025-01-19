@@ -156,7 +156,7 @@ class GeographyPage extends StatelessWidget {
       child: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 30.0),
+            padding: const EdgeInsets.symmetric(horizontal: 10.0),
             child: Column(
               children: [
                 const SizedBox(height: 60,),
