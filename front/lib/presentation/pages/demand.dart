@@ -1,3 +1,4 @@
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:front/domain/entities/char_data.dart';
@@ -29,81 +30,246 @@ class DemandPage extends StatelessWidget {
         builder: (salaryByYear) {
           return FutureLoader(future: professionStats.getCountByYear(), 
             builder: (countByYear) {
-              return SingleChildScrollView(
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 30.0),
-                      child: Column(
-                        children: [
-                          const SizedBox(height: 60,),
-                          // Line Charts
-                          Row(
-                            children: [
-                              Expanded(
-                                child: Column(
-                                  children: [
-                                    Center(
-                                      child: SelectableText(
-                                        'Динамика уровня зарплат по годам (Аналитик)',
-                                        style: TextStyles.subtitle,
-                                      ),
-                                    ),
-                                    const SizedBox(height: 30,),
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(horizontal: 30.0),
-                                      child: StatByYearChart(spots: salaryByYear, unit: 'руб.'),
-                                    ),
-                                    const SizedBox(height: 30,),
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(horizontal: 80.0),
-                                      child: StatTable(stat: salaryByYear.map((e) => DataItem(e.x, e.y),).toList(), 
-                                        unit: 'Зарплата', columnName: 'Год',),
-                                    ),
-                                  ],
-                                ) 
-                              ).animate()
-                                .moveX(begin: -100, end: 0, curve: Curves.easeOutCubic, 
-                                  duration: const Duration(milliseconds: 200)),
-                              Expanded(
-                                child: Column(
-                                  children: [
-                                    Center(
-                                      child: SelectableText(
-                                        'Динамика количества вакансий по годам (Аналитик)',
-                                        style: TextStyles.subtitle,
-                                      ),
-                                    ),
-                                    const SizedBox(height: 30,),
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(horizontal: 30.0),
-                                      child: StatByYearChart(spots: countByYear, unit: 'шт.'),
-                                    ),
-                                    const SizedBox(height: 30,),
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(horizontal: 80.0),
-                                      child: StatTable(stat: countByYear.map((e) => DataItem(e.x, e.y)).toList(), 
-                                        unit: 'Количество вакансий', columnName: 'Год',),
-                                    ),
-                                  ],
-                                ) 
-                              ).animate()
-                                .moveX(begin: 100, end: 0, curve: Curves.easeOutCubic, 
-                                duration: const Duration(milliseconds: 200))
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-
-                    const SizedBox(height: 100,),
-                    const Footer()
-                  ],
-                ),
+              return LayoutBuilder(
+                builder: (context, constraints) {
+                  if (constraints.maxWidth > 1200) {
+                    return _buildDesktopLayout(salaryByYear, countByYear);
+                  } else if (constraints.maxWidth > 800) {
+                    return _buildTabletLayout(salaryByYear, countByYear);
+                  } else {
+                    return _buildMobileLayout(salaryByYear, countByYear);
+                  }
+                },
               );
             }
           );
         }
+      ),
+    );
+  }
+
+  Widget _buildDesktopLayout(List<FlSpot> salaryByYear, List<FlSpot> countByYear){
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 30.0),
+            child: Column(
+              children: [
+                const SizedBox(height: 60,),
+                Row(
+                  children: [
+                    Expanded(
+                      child: Column(
+                        children: [
+                          Center(
+                            child: SelectableText(
+                              'Динамика уровня зарплат по годам (Аналитик)',
+                              style: TextStyles.subtitle,
+                            ),
+                          ),
+                          const SizedBox(height: 30,),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                            child: StatByYearChart(spots: salaryByYear, unit: 'руб.'),
+                          ),
+                          const SizedBox(height: 30,),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 80.0),
+                            child: StatTable(stat: salaryByYear.map((e) => DataItem(e.x, e.y),).toList(), 
+                              unit: 'Зарплата', columnName: 'Год',),
+                          ),
+                        ],
+                      ) 
+                    ).animate()
+                      .moveX(begin: -100, end: 0, curve: Curves.easeOutCubic, 
+                        duration: const Duration(milliseconds: 200)),
+                    Expanded(
+                      child: Column(
+                        children: [
+                          Center(
+                            child: SelectableText(
+                              'Динамика количества вакансий по годам (Аналитик)',
+                              style: TextStyles.subtitle,
+                            ),
+                          ),
+                          const SizedBox(height: 30,),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                            child: StatByYearChart(spots: countByYear, unit: 'шт.'),
+                          ),
+                          const SizedBox(height: 30,),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 80.0),
+                            child: StatTable(stat: countByYear.map((e) => DataItem(e.x, e.y)).toList(), 
+                              unit: 'Количество вакансий', columnName: 'Год',),
+                          ),
+                        ],
+                      ) 
+                    ).animate()
+                      .moveX(begin: 100, end: 0, curve: Curves.easeOutCubic, 
+                      duration: const Duration(milliseconds: 200))
+                  ],
+                ),
+              ],
+            ),
+          ),
+
+          const SizedBox(height: 100,),
+          const Footer()
+        ],
+      ),
+    );
+  }
+
+  Widget _buildTabletLayout(List<FlSpot> salaryByYear, List<FlSpot> countByYear){
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 30.0),
+            child: Column(
+              children: [
+                const SizedBox(height: 60,),
+                Wrap(
+                  children: [
+                    Expanded(
+                      child: Column(
+                        children: [
+                          Center(
+                            child: SelectableText(
+                              'Динамика уровня зарплат по годам (Аналитик)',
+                              style: TextStyles.subtitle,
+                            ),
+                          ),
+                          const SizedBox(height: 30,),
+                          SizedBox(
+                            height: 400,
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                              child: StatByYearChart(spots: salaryByYear, unit: 'руб.'),
+                            ),
+                          ),
+                          const SizedBox(height: 30,),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 80.0),
+                            child: StatTable(stat: salaryByYear.map((e) => DataItem(e.x, e.y),).toList(), 
+                              unit: 'Зарплата', columnName: 'Год',),
+                          ),
+                        ],
+                      ) 
+                    ).animate()
+                      .moveX(begin: -100, end: 0, curve: Curves.easeOutCubic, 
+                        duration: const Duration(milliseconds: 200)),
+
+                    Expanded(
+                      child: Column(
+                        children: [
+                          const SizedBox(height: 60,),
+                          Center(
+                            child: SelectableText(
+                              'Динамика количества вакансий по годам (Аналитик)',
+                              style: TextStyles.subtitle,
+                            ),
+                          ),
+                          const SizedBox(height: 30,),
+                          SizedBox(
+                            height: 400,
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                              child: StatByYearChart(spots: countByYear, unit: 'шт.'),
+                            ),
+                          ),
+                          const SizedBox(height: 30,),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 80.0),
+                            child: StatTable(stat: countByYear.map((e) => DataItem(e.x, e.y)).toList(), 
+                              unit: 'Количество вакансий', columnName: 'Год',),
+                          ),
+                        ],
+                      ) 
+                    ).animate()
+                      .moveX(begin: 100, end: 0, curve: Curves.easeOutCubic, 
+                      duration: const Duration(milliseconds: 200))
+                  ],
+                ),
+              ],
+            ),
+          ),
+
+          const SizedBox(height: 100,),
+          const Footer()
+        ],
+      ),
+    );
+  }
+
+  Widget _buildMobileLayout(List<FlSpot> salaryByYear, List<FlSpot> countByYear){
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 30.0),
+            child: Column(
+              children: [
+                const SizedBox(height: 60,),
+                Wrap(
+                  children: [
+                    Expanded(
+                      child: Column(
+                        children: [
+                          Center(
+                            child: SelectableText(
+                              'Динамика уровня зарплат по годам (Аналитик)',
+                              style: TextStyles.subtitle,
+                            ),
+                          ),
+                          const SizedBox(height: 30,),
+                          StatByYearChart(spots: salaryByYear, unit: 'руб.'),
+                          const SizedBox(height: 30,),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                            child: StatTable(stat: salaryByYear.map((e) => DataItem(e.x, e.y),).toList(), 
+                              unit: 'Зарплата', columnName: 'Год',),
+                          ),
+                        ],
+                      ) 
+                    ).animate()
+                      .moveX(begin: -100, end: 0, curve: Curves.easeOutCubic, 
+                        duration: const Duration(milliseconds: 200)),
+
+                    Expanded(
+                      child: Column(
+                        children: [
+                          const SizedBox(height: 60,),
+                          Center(
+                            child: SelectableText(
+                              'Динамика кол-ва вакансий по годам (Аналитик)',
+                              style: TextStyles.subtitle,
+                            ),
+                          ),
+                          const SizedBox(height: 30,),
+                          StatByYearChart(spots: countByYear, unit: 'шт.'),
+                          const SizedBox(height: 30,),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                            child: StatTable(stat: countByYear.map((e) => DataItem(e.x, e.y)).toList(), 
+                              unit: 'Количество вакансий', columnName: 'Год',),
+                          ),
+                        ],
+                      ) 
+                    ).animate()
+                      .moveX(begin: 100, end: 0, curve: Curves.easeOutCubic, 
+                      duration: const Duration(milliseconds: 200))
+                  ],
+                ),
+              ],
+            ),
+          ),
+
+          const SizedBox(height: 50,),
+          const Footer()
+        ],
       ),
     );
   }
