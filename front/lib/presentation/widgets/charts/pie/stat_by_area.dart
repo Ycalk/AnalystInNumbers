@@ -80,10 +80,7 @@ class StatByAreaPieChartState extends State<StatByAreaPieChart> {
               );
             }),
           ),
-          Flexible(
-            fit: FlexFit.loose,
-            child: widget.table
-          )
+          widget.table
         ],
       ),
     );
