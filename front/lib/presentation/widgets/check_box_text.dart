@@ -53,10 +53,12 @@ class _CheckBoxTextState extends State<CheckBoxText> {
                 },
               ),
               const SizedBox(width: 10),
-              Text(widget.text, 
-                style: TextStyles.description.copyWith(
-                  decoration: isChecked ? TextDecoration.lineThrough : TextDecoration.none,
-                  color: hovered ? AppColors.primaryLight : TextStyles.description.color,
+              Expanded(
+                child: Text(widget.text,
+                  style: TextStyles.description.copyWith(
+                    decoration: isChecked ? TextDecoration.lineThrough : TextDecoration.none,
+                    color: hovered ? AppColors.primaryLight : TextStyles.description.color,
+                  ),
                 ),
               ),
             ],
