@@ -25,31 +25,35 @@ class SkillsPage extends StatelessWidget {
       ),
       body: FutureLoader(future: professionStats.getSkillsByYear(), 
         builder: (skillsByYear) {
-          return SingleChildScrollView(
-            child: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 30.0),
-                  child: Column(
-                    children: [
-                      const SizedBox(height: 60,),
-                      SelectableText(
-                        'ТОП-20 навыков по годам (Аналитик)',
-                        style: TextStyles.subtitle,
-                      ),
-                      const SizedBox(height: 40,),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 30.0),
-                        child: KeySkillsInfo(data: skillsByYear,),
-                      ),
-                    ],
-                  ).animate().fade(begin: 0, end: 1, curve: Curves.easeIn, duration: const Duration(milliseconds: 200))
-                ),
+          return LayoutBuilder(
+            builder: (context, constraints) {
+              return SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                      child: Column(
+                        children: [
+                          const SizedBox(height: 60,),
+                          SelectableText(
+                            'ТОП-20 навыков по годам (Аналитик)',
+                            style: TextStyles.subtitle,
+                          ),
+                          const SizedBox(height: 40,),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                            child: KeySkillsInfo(data: skillsByYear,),
+                          ),
+                        ],
+                      ).animate().fade(begin: 0, end: 1, curve: Curves.easeIn, duration: const Duration(milliseconds: 200))
+                    ),
 
-                const SizedBox(height: 100,),
-                const Footer()
-              ],
-            )
+                    SizedBox(height: constraints.maxWidth > 800 ? 100 : 50,),
+                    const Footer()
+                  ],
+                )
+              );   
+            },
           );
         },
       ),
