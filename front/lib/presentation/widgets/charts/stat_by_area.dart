@@ -6,7 +6,7 @@ import 'package:front/presentation/constants/texts.dart';
 
 class StatByAreaChart extends StatefulWidget {
   final double rightPadding;
-  StatByAreaChart({super.key, required this.data, this.rightPadding = 150});
+  StatByAreaChart({super.key, required this.data, this.rightPadding = 200});
 
   final Color barBackgroundColor = AppColors.onTertiaryLight;
   final Color barColor = AppColors.primaryLight!;
@@ -112,7 +112,7 @@ class StatByAreaChartState extends State<StatByAreaChart> {
           sideTitles: SideTitles(
             showTitles: true,
             getTitlesWidget: getTitles,
-            reservedSize: 150,
+            reservedSize: 200,
           ),
         ),
         leftTitles: const AxisTitles(

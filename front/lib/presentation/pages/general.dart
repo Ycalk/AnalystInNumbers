@@ -309,7 +309,7 @@ class GeneralPage extends StatelessWidget {
                 style: TextStyles.subtitle,
               ),
               const SizedBox(height: 30,),
-              StatByAreaChart(data: salaryByCity),
+              StatByAreaChart(data: salaryByCity, rightPadding: 80),
             ],
           ).animate().moveY(begin: 100, end: 0, curve: Curves.easeOutCubic, duration: const Duration(milliseconds: 200)),
         ),
