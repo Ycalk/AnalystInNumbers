@@ -60,6 +60,7 @@ class GeographyPage extends StatelessWidget {
                 SelectableText(
                   'Уровень зарплат по регионам (Аналитик)',
                   style: TextStyles.subtitle,
+                  textAlign: TextAlign.center
                 ),
                 const SizedBox(height: 30,),
                 Padding(
@@ -75,6 +76,7 @@ class GeographyPage extends StatelessWidget {
                 SelectableText(
                   'Доля вакансий по регионам (Аналитик)',
                   style: TextStyles.subtitle,
+                  textAlign: TextAlign.center
                 ),
                 const SizedBox(height: 30,),
                 Padding(
@@ -112,6 +114,7 @@ class GeographyPage extends StatelessWidget {
                 SelectableText(
                   'Уровень зарплат по регионам (Аналитик)',
                   style: TextStyles.subtitle,
+                  textAlign: TextAlign.center
                 ),
                 const SizedBox(height: 30,),
                 StatByAreaChart(data: salaryByArea, rightPadding: 80,),
@@ -124,6 +127,7 @@ class GeographyPage extends StatelessWidget {
                 SelectableText(
                   'Доля вакансий по регионам (Аналитик)',
                   style: TextStyles.subtitle,
+                  textAlign: TextAlign.center
                 ),
                 const SizedBox(height: 30,),
                 Padding(
@@ -163,6 +167,7 @@ class GeographyPage extends StatelessWidget {
                 SelectableText(
                   'Уровень зарплат по регионам (Аналитик)',
                   style: TextStyles.subtitle,
+                  textAlign: TextAlign.center
                 ),
                 const SizedBox(height: 30,),
                 StatByAreaChart(data: salaryByArea, rightPadding: 30),
@@ -175,6 +180,7 @@ class GeographyPage extends StatelessWidget {
                 SelectableText(
                   'Доля вакансий по регионам (Аналитик)',
                   style: TextStyles.subtitle,
+                  textAlign: TextAlign.center
                 ),
                 const SizedBox(height: 30,),
                 Padding(

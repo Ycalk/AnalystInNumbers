@@ -66,6 +66,7 @@ class DemandPage extends StatelessWidget {
                             child: SelectableText(
                               'Динамика уровня зарплат по годам (Аналитик)',
                               style: TextStyles.subtitle,
+                              textAlign: TextAlign.center
                             ),
                           ),
                           const SizedBox(height: 30,),
@@ -91,6 +92,7 @@ class DemandPage extends StatelessWidget {
                             child: SelectableText(
                               'Динамика количества вакансий по годам (Аналитик)',
                               style: TextStyles.subtitle,
+                              textAlign: TextAlign.center
                             ),
                           ),
                           const SizedBox(height: 30,),
@@ -139,6 +141,7 @@ class DemandPage extends StatelessWidget {
                           child: SelectableText(
                             'Динамика уровня зарплат по годам (Аналитик)',
                             style: TextStyles.subtitle,
+                            textAlign: TextAlign.center
                           ),
                         ),
                         const SizedBox(height: 30,),
@@ -167,6 +170,7 @@ class DemandPage extends StatelessWidget {
                           child: SelectableText(
                             'Динамика количества вакансий по годам (Аналитик)',
                             style: TextStyles.subtitle,
+                            textAlign: TextAlign.center
                           ),
                         ),
                         const SizedBox(height: 30,),
@@ -217,6 +221,7 @@ class DemandPage extends StatelessWidget {
                           child: SelectableText(
                             'Динамика уровня зарплат по годам (Аналитик)',
                             style: TextStyles.subtitle,
+                            textAlign: TextAlign.center
                           ),
                         ),
                         const SizedBox(height: 30,),
@@ -237,8 +242,9 @@ class DemandPage extends StatelessWidget {
                         const SizedBox(height: 60,),
                         Center(
                           child: SelectableText(
-                            'Динамика кол-ва вакансий по годам (Аналитик)',
+                            'Динамика количества вакансий по годам (Аналитик)',
                             style: TextStyles.subtitle,
+                            textAlign: TextAlign.center
                           ),
                         ),
                         const SizedBox(height: 30,),

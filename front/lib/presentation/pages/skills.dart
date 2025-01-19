@@ -38,6 +38,7 @@ class SkillsPage extends StatelessWidget {
                           SelectableText(
                             'ТОП-20 навыков по годам (Аналитик)',
                             style: TextStyles.subtitle,
+                            textAlign: TextAlign.center
                           ),
                           const SizedBox(height: 40,),
                           Padding(

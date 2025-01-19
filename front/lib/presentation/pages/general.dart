@@ -83,6 +83,7 @@ class GeneralPage extends StatelessWidget {
                           child: SelectableText(
                             'Динамика уровня зарплат по годам',
                             style: TextStyles.subtitle,
+                            textAlign: TextAlign.center
                           ),
                         ),
                         const SizedBox(height: 30,),
@@ -108,6 +109,7 @@ class GeneralPage extends StatelessWidget {
                           child: SelectableText(
                             'Динамика количества вакансий по годам',
                             style: TextStyles.subtitle,
+                            textAlign: TextAlign.center
                           ),
                         ),
                         const SizedBox(height: 30,),
@@ -140,6 +142,7 @@ class GeneralPage extends StatelessWidget {
               SelectableText(
                 'Уровень зарплат по регионам',
                 style: TextStyles.subtitle,
+                textAlign: TextAlign.center
               ),
               const SizedBox(height: 30,),
               Padding(
@@ -175,6 +178,7 @@ class GeneralPage extends StatelessWidget {
               SelectableText(
                 'Доля вакансий по регионам',
                 style: TextStyles.subtitle,
+                textAlign: TextAlign.center
               ),
               const SizedBox(height: 30,),
               Padding(
@@ -201,6 +205,7 @@ class GeneralPage extends StatelessWidget {
               SelectableText(
                 'ТОП-20 навыков по годам',
                 style: TextStyles.subtitle,
+                textAlign: TextAlign.center
               ),
               const SizedBox(height: 30,),
               Padding(
@@ -241,6 +246,7 @@ class GeneralPage extends StatelessWidget {
                         child: SelectableText(
                           'Динамика уровня зарплат по годам',
                           style: TextStyles.subtitle,
+                          textAlign: TextAlign.center
                         ),
                       ),
                       const SizedBox(height: 30,),
@@ -269,6 +275,7 @@ class GeneralPage extends StatelessWidget {
                         child: SelectableText(
                           'Динамика количества вакансий по годам',
                           style: TextStyles.subtitle,
+                          textAlign: TextAlign.center
                         ),
                       ),
                       const SizedBox(height: 30,),
@@ -303,6 +310,7 @@ class GeneralPage extends StatelessWidget {
               SelectableText(
                 'Уровень зарплат по регионам',
                 style: TextStyles.subtitle,
+                textAlign: TextAlign.center
               ),
               const SizedBox(height: 30,),
               StatByAreaChart(data: salaryByCity, rightPadding: 80),
@@ -335,6 +343,7 @@ class GeneralPage extends StatelessWidget {
               SelectableText(
                 'Доля вакансий по регионам',
                 style: TextStyles.subtitle,
+                textAlign: TextAlign.center
               ),
               const SizedBox(height: 30,),
               Padding(
@@ -363,6 +372,7 @@ class GeneralPage extends StatelessWidget {
               SelectableText(
                 'ТОП-20 навыков по годам',
                 style: TextStyles.subtitle,
+                textAlign: TextAlign.center
               ),
               const SizedBox(height: 30,),
               Padding(
@@ -403,6 +413,7 @@ class GeneralPage extends StatelessWidget {
                         child: SelectableText(
                           'Динамика уровня зарплат по годам',
                           style: TextStyles.subtitle,
+                          textAlign: TextAlign.center
                         ),
                       ),
                       const SizedBox(height: 30,),
@@ -425,6 +436,7 @@ class GeneralPage extends StatelessWidget {
                         child: SelectableText(
                           'Динамика количества вакансий по годам',
                           style: TextStyles.subtitle,
+                          textAlign: TextAlign.center
                         ),
                       ),
                       const SizedBox(height: 30,),
@@ -453,6 +465,7 @@ class GeneralPage extends StatelessWidget {
               SelectableText(
                 'Уровень зарплат по регионам',
                 style: TextStyles.subtitle,
+                textAlign: TextAlign.center
               ),
               const SizedBox(height: 30,),
               StatByAreaChart(
@@ -488,6 +501,7 @@ class GeneralPage extends StatelessWidget {
               SelectableText(
                 'Доля вакансий по регионам',
                 style: TextStyles.subtitle,
+                textAlign: TextAlign.center
               ),
               const SizedBox(height: 30,),
               Padding(
@@ -515,6 +529,7 @@ class GeneralPage extends StatelessWidget {
               SelectableText(
                 'ТОП-20 навыков по годам',
                 style: TextStyles.subtitle,
+                textAlign: TextAlign.center
               ),
               const SizedBox(height: 30,),
               Padding(
