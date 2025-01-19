@@ -59,91 +59,265 @@ class _VacancyCardState extends State<VacancyCard> with SingleTickerProviderStat
   Widget build(BuildContext context) {
     return SlideTransition(
       position: _slideAnimation,
-      child: Padding(
-        padding: const EdgeInsets.all(30.0),
-        child: Material(
-          clipBehavior: Clip.antiAlias,
-          shadowColor: Colors.transparent,
-          child: InkWell(
-            borderRadius: BorderRadius.circular(20),
-            hoverColor: Color.lerp(AppColors.primaryLight, Colors.white, 0.85),
-            hoverDuration: const Duration(milliseconds: 150),
-            onTap: () async {
-              final url = Uri.parse(widget.vacancy.url);
-              if (await canLaunchUrl(url)) {
-                await launchUrl(url, mode: LaunchMode.externalApplication);
-              } else {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Не удалось открыть ссылку')),
-                );
-              }
-            },
-            child: Container(
-              margin: const EdgeInsets.all(20),
-              child: Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          if (constraints.maxWidth > 1200) {
+            return _buildDesktopLayout();
+          } else if (constraints.maxWidth > 800) {
+            return _buildTabletLayout();
+          } else {
+            return _buildMobileLayout();
+          }
+        },
+      ),
+    );
+  }
+
+  Widget _buildDesktopLayout(){
+    return Material(
+      clipBehavior: Clip.antiAlias,
+      shadowColor: Colors.transparent,
+      child: InkWell(
+        borderRadius: BorderRadius.circular(20),
+        hoverColor: Color.lerp(AppColors.primaryLight, Colors.white, 0.85),
+        hoverDuration: const Duration(milliseconds: 150),
+        onTap: () async {
+          final url = Uri.parse(widget.vacancy.url);
+          if (await canLaunchUrl(url)) {
+            await launchUrl(url, mode: LaunchMode.externalApplication);
+          } else {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text('Не удалось открыть ссылку')),
+            );
+          }
+        },
+        child: Container(
+          margin: const EdgeInsets.all(30),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Flexible(
+                flex: 1,
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    const SizedBox(width: 8),
-                    Flexible(
-                      flex: 1,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Container(
-                            padding: const EdgeInsets.all(5),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5),
-                              color: AppColors.primaryLight,
-                            ),
-                            child: Text(widget.vacancy.name, style: TextStyles.title.copyWith(color: Colors.white)),
-                          ),
-                          getSalaryText() ?? const SizedBox(),
-                          Text(widget.vacancy.employer.name == null ? "Не указано": widget.vacancy.employer.name!, 
-                            style: TextStyles.subtitle),
-                          Text(widget.vacancy.area, style: TextStyles.description),
-                          Text(widget.vacancy.publishedAt, style: TextStyles.description),
-                        ],
+                    Container(
+                      padding: const EdgeInsets.all(5),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5),
+                        color: AppColors.primaryLight,
                       ),
+                      child: Text(widget.vacancy.name, style: TextStyles.title.copyWith(color: Colors.white)),
                     ),
-                    const SizedBox(width: 30,),
-                    Flexible(
-                      flex: 2,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text("Описание", style: TextStyles.subtitle),
-                          const SizedBox(height: 10),
-                          Text(
-                            widget.vacancy.description, 
-                            style: TextStyles.description.copyWith(
-                              overflow: TextOverflow.ellipsis
-                            ),
-                            maxLines: 5,
-                          ),
-                          if (widget.vacancy.skills.length > 1)
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const SizedBox(height: 20),
-                                Text("Навыки", style: TextStyles.subtitle),
-                                const SizedBox(height: 10),
-                                Text(widget.vacancy.skills.join(", "), 
-                                  style: TextStyles.description.copyWith(
-                                    overflow: TextOverflow.ellipsis
-                                  ), 
-                                maxLines: 2),
-                              ],
-                            ),
-                        ],
-                      ),
-                    )
+                    getSalaryText() ?? const SizedBox.shrink(),
+                    Text(widget.vacancy.employer.name == null ? "Не указано": widget.vacancy.employer.name!, 
+                      style: TextStyles.description),
+                    const SizedBox(height: 10,),
+                    Text(widget.vacancy.area, style: TextStyles.description),
+                    Text(widget.vacancy.publishedAt, style: TextStyles.description),
                   ],
                 ),
               ),
-            ),
+              const SizedBox(width: 30,),
+              Flexible(
+                flex: 2,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text("Описание", style: TextStyles.subtitle),
+                    const SizedBox(height: 10),
+                    Text(
+                      widget.vacancy.description, 
+                      style: TextStyles.description.copyWith(
+                        overflow: TextOverflow.ellipsis
+                      ),
+                      maxLines: 5,
+                    ),
+                    if (widget.vacancy.skills.length > 1)
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const SizedBox(height: 20),
+                          Text("Навыки", style: TextStyles.subtitle),
+                          const SizedBox(height: 10),
+                          Text(widget.vacancy.skills.join(", "), 
+                            style: TextStyles.description.copyWith(
+                              overflow: TextOverflow.ellipsis
+                            ), 
+                          maxLines: 2),
+                        ],
+                      ),
+                  ],
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildTabletLayout(){
+    return Material(
+      clipBehavior: Clip.antiAlias,
+      shadowColor: Colors.transparent,
+      child: InkWell(
+        borderRadius: BorderRadius.circular(20),
+        hoverColor: Color.lerp(AppColors.primaryLight, Colors.white, 0.85),
+        hoverDuration: const Duration(milliseconds: 150),
+        onTap: () async {
+          final url = Uri.parse(widget.vacancy.url);
+          if (await canLaunchUrl(url)) {
+            await launchUrl(url, mode: LaunchMode.externalApplication);
+          } else {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text('Не удалось открыть ссылку')),
+            );
+          }
+        },
+        child: Container(
+          margin: const EdgeInsets.all(30),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Flexible(
+                flex: 1,
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.all(5),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5),
+                        color: AppColors.primaryLight,
+                      ),
+                      child: Text(widget.vacancy.name, style: TextStyles.title.copyWith(color: Colors.white)),
+                    ),
+                    getSalaryText() ?? const SizedBox(),
+                    Text(widget.vacancy.employer.name == null ? "Не указано": widget.vacancy.employer.name!, 
+                      style: TextStyles.description),
+                    const SizedBox(height: 10,),
+                    Text(widget.vacancy.area, style: TextStyles.description),
+                    Text(widget.vacancy.publishedAt, style: TextStyles.description),
+                  ],
+                ),
+              ),
+              const SizedBox(width: 30,),
+              Flexible(
+                flex: 2,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text("Описание", style: TextStyles.subtitle),
+                    const SizedBox(height: 10),
+                    Text(
+                      widget.vacancy.description, 
+                      style: TextStyles.description.copyWith(
+                        overflow: TextOverflow.ellipsis
+                      ),
+                      maxLines: 4,
+                    ),
+                    if (widget.vacancy.skills.length > 1)
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const SizedBox(height: 20),
+                          Text("Навыки", style: TextStyles.subtitle),
+                          const SizedBox(height: 10),
+                          Text(widget.vacancy.skills.join(", "), 
+                            style: TextStyles.description.copyWith(
+                              overflow: TextOverflow.ellipsis
+                            ), 
+                          maxLines: 2),
+                        ],
+                      ),
+                  ],
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildMobileLayout(){
+    return Material(
+      clipBehavior: Clip.antiAlias,
+      shadowColor: Colors.transparent,
+      child: InkWell(
+        borderRadius: BorderRadius.circular(20),
+        hoverColor: Color.lerp(AppColors.primaryLight, Colors.white, 0.85),
+        hoverDuration: const Duration(milliseconds: 150),
+        onTap: () async {
+          final url = Uri.parse(widget.vacancy.url);
+          if (await canLaunchUrl(url)) {
+            await launchUrl(url, mode: LaunchMode.externalApplication);
+          } else {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text('Не удалось открыть ссылку')),
+            );
+          }
+        },
+        child: Container(
+          margin: const EdgeInsets.all(30),
+          child: Wrap(
+            children: [
+              Column(
+                mainAxisSize: MainAxisSize.max,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(5),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5),
+                      color: AppColors.primaryLight,
+                    ),
+                    child: Text(widget.vacancy.name, style: TextStyles.title.copyWith(color: Colors.white)),
+                  ),
+                  getSalaryText() ?? const SizedBox(),
+                  Text(widget.vacancy.employer.name == null ? "Не указано": widget.vacancy.employer.name!, 
+                    style: TextStyles.description),
+                  const SizedBox(height: 10,),
+                  Text(widget.vacancy.area, style: TextStyles.description),
+                  Text(widget.vacancy.publishedAt, style: TextStyles.description),
+                ],
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(height: 30,),
+                  Text("Описание", style: TextStyles.subtitle),
+                  const SizedBox(height: 10),
+                  Text(
+                    widget.vacancy.description, 
+                    style: TextStyles.description.copyWith(
+                      overflow: TextOverflow.ellipsis
+                    ),
+                    maxLines: 5,
+                  ),
+                  if (widget.vacancy.skills.length > 1)
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const SizedBox(height: 20),
+                        Text("Навыки", style: TextStyles.subtitle),
+                        const SizedBox(height: 10),
+                        Text(widget.vacancy.skills.join(", "), 
+                          style: TextStyles.description.copyWith(
+                            overflow: TextOverflow.ellipsis
+                          ), 
+                        maxLines: 2),
+                      ],
+                    ),
+                ],
+              )
+            ],
           ),
         ),
       ),

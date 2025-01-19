@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:front/domain/entities/vacancy.dart';
 import 'package:front/domain/usecases/vacancy.dart';
 import 'package:front/presentation/constants/colors.dart';
 import 'package:front/presentation/widgets/drawer.dart';
@@ -23,24 +24,91 @@ class LatestVacanciesPage extends StatelessWidget {
       ),
       body: FutureLoader(future: vacanciesList.getVacancies(),
         builder: (vacanciesList) {
-          return ListView.builder(
-            itemCount: vacanciesList.length + 1,
-            itemBuilder: (context, index) {
-              if (index == vacanciesList.length) {
-                return const Padding(
-                  padding: EdgeInsets.only(top: 70.0),
-                  child: Footer(),
-                );
+          return LayoutBuilder(
+            builder: (context, constraints) {
+              if (constraints.maxWidth > 1200) {
+                return _buildDesktopLayout(vacanciesList);
+              } else if (constraints.maxWidth > 800) {
+                return _buildTabletLayout(vacanciesList);
               } else {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 60),
-                  child: VacancyCard(vacancy: vacanciesList[index]),
-                );
+                return _buildMobileLayout(vacanciesList);
               }
             },
           );
         }
       )
+    );
+  }
+
+  Widget _buildDesktopLayout(List<Vacancy> vacanciesList) {
+    return ListView.builder(
+      itemCount: vacanciesList.length + 1,
+      itemBuilder: (context, index) {
+        if (index == vacanciesList.length) {
+          return const Padding(
+            padding: EdgeInsets.only(top: 70.0),
+            child: Footer(),
+          );
+        } else {
+          return Padding(
+            padding: EdgeInsets.only(
+              left: 100, 
+              right: 100, 
+              bottom: 30, 
+              top: index == 0 ? 60 : 30
+            ),
+            child: VacancyCard(vacancy: vacanciesList[index]),
+          );
+        }
+      },
+    );
+  }
+
+  Widget _buildTabletLayout(List<Vacancy> vacanciesList) {
+    return ListView.builder(
+      itemCount: vacanciesList.length + 1,
+      itemBuilder: (context, index) {
+        if (index == vacanciesList.length) {
+          return const Padding(
+            padding: EdgeInsets.only(top: 70.0),
+            child: Footer(),
+          );
+        } else {
+          return Padding(
+            padding: EdgeInsets.only(
+              left: 50, 
+              right: 50, 
+              bottom: 30, 
+              top: index == 0 ? 60 : 30
+            ),
+            child: VacancyCard(vacancy: vacanciesList[index]),
+          );
+        }
+      },
+    );
+  }
+
+  Widget _buildMobileLayout(List<Vacancy> vacanciesList) {
+    return ListView.builder(
+      itemCount: vacanciesList.length + 1,
+      itemBuilder: (context, index) {
+        if (index == vacanciesList.length) {
+          return const Padding(
+            padding: EdgeInsets.only(top: 20.0),
+            child: Footer(),
+          );
+        } else {
+          return Padding(
+            padding: EdgeInsets.only(
+              left: 30, 
+              right: 30, 
+              bottom: 20, 
+              top: index == 0 ? 60 : 20
+            ),
+            child: VacancyCard(vacancy: vacanciesList[index]),
+          );
+        }
+      },
     );
   }
 }
