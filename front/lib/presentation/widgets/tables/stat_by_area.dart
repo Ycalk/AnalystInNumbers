@@ -5,12 +5,14 @@ import 'package:front/presentation/constants/texts.dart';
 
 class StatByAreaTable extends StatelessWidget {
   final List<DataItem<String, double>> stat;
+  final TableColumnWidth columnWidth;
   final String unit;
-  const StatByAreaTable({super.key, required this.stat, required this.unit});
+  const StatByAreaTable({super.key, required this.stat, required this.unit, this.columnWidth = const FlexColumnWidth()});
 
   @override
   Widget build(BuildContext context) {
     return Table(
+      defaultColumnWidth: const IntrinsicColumnWidth(),
       border: TableBorder.all(
         color: AppColors.onTertiaryLight,
         width: 3,

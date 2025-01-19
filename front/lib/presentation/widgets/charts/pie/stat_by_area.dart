@@ -27,10 +27,16 @@ class StatByAreaPieChartState extends State<StatByAreaPieChart> {
   Widget build(BuildContext context) {
     final colorsList = colors;
     return Center(
-      child: Row(
+      child: Wrap(
+        spacing: 30,
+        runSpacing: 30,
+        crossAxisAlignment: WrapCrossAlignment.center,
+        alignment: WrapAlignment.center,
+        runAlignment: WrapAlignment.center,
         children: <Widget>[
-          Flexible(
-            flex: 5,
+          SizedBox(
+            width: 500,
+            height: 500,
             child: AspectRatio(
               aspectRatio: 1,
               child: PieChart(
@@ -53,31 +59,29 @@ class StatByAreaPieChartState extends State<StatByAreaPieChart> {
                     show: false,
                   ),
                   sectionsSpace: 1,
-                  centerSpaceRadius: 80,
+                  centerSpaceRadius: 100,
                   sections: showingSections(),
                 ),
               ),
             ),
           ),
-          Flexible(
-            flex: 4,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: List.generate(colorsList.length, (i) {
-                return Indicator(
-                  color: colorsList[i],
-                  text: widget.data[i].x,
-                  hoverText: '${widget.data[i].y} шт.',
-                  hovered: i == touchedIndex,
-                  onEnter: () => setState(() => touchedIndex = i),
-                  onExit: () => setState(() => touchedIndex = -1),
-                );
-              }),
-            ),
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: List.generate(colorsList.length, (i) {
+              return Indicator(
+                color: colorsList[i],
+                text: widget.data[i].x,
+                hoverText: '${widget.data[i].y} шт.',
+                hovered: i == touchedIndex,
+                onEnter: () => setState(() => touchedIndex = i),
+                onExit: () => setState(() => touchedIndex = -1),
+              );
+            }),
           ),
           Flexible(
-            flex: 5,
+            fit: FlexFit.loose,
             child: widget.table
           )
         ],
@@ -89,7 +93,7 @@ class StatByAreaPieChartState extends State<StatByAreaPieChart> {
     return List.generate(widget.data.length, (i) {
       final isTouched = i == touchedIndex;
       final fontSize = isTouched ? 30.0 : 12.0;
-      final radius = isTouched ? 180.0 : 170.0;
+      final radius = isTouched ? 160.0 : 140.0;
       const shadows = [Shadow(color: AppColors.onTertiaryLight, blurRadius: 2)];
       return PieChartSectionData(
         color: colors[i],

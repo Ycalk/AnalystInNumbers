@@ -13,8 +13,7 @@ import 'package:front/presentation/widgets/drawer.dart';
 import 'package:front/presentation/widgets/footer.dart';
 import 'package:front/presentation/widgets/future_loader.dart';
 import 'package:front/presentation/widgets/key_skills_info.dart';
-import 'package:front/presentation/widgets/tables/stat_by_area.dart';
-import 'package:front/presentation/widgets/tables/stat_by_year.dart';
+import 'package:front/presentation/widgets/stat_table.dart';
 
 class GeneralPage extends StatelessWidget {
   static const String routeName = '/general';
@@ -41,7 +40,17 @@ class GeneralPage extends StatelessWidget {
                     builder: (countByArea) {
                       return FutureLoader(future: generalStats.getSkillsByYear(),
                         builder: (skillsByYear) {
-                          return getWidgets(salaryByYear, countByYear, salaryByCity, countByArea, skillsByYear);
+                          return LayoutBuilder(
+                            builder: (context, constraints) {
+                              if (constraints.maxWidth > 1200) {
+                                return _buildDesktopLayout(salaryByYear, countByYear, salaryByCity, countByArea, skillsByYear);
+                              } else if (constraints.maxWidth > 800) {
+                                return _buildTabletLayout(salaryByYear, countByYear, salaryByCity, countByArea, skillsByYear);
+                              } else {
+                                return _buildMobileLayout(salaryByYear, countByYear, salaryByCity, countByArea, skillsByYear);
+                              }
+                            },
+                          );
                         },
                       );
                     },
@@ -54,152 +63,483 @@ class GeneralPage extends StatelessWidget {
       ),
     );
   }
-  Widget getWidgets(List<FlSpot> salaryByYear, List<FlSpot> countByYear, 
-    List<BarDataItem> salaryByCity, List<PieDataItem> countByArea, SkillsData skillsByYear){
-      return ListView.builder(
-        itemCount: 6,
-        itemBuilder: (context, index) => switch (index){
-          0 => Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 30.0),
-            child: Column(
-              children: [
-                const SizedBox(height: 60,),
-                Row(
-                  children: [
-                    Expanded(
-                      child: Column(
-                        children: [
-                          Center(
-                            child: SelectableText(
-                              'Динамика уровня зарплат по годам',
-                              style: TextStyles.subtitle,
-                            ),
+
+  Widget _buildTabletLayout(List<FlSpot> salaryByYear, List<FlSpot> countByYear, 
+    List<BarDataItem> salaryByCity, List<PieDataItem> countByArea, SkillsData skillsByYear) {
+    return ListView.builder(
+      itemCount: 6,
+      itemBuilder: (context, index) => switch (index){
+        0 => Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 30.0),
+          child: Column(
+            children: [
+              const SizedBox(height: 60,),
+              Wrap(
+                children: [
+                  Expanded(
+                    child: Column(
+                      children: [
+                        Center(
+                          child: SelectableText(
+                            'Динамика уровня зарплат по годам',
+                            style: TextStyles.subtitle,
                           ),
-                          const SizedBox(height: 30,),
-                          Padding(
+                        ),
+                        const SizedBox(height: 30,),
+                        SizedBox(
+                          height: 400,
+                          child: Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 30.0),
                             child: StatByYearChart(spots: salaryByYear, unit: 'руб.'),
                           ),
-                          const SizedBox(height: 30,),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 80.0),
-                            child: StatByYearTable(stat: salaryByYear, unit: 'Зарплата (руб.)'),
+                        ),
+                        const SizedBox(height: 30,),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 80.0),
+                          child: StatTable(stat: salaryByYear.map((e) => DataItem(e.x, e.y),).toList(), 
+                                  unit: 'Зарплата', columnName: 'Год',)
+                        ),
+                      ],
+                    ) 
+                  ).animate()
+                    .moveX(begin: -100, end: 0, curve: Curves.easeOutCubic, 
+                      duration: const Duration(milliseconds: 200),),
+
+                  Expanded(
+                    child: Column(
+                      children: [
+                        const SizedBox(height: 60,),
+                        Center(
+                          child: SelectableText(
+                            'Динамика количества вакансий по годам',
+                            style: TextStyles.subtitle,
                           ),
-                        ],
-                      ) 
-                    ).animate()
-                      .moveX(begin: -100, end: 0, curve: Curves.easeOutCubic, 
-                        duration: const Duration(milliseconds: 200),),
-                    Expanded(
-                      child: Column(
-                        children: [
-                          Center(
-                            child: SelectableText(
-                              'Динамика количества вакансий по годам',
-                              style: TextStyles.subtitle,
-                            ),
-                          ),
-                          const SizedBox(height: 30,),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                        ),
+                        const SizedBox(height: 30,),
+                        SizedBox(
+                          height: 400,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 30.0),
                             child: StatByYearChart(spots: countByYear, unit: 'шт.'),
                           ),
-                          const SizedBox(height: 30,),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 80.0),
-                            child: StatByYearTable(stat: countByYear, unit: 'Количество вакансий (шт.)'),
-                          ),
-                        ],
-                      ) 
-                    ).animate()
-                      .moveX(begin: 100, end: 0, curve: Curves.easeOutCubic, 
-                      duration: const Duration(milliseconds: 200),)
-                  ],
-                ),
-              ],
-            ),
+                        ),
+                        const SizedBox(height: 30,),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 80.0),
+                          child: StatTable(stat: countByYear.map((e) => DataItem(e.x, e.y)).toList(), 
+                                unit: 'Количество вакансий', columnName: 'Год',),
+                        ),
+                      ],
+                    ) 
+                  ).animate()
+                    .moveX(begin: 100, end: 0, curve: Curves.easeOutCubic, 
+                    duration: const Duration(milliseconds: 200),)
+                ],
+              ),
+            ],
           ),
-          
-          1 => Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 30.0),
-            child: Column(
-              children: [
-                const SizedBox(height: 60,),
-                SelectableText(
-                  'Уровень зарплат по регионам',
-                  style: TextStyles.subtitle,
+        ),
+        
+        1 => Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 30.0),
+          child: Column(
+            children: [
+              const SizedBox(height: 60,),
+              SelectableText(
+                'Уровень зарплат по регионам',
+                style: TextStyles.subtitle,
+              ),
+              const SizedBox(height: 30,),
+              StatByAreaChart(data: salaryByCity),
+            ],
+          ).animate().moveY(begin: 100, end: 0, curve: Curves.easeOutCubic, duration: const Duration(milliseconds: 200)),
+        ),
+        
+        2 => Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 30.0),
+          child: Column(
+            children: [
+              const SizedBox(height: 30,),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 80.0),
+                child: StatTable(
+                  stat: salaryByCity, 
+                  unit: 'Зарплата',
+                  columnName: 'Город',
                 ),
-                const SizedBox(height: 30,),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 30.0),
-                  child: StatByAreaChart(data: salaryByCity),
-                ),
-              ],
-            ).animate().moveY(begin: 100, end: 0, curve: Curves.easeOutCubic, duration: const Duration(milliseconds: 200)),
-          ),
-          
-          2 => Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 30.0),
-            child: Column(
-              children: [
-                const SizedBox(height: 30,),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 200.0),
-                  child: StatByAreaTable(stat: salaryByCity, unit: 'Зарплата (руб.)'),
-                ),
-              ],
-            ).animate().moveY(begin: 100, end: 0, curve: Curves.easeOutCubic, duration: const Duration(milliseconds: 200)),
-          ),
-          
-          3 => Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 30.0),
-            child: Column(
-              children: [
-                const SizedBox(height: 60,),
-                SelectableText(
-                  'Доля вакансий по регионам',
-                  style: TextStyles.subtitle,
-                ),
-                const SizedBox(height: 30,),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 30.0),
-                  child: StatByAreaPieChart(
-                    data: countByArea,
-                    table: StatByAreaTable(stat: countByArea, unit: 'Количество вакансий (шт.)'),
+              ),
+            ],
+          ).animate().moveY(begin: 100, end: 0, curve: Curves.easeOutCubic, duration: const Duration(milliseconds: 200)),
+        ),
+        
+        3 => Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 30.0),
+          child: Column(
+            children: [
+              const SizedBox(height: 60,),
+              SelectableText(
+                'Доля вакансий по регионам',
+                style: TextStyles.subtitle,
+              ),
+              const SizedBox(height: 30,),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                child: StatByAreaPieChart(
+                  data: countByArea,
+                  table: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 50.0),
+                    child: StatTable(
+                      stat: countByArea, 
+                      unit: 'Количество вакансий',
+                      columnName: 'Город',
+                    ),
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
+        ),
 
-          4 => Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 30.0),
-            child: Column(
-              children: [
-                const SizedBox(height: 60,),
-                SelectableText(
-                  'ТОП-20 навыков по годам',
-                  style: TextStyles.subtitle,
-                ),
-                const SizedBox(height: 30,),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 30.0),
-                  child: KeySkillsInfo(data: skillsByYear,),
-                ),
-              ],
-            ).animate().fade(begin: 0, end: 1, curve: Curves.easeIn, duration: const Duration(milliseconds: 200)),
-          ),
-
-
-          5 => const Column(
+        4 => Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 30.0),
+          child: Column(
             children: [
-              SizedBox(height: 100,),
-              Footer()
-            ]
+              const SizedBox(height: 60,),
+              SelectableText(
+                'ТОП-20 навыков по годам',
+                style: TextStyles.subtitle,
+              ),
+              const SizedBox(height: 30,),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                child: KeySkillsInfo(data: skillsByYear,),
+              ),
+            ],
+          ).animate().fade(begin: 0, end: 1, curve: Curves.easeIn, duration: const Duration(milliseconds: 200)),
+        ),
+
+
+        5 => const Column(
+          children: [
+            SizedBox(height: 100,),
+            Footer()
+          ]
+        ),
+        _ => const SizedBox.shrink(),
+      },
+    );
+  }
+  Widget _buildMobileLayout(List<FlSpot> salaryByYear, List<FlSpot> countByYear, 
+    List<BarDataItem> salaryByCity, List<PieDataItem> countByArea, SkillsData skillsByYear) {
+    return ListView.builder(
+      itemCount: 6,
+      itemBuilder: (context, index) => switch (index){
+        0 => Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 30.0),
+          child: Column(
+            children: [
+              const SizedBox(height: 60,),
+              Wrap(
+                children: [
+                  Expanded(
+                    child: Column(
+                      children: [
+                        Center(
+                          child: SelectableText(
+                            'Динамика уровня зарплат по годам',
+                            style: TextStyles.subtitle,
+                          ),
+                        ),
+                        const SizedBox(height: 30,),
+                        StatByYearChart(spots: salaryByYear, unit: 'руб.'),
+                        const SizedBox(height: 30,),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                          child: StatTable(stat: salaryByYear.map((e) => DataItem(e.x, e.y),).toList(), 
+                                  unit: 'Зарплата', columnName: 'Год',)
+                        ),
+                      ],
+                    ) 
+                  ).animate()
+                    .moveX(begin: -100, end: 0, curve: Curves.easeOutCubic, 
+                      duration: const Duration(milliseconds: 200),),
+
+                  Expanded(
+                    child: Column(
+                      children: [
+                        const SizedBox(height: 60,),
+                        Center(
+                          child: SelectableText(
+                            'Динамика количества вакансий по годам',
+                            style: TextStyles.subtitle,
+                          ),
+                        ),
+                        const SizedBox(height: 30,),
+                        StatByYearChart(spots: countByYear, unit: 'шт.'),
+                        const SizedBox(height: 30,),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                          child: StatTable(stat: countByYear.map((e) => DataItem(e.x, e.y)).toList(), 
+                                unit: 'Количество вакансий', columnName: 'Год',),
+                        ),
+                      ],
+                    ) 
+                  ).animate()
+                    .moveX(begin: 100, end: 0, curve: Curves.easeOutCubic, 
+                    duration: const Duration(milliseconds: 200),)
+                ],
+              ),
+            ],
           ),
-          _ => const SizedBox.shrink(),
-        },
-      );
+        ),
+        
+        1 => Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 30.0),
+          child: Column(
+            children: [
+              const SizedBox(height: 60,),
+              SelectableText(
+                'Уровень зарплат по регионам',
+                style: TextStyles.subtitle,
+              ),
+              const SizedBox(height: 30,),
+              StatByAreaChart(
+                data: salaryByCity,
+                rightPadding: 30,
+              ),
+            ],
+          ).animate().moveY(begin: 100, end: 0, curve: Curves.easeOutCubic, duration: const Duration(milliseconds: 200)),
+        ),
+        
+        2 => Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 30.0),
+          child: Column(
+            children: [
+              const SizedBox(height: 30,),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                child: StatTable(
+                  stat: salaryByCity, 
+                  unit: 'Зарплата',
+                  columnName: 'Город',
+                ),
+              ),
+            ],
+          ).animate().moveY(begin: 100, end: 0, curve: Curves.easeOutCubic, duration: const Duration(milliseconds: 200)),
+        ),
+        
+        3 => Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 30.0),
+          child: Column(
+            children: [
+              const SizedBox(height: 60,),
+              SelectableText(
+                'Доля вакансий по регионам',
+                style: TextStyles.subtitle,
+              ),
+              const SizedBox(height: 30,),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                child: StatByAreaPieChart(
+                  data: countByArea,
+                  table: StatTable(
+                    stat: countByArea, 
+                    unit: 'Количество вакансий',
+                    columnName: 'Город',
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+
+        4 => Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 30.0),
+          child: Column(
+            children: [
+              const SizedBox(height: 60,),
+              SelectableText(
+                'ТОП-20 навыков по годам',
+                style: TextStyles.subtitle,
+              ),
+              const SizedBox(height: 30,),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                child: KeySkillsInfo(data: skillsByYear,),
+              ),
+            ],
+          ).animate().fade(begin: 0, end: 1, curve: Curves.easeIn, duration: const Duration(milliseconds: 200)),
+        ),
+
+
+        5 => const Column(
+          children: [
+            SizedBox(height: 50,),
+            Footer()
+          ]
+        ),
+        _ => const SizedBox.shrink(),
+      },
+    );
+  } 
+
+  Widget _buildDesktopLayout(List<FlSpot> salaryByYear, List<FlSpot> countByYear, 
+    List<BarDataItem> salaryByCity, List<PieDataItem> countByArea, SkillsData skillsByYear){
+    return ListView.builder(
+      itemCount: 6,
+      itemBuilder: (context, index) => switch (index){
+        0 => Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 30.0),
+          child: Column(
+            children: [
+              const SizedBox(height: 60,),
+              Row(
+                children: [
+                  Expanded(
+                    child: Column(
+                      children: [
+                        Center(
+                          child: SelectableText(
+                            'Динамика уровня зарплат по годам',
+                            style: TextStyles.subtitle,
+                          ),
+                        ),
+                        const SizedBox(height: 30,),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                          child: StatByYearChart(spots: salaryByYear, unit: 'руб.'),
+                        ),
+                        const SizedBox(height: 30,),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 80.0),
+                          child: StatTable(stat: salaryByYear.map((e) => DataItem(e.x, e.y),).toList(), 
+                                  unit: 'Зарплата', columnName: 'Год',)
+                        ),
+                      ],
+                    ) 
+                  ).animate()
+                    .moveX(begin: -100, end: 0, curve: Curves.easeOutCubic, 
+                      duration: const Duration(milliseconds: 200),),
+                  Expanded(
+                    child: Column(
+                      children: [
+                        Center(
+                          child: SelectableText(
+                            'Динамика количества вакансий по годам',
+                            style: TextStyles.subtitle,
+                          ),
+                        ),
+                        const SizedBox(height: 30,),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                          child: StatByYearChart(spots: countByYear, unit: 'шт.'),
+                        ),
+                        const SizedBox(height: 30,),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 80.0),
+                          child: StatTable(stat: countByYear.map((e) => DataItem(e.x, e.y)).toList(), 
+                                unit: 'Количество вакансий', columnName: 'Год',),
+                        ),
+                      ],
+                    ) 
+                  ).animate()
+                    .moveX(begin: 100, end: 0, curve: Curves.easeOutCubic, 
+                    duration: const Duration(milliseconds: 200),)
+                ],
+              ),
+            ],
+          ),
+        ),
+        
+        1 => Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 30.0),
+          child: Column(
+            children: [
+              const SizedBox(height: 60,),
+              SelectableText(
+                'Уровень зарплат по регионам',
+                style: TextStyles.subtitle,
+              ),
+              const SizedBox(height: 30,),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                child: StatByAreaChart(data: salaryByCity),
+              ),
+            ],
+          ).animate().moveY(begin: 100, end: 0, curve: Curves.easeOutCubic, duration: const Duration(milliseconds: 200)),
+        ),
+        
+        2 => Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 30.0),
+          child: Column(
+            children: [
+              const SizedBox(height: 30,),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 200.0),
+                child: StatTable(
+                  stat: salaryByCity, 
+                  unit: 'Зарплата',
+                  columnName: 'Город',
+                ),
+              ),
+            ],
+          ).animate().moveY(begin: 100, end: 0, curve: Curves.easeOutCubic, duration: const Duration(milliseconds: 200)),
+        ),
+        
+        3 => Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 30.0),
+          child: Column(
+            children: [
+              const SizedBox(height: 60,),
+              SelectableText(
+                'Доля вакансий по регионам',
+                style: TextStyles.subtitle,
+              ),
+              const SizedBox(height: 30,),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                child: StatByAreaPieChart(
+                  data: countByArea,
+                  table: StatTable(
+                    stat: countByArea, 
+                    unit: 'Количество вакансий',
+                    columnName: 'Город',
+                    columnWidth: const IntrinsicColumnWidth(),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+
+        4 => Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 30.0),
+          child: Column(
+            children: [
+              const SizedBox(height: 60,),
+              SelectableText(
+                'ТОП-20 навыков по годам',
+                style: TextStyles.subtitle,
+              ),
+              const SizedBox(height: 30,),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                child: KeySkillsInfo(data: skillsByYear,),
+              ),
+            ],
+          ).animate().fade(begin: 0, end: 1, curve: Curves.easeIn, duration: const Duration(milliseconds: 200)),
+        ),
+
+
+        5 => const Column(
+          children: [
+            SizedBox(height: 100,),
+            Footer()
+          ]
+        ),
+        _ => const SizedBox.shrink(),
+      },
+    );
   }
 }
 

@@ -26,6 +26,7 @@ class Indicator extends StatelessWidget {
       onEnter: (_) => onEnter(),
       onExit: (_) => onExit(),
       child: Row(
+        mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           SizedBox(
             width: 100,
@@ -50,13 +51,25 @@ class Indicator extends StatelessWidget {
             ),
           ),
           const SizedBox(width: 10,),
-          Text(
-            text,
-            style: TextStyles.description.copyWith(
-              color: hovered ? AppColors.primary : TextStyles.description.color,
-              fontSize: hovered ? 20 : TextStyles.description.fontSize,
-            ),
+          Stack(
+            children: [
+              Text(
+                text,
+                style: TextStyles.description.copyWith(
+                  color: hovered ? AppColors.primary : Colors.transparent,
+                  fontSize: 20,
+                ),
+              ),
+              Text(
+                text,
+                style: TextStyles.description.copyWith(
+                  color: hovered ? Colors.transparent : TextStyles.description.color,
+                  fontSize: TextStyles.description.fontSize,
+                ),
+              )
+            ],
           )
+          
         ],
       ),
     );

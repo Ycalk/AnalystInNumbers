@@ -1,16 +1,22 @@
-import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:front/domain/entities/char_data.dart';
 import 'package:front/presentation/constants/colors.dart';
 import 'package:front/presentation/constants/texts.dart';
 
-class StatByYearTable extends StatelessWidget {
-  final List<FlSpot> stat;
+class StatTable extends StatelessWidget {
+  final List<DataItem<Object, Object>> stat;
+  final TableColumnWidth columnWidth;
   final String unit;
-  const StatByYearTable({super.key, required this.stat, required this.unit});
+  final String columnName;
+  const StatTable({super.key, required this.stat, 
+  required this.unit, 
+  required this.columnName,
+  this.columnWidth = const FlexColumnWidth()});
 
   @override
   Widget build(BuildContext context) {
     return Table(
+      defaultColumnWidth: columnWidth,
       border: TableBorder.all(
         color: AppColors.onTertiaryLight,
         width: 3,
@@ -22,7 +28,7 @@ class StatByYearTable extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: SelectableText(
-                'Год',
+                'Город',
                 style: TextStyles.subtitle,
               ),
             ),

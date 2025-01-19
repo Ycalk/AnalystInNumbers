@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:front/domain/entities/char_data.dart';
 import 'package:front/domain/usecases/profession_stats.dart';
 import 'package:front/presentation/constants/colors.dart';
 import 'package:front/presentation/constants/texts.dart';
@@ -7,7 +8,7 @@ import 'package:front/presentation/widgets/charts/stat_by_year.dart';
 import 'package:front/presentation/widgets/drawer.dart';
 import 'package:front/presentation/widgets/footer.dart';
 import 'package:front/presentation/widgets/future_loader.dart';
-import 'package:front/presentation/widgets/tables/stat_by_year.dart';
+import 'package:front/presentation/widgets/stat_table.dart';
 
 class DemandPage extends StatelessWidget {
   static const String routeName = '/demand';
@@ -56,7 +57,8 @@ class DemandPage extends StatelessWidget {
                                     const SizedBox(height: 30,),
                                     Padding(
                                       padding: const EdgeInsets.symmetric(horizontal: 80.0),
-                                      child: StatByYearTable(stat: salaryByYear, unit: 'Зарплата (руб.)'),
+                                      child: StatTable(stat: salaryByYear.map((e) => DataItem(e.x, e.y),).toList(), 
+                                        unit: 'Зарплата', columnName: 'Год',),
                                     ),
                                   ],
                                 ) 
@@ -80,7 +82,8 @@ class DemandPage extends StatelessWidget {
                                     const SizedBox(height: 30,),
                                     Padding(
                                       padding: const EdgeInsets.symmetric(horizontal: 80.0),
-                                      child: StatByYearTable(stat: countByYear, unit: 'Количество вакансий (шт.)'),
+                                      child: StatTable(stat: countByYear.map((e) => DataItem(e.x, e.y)).toList(), 
+                                        unit: 'Количество вакансий', columnName: 'Год',),
                                     ),
                                   ],
                                 ) 

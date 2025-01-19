@@ -8,7 +8,7 @@ import 'package:front/presentation/widgets/charts/stat_by_area.dart';
 import 'package:front/presentation/widgets/drawer.dart';
 import 'package:front/presentation/widgets/footer.dart';
 import 'package:front/presentation/widgets/future_loader.dart';
-import 'package:front/presentation/widgets/tables/stat_by_area.dart';
+import 'package:front/presentation/widgets/stat_table.dart';
 
 class GeographyPage extends StatelessWidget {
   static const String routeName = '/geography';
@@ -49,7 +49,7 @@ class GeographyPage extends StatelessWidget {
                           const SizedBox(height: 30,),
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 200.0),
-                            child:StatByAreaTable(stat: salaryByArea, unit: 'Зарплата (руб.)'),
+                            child:StatTable(stat: salaryByArea, unit: 'Зарплата (руб.)', columnName: 'Город',),
                           ),
                           const SizedBox(height: 60,),
                           SelectableText(
@@ -61,7 +61,12 @@ class GeographyPage extends StatelessWidget {
                             padding: const EdgeInsets.symmetric(horizontal: 30.0),
                             child: StatByAreaPieChart(
                               data: countByArea,
-                              table: StatByAreaTable(stat: countByArea, unit: 'Количество вакансий (шт.)'),
+                              table: StatTable(
+                                stat: countByArea, 
+                                unit: 'Количество вакансий (шт.)', 
+                                columnName: 'Город',
+                                columnWidth: const IntrinsicColumnWidth()
+                              ),
                             ),
                           ),
                           const SizedBox(height: 60,),

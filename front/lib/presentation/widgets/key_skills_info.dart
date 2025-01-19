@@ -10,25 +10,16 @@ class KeySkillsInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final rowsCount = (data.skillsData.length ~/ cardsInRow) + (data.skillsData.length % cardsInRow == 0 ? 0 : 1);
-    return Column(
-      children: List.generate(rowsCount,
-        (rowCount) {
-          return Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: List.generate(cardsInRow, 
-              (index) {
-                final currentIndex = rowCount * cardsInRow + index;
-                if (currentIndex < data.skillsData.length){
-                  final currentData = data.skillsData[rowCount * cardsInRow + index];
-                  return YearSkillsCard(year: currentData.year, skills: currentData.skills);
-                }
-                return const SizedBox.shrink();
-              },
-            )
+    return Center(
+      child: Wrap(
+        alignment: WrapAlignment.center,
+        children: List.generate(data.skillsData.length, (index) {
+          return YearSkillsCard(
+            year: data.skillsData[index].year, 
+            skills: data.skillsData[index].skills  
           );
-        },
-      )
+        }),
+      ),
     );
   }
 }
@@ -54,48 +45,58 @@ class YearSkillsCard extends StatelessWidget {
             style: TextStyles.subtitle,
           ),
           const SizedBox(height: 20,),
-          Row(
+          Wrap(
+            spacing: 30.0,
             children: [
               Column(
+                mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: List.generate(skills.length ~/ 2, 
                   (index) {
-                    return SelectableText.rich (
-                      TextSpan(
-                        children: [
-                          TextSpan(
-                            text: (index + 1).toString(),
-                            style: TextStyles.subtitle.copyWith(color: AppColors.primaryLight)
-                          ),
-                          TextSpan(
-                            text: '  ${skills[index]}',
+                    return Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        SelectableText(
+                          (index + 1).toString(),
+                          style: TextStyles.subtitle.copyWith(color: AppColors.primaryLight)
+                        ),
+                        const SizedBox(width: 10,),
+                        Flexible(
+                          fit: FlexFit.loose,
+                          child: SelectableText(
+                            skills[index],
                             style: TextStyles.description
                           ),
-                        ]
-                      )
+                        )
+                      ],
                     );
                   },
                 )
               ),
-              const SizedBox(width: 30,),
               Column(
+                mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: List.generate(skills.length ~/ 2, 
                   (index) {
                     index+=10;
-                    return SelectableText.rich (
-                      TextSpan(
-                        children: [
-                          TextSpan(
-                            text: (index + 1).toString(),
-                            style: TextStyles.subtitle.copyWith(color: AppColors.primaryLight)
-                          ),
-                          TextSpan(
-                            text: '  ${skills[index]}',
+                    return Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        SelectableText(
+                          (index + 1).toString(),
+                          style: TextStyles.subtitle.copyWith(color: AppColors.primaryLight)
+                        ),
+                        const SizedBox(width: 10,),
+                        Flexible(
+                          fit: FlexFit.loose,
+                          child: SelectableText(
+                            skills[index],
                             style: TextStyles.description
                           ),
-                        ]
-                      )
+                        )
+                      ],
                     );
                   },
                 )
