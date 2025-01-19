@@ -58,7 +58,6 @@ class GeneralPage extends StatelessWidget {
     List<BarDataItem> salaryByCity, List<PieDataItem> countByArea, SkillsData skillsByYear){
       return ListView.builder(
         itemCount: 6,
-        padding: const EdgeInsets.symmetric(horizontal: 30.0),
         itemBuilder: (context, index) => switch (index){
           0 => Padding(
             padding: const EdgeInsets.symmetric(horizontal: 30.0),
