@@ -493,6 +493,8 @@ class GeneralPage extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 30.0),
                 child: StatByAreaPieChart(
+                  centerSpaceRadius: 50,
+                  radius: 100,
                   data: countByArea,
                   table: StatTable(
                     stat: countByArea, 

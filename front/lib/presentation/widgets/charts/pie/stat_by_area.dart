@@ -8,7 +8,11 @@ import 'package:front/presentation/widgets/charts/pie/indicator.dart';
 class StatByAreaPieChart extends StatefulWidget {
   final List<PieDataItem> data;
   final Widget table;
-  const StatByAreaPieChart({super.key, required this.data, required this.table});
+  final double centerSpaceRadius;
+  final double radius;
+
+  const StatByAreaPieChart({super.key, required this.data, required this.table, 
+  this.centerSpaceRadius = 100, this.radius = 140});
 
   @override
   State<StatefulWidget> createState() => StatByAreaPieChartState();
@@ -35,8 +39,8 @@ class StatByAreaPieChartState extends State<StatByAreaPieChart> {
         runAlignment: WrapAlignment.center,
         children: <Widget>[
           SizedBox(
-            width: 500,
-            height: 500,
+            width: widget.centerSpaceRadius * 2 + widget.radius * 2,
+            height: widget.centerSpaceRadius * 2 + widget.radius * 2,
             child: AspectRatio(
               aspectRatio: 1,
               child: PieChart(
@@ -59,7 +63,7 @@ class StatByAreaPieChartState extends State<StatByAreaPieChart> {
                     show: false,
                   ),
                   sectionsSpace: 1,
-                  centerSpaceRadius: 100,
+                  centerSpaceRadius: widget.centerSpaceRadius,
                   sections: showingSections(),
                 ),
               ),
@@ -89,16 +93,14 @@ class StatByAreaPieChartState extends State<StatByAreaPieChart> {
   List<PieChartSectionData> showingSections(){
     return List.generate(widget.data.length, (i) {
       final isTouched = i == touchedIndex;
-      final fontSize = isTouched ? 30.0 : 12.0;
-      final radius = isTouched ? 160.0 : 140.0;
       const shadows = [Shadow(color: AppColors.onTertiaryLight, blurRadius: 2)];
       return PieChartSectionData(
         color: colors[i],
         value: widget.data[i].y,
         title: '${(widget.data[i].proportion * 100).toStringAsFixed(1)}%',
-        radius: radius,
+        radius: isTouched ? widget.radius + 20 : widget.radius,
         titleStyle: TextStyles.description.copyWith(
-          fontSize: fontSize,
+          fontSize: isTouched ? 30.0 : 12.0,
           shadows: shadows,
         ),
       );
