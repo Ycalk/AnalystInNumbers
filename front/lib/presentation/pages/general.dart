@@ -235,61 +235,57 @@ class GeneralPage extends StatelessWidget {
               const SizedBox(height: 60,),
               Wrap(
                 children: [
-                  Expanded(
-                    child: Column(
-                      children: [
-                        Center(
-                          child: SelectableText(
-                            'Динамика уровня зарплат по годам',
-                            style: TextStyles.subtitle,
-                          ),
+                  Column(
+                    children: [
+                      Center(
+                        child: SelectableText(
+                          'Динамика уровня зарплат по годам',
+                          style: TextStyles.subtitle,
                         ),
-                        const SizedBox(height: 30,),
-                        SizedBox(
-                          height: 400,
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 30.0),
-                            child: StatByYearChart(spots: salaryByYear, unit: 'руб.'),
-                          ),
+                      ),
+                      const SizedBox(height: 30,),
+                      SizedBox(
+                        height: 400,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                          child: StatByYearChart(spots: salaryByYear, unit: 'руб.'),
                         ),
-                        const SizedBox(height: 30,),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 80.0),
-                          child: StatTable(stat: salaryByYear.map((e) => DataItem(e.x, e.y),).toList(), 
-                                  unit: 'Зарплата', columnName: 'Год',)
-                        ),
-                      ],
-                    ) 
+                      ),
+                      const SizedBox(height: 30,),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 80.0),
+                        child: StatTable(stat: salaryByYear.map((e) => DataItem(e.x, e.y),).toList(), 
+                                unit: 'Зарплата', columnName: 'Год',)
+                      ),
+                    ],
                   ).animate()
                     .moveX(begin: -100, end: 0, curve: Curves.easeOutCubic, 
                       duration: const Duration(milliseconds: 200),),
 
-                  Expanded(
-                    child: Column(
-                      children: [
-                        const SizedBox(height: 60,),
-                        Center(
-                          child: SelectableText(
-                            'Динамика количества вакансий по годам',
-                            style: TextStyles.subtitle,
-                          ),
+                  Column(
+                    children: [
+                      const SizedBox(height: 60,),
+                      Center(
+                        child: SelectableText(
+                          'Динамика количества вакансий по годам',
+                          style: TextStyles.subtitle,
                         ),
-                        const SizedBox(height: 30,),
-                        SizedBox(
-                          height: 400,
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 30.0),
-                            child: StatByYearChart(spots: countByYear, unit: 'шт.'),
-                          ),
+                      ),
+                      const SizedBox(height: 30,),
+                      SizedBox(
+                        height: 400,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                          child: StatByYearChart(spots: countByYear, unit: 'шт.'),
                         ),
-                        const SizedBox(height: 30,),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 80.0),
-                          child: StatTable(stat: countByYear.map((e) => DataItem(e.x, e.y)).toList(), 
-                                unit: 'Количество вакансий', columnName: 'Год',),
-                        ),
-                      ],
-                    ) 
+                      ),
+                      const SizedBox(height: 30,),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 80.0),
+                        child: StatTable(stat: countByYear.map((e) => DataItem(e.x, e.y)).toList(), 
+                              unit: 'Количество вакансий', columnName: 'Год',),
+                      ),
+                    ],
                   ).animate()
                     .moveX(begin: 100, end: 0, curve: Curves.easeOutCubic, 
                     duration: const Duration(milliseconds: 200),)
@@ -401,49 +397,45 @@ class GeneralPage extends StatelessWidget {
               const SizedBox(height: 60,),
               Wrap(
                 children: [
-                  Expanded(
-                    child: Column(
-                      children: [
-                        Center(
-                          child: SelectableText(
-                            'Динамика уровня зарплат по годам',
-                            style: TextStyles.subtitle,
-                          ),
+                  Column(
+                    children: [
+                      Center(
+                        child: SelectableText(
+                          'Динамика уровня зарплат по годам',
+                          style: TextStyles.subtitle,
                         ),
-                        const SizedBox(height: 30,),
-                        StatByYearChart(spots: salaryByYear, unit: 'руб.'),
-                        const SizedBox(height: 30,),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 30.0),
-                          child: StatTable(stat: salaryByYear.map((e) => DataItem(e.x, e.y),).toList(), 
-                                  unit: 'Зарплата', columnName: 'Год',)
-                        ),
-                      ],
-                    ) 
+                      ),
+                      const SizedBox(height: 30,),
+                      StatByYearChart(spots: salaryByYear, unit: 'руб.'),
+                      const SizedBox(height: 30,),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                        child: StatTable(stat: salaryByYear.map((e) => DataItem(e.x, e.y),).toList(), 
+                                unit: 'Зарплата', columnName: 'Год',)
+                      ),
+                    ],
                   ).animate()
                     .moveX(begin: -100, end: 0, curve: Curves.easeOutCubic, 
                       duration: const Duration(milliseconds: 200),),
 
-                  Expanded(
-                    child: Column(
-                      children: [
-                        const SizedBox(height: 60,),
-                        Center(
-                          child: SelectableText(
-                            'Динамика количества вакансий по годам',
-                            style: TextStyles.subtitle,
-                          ),
+                  Column(
+                    children: [
+                      const SizedBox(height: 60,),
+                      Center(
+                        child: SelectableText(
+                          'Динамика количества вакансий по годам',
+                          style: TextStyles.subtitle,
                         ),
-                        const SizedBox(height: 30,),
-                        StatByYearChart(spots: countByYear, unit: 'шт.'),
-                        const SizedBox(height: 30,),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 30.0),
-                          child: StatTable(stat: countByYear.map((e) => DataItem(e.x, e.y)).toList(), 
-                                unit: 'Количество вакансий', columnName: 'Год',),
-                        ),
-                      ],
-                    ) 
+                      ),
+                      const SizedBox(height: 30,),
+                      StatByYearChart(spots: countByYear, unit: 'шт.'),
+                      const SizedBox(height: 30,),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                        child: StatTable(stat: countByYear.map((e) => DataItem(e.x, e.y)).toList(), 
+                              unit: 'Количество вакансий', columnName: 'Год',),
+                      ),
+                    ],
                   ).animate()
                     .moveX(begin: 100, end: 0, curve: Curves.easeOutCubic, 
                     duration: const Duration(milliseconds: 200),)
