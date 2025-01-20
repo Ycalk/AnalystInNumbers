@@ -14,6 +14,7 @@ COPY . .
 
 RUN python back/manage.py makemigrations
 RUN python back/manage.py migrate
+RUN python back/manage.py collectstatic
 
 RUN python back/manage.py load_csv back/stat/profession/count_by_year.csv ProfessionCountByYear
 RUN python back/manage.py load_csv back/stat/all/count_by_year.csv AllCountByYear
