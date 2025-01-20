@@ -70,7 +70,7 @@ class GeographyPage extends StatelessWidget {
                 const SizedBox(height: 30,),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 200.0),
-                  child:StatTable(stat: salaryByArea, unit: 'Зарплата (руб.)', columnName: 'Город',),
+                  child:StatTable(stat: salaryByArea, unit: 'Зарплата', columnName: 'Город',),
                 ),
                 const SizedBox(height: 60,),
                 SelectableText(
@@ -85,7 +85,7 @@ class GeographyPage extends StatelessWidget {
                     data: countByArea,
                     table: StatTable(
                       stat: countByArea, 
-                      unit: 'Количество вакансий (шт.)', 
+                      unit: 'Количество вакансий', 
                       columnName: 'Город',
                       columnWidth: const IntrinsicColumnWidth()
                     ),
@@ -121,7 +121,7 @@ class GeographyPage extends StatelessWidget {
                 const SizedBox(height: 30,),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 80.0),
-                  child:StatTable(stat: salaryByArea, unit: 'Зарплата (руб.)', columnName: 'Город',),
+                  child:StatTable(stat: salaryByArea, unit: 'Зарплата', columnName: 'Город',),
                 ),
                 const SizedBox(height: 60,),
                 SelectableText(
@@ -138,7 +138,7 @@ class GeographyPage extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(horizontal: 50.0),
                       child: StatTable(
                         stat: countByArea, 
-                        unit: 'Количество вакансий (шт.)', 
+                        unit: 'Количество вакансий', 
                         columnName: 'Город',
                       ),
                     ),
@@ -174,7 +174,7 @@ class GeographyPage extends StatelessWidget {
                 const SizedBox(height: 30,),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 30.0),
-                  child:StatTable(stat: salaryByArea, unit: 'Зарплата (руб.)', columnName: 'Город',),
+                  child:StatTable(stat: salaryByArea, unit: 'Зарплата', columnName: 'Город',),
                 ),
                 const SizedBox(height: 60,),
                 SelectableText(
@@ -191,7 +191,7 @@ class GeographyPage extends StatelessWidget {
                     data: countByArea,
                     table: StatTable(
                       stat: countByArea, 
-                      unit: 'Количество вакансий (шт.)', 
+                      unit: 'Количество вакансий', 
                       columnName: 'Город',
                     ),
                   ),
