@@ -12,7 +12,11 @@ class Footer extends StatelessWidget {
       color: AppColors.primaryLight,
       child: Padding(
         padding: const EdgeInsets.all(20),
-        child: SelectableText('Analyst In Numbers', style: TextStyles.subtitle.copyWith(color: Colors.white)),
+        child: Column(
+          children: [
+            SelectableText('Analyst In Numbers', style: TextStyles.subtitle.copyWith(color: Colors.white)),
+          ],
+        ),
       ),
     );
   }
