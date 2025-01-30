@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:front/domain/entities/vacancy.dart';
 import 'package:front/presentation/constants/colors.dart';
